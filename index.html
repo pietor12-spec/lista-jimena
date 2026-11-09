@@ -26,14 +26,14 @@ button{font-family:inherit}
 @keyframes float{50%{transform:translateY(-6px)}}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}}
 @keyframes load{to{width:100%}}
-#root{max-width:820px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 14px calc(96px + env(safe-area-inset-bottom))}
+#root{max-width:820px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 14px calc(30px + env(safe-area-inset-bottom))}
 /* barra superior */
 .topb{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .topb .ttl{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:900;flex:1;min-width:0;white-space:nowrap}
 .topb .ttl img{width:34px;height:34px;border-radius:10px}.topb .ttl span{color:var(--rose)}
 .ib{width:38px;height:38px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:17px;display:grid;place-items:center;cursor:pointer}
 .ib:hover{background:var(--card2)}
-.ham{display:none}
+.ham{display:grid}
 .ttl .ld{font-style:normal}@media(max-width:480px){.ttl .ld{display:none}}
 .inst{flex:none;height:38px;border:0;border-radius:12px;padding:0 12px;background:var(--card2);color:var(--mu);font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap}
 .inst.ready{background:var(--rose);color:#3A0D1A;animation:pulse 2s infinite}
@@ -49,13 +49,19 @@ button{font-family:inherit}
 .hs span{display:block;font-size:12px;color:var(--mu);font-weight:700;margin-top:3px}
 .hs input{background:transparent;border:0;color:var(--mu);font:inherit;font-size:12px;font-weight:700;padding:0;color-scheme:dark;width:100%;cursor:pointer}
 .pbar{height:8px;background:var(--card2);border-radius:99px;overflow:hidden;margin-top:14px;display:flex;position:relative;z-index:1}.pbar i{display:block;height:100%}
-/* nav */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;gap:4px;background:rgba(11,20,38,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 10px calc(6px + env(safe-area-inset-bottom))}
-nav .brand,nav .foot{display:none}
-nav .tb{flex:1;max-width:180px;border:0;background:transparent;color:var(--mu);font-size:11px;font-weight:800;padding:6px 4px;border-radius:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
-nav .tb em{font-style:normal;font-size:22px;line-height:1.1;filter:grayscale(.7);opacity:.7;transition:.15s}
-nav .tb.on{color:var(--rose)}nav .tb.on em{filter:none;opacity:1;transform:scale(1.1)}
-.scrim{display:none}
+/* nav: menú desplegable en todas las pantallas */
+nav.tabs{position:fixed;top:0;bottom:0;left:0;width:min(82vw,var(--side));z-index:45;display:flex;flex-direction:column;gap:6px;padding:calc(22px + env(safe-area-inset-top)) 16px calc(22px + env(safe-area-inset-bottom));background:#0A1222;border-right:1px solid var(--line);transform:translateX(-105%);transition:transform .25s ease;box-shadow:20px 0 60px rgba(0,0,0,.45)}
+nav.tabs.open{transform:none}
+.scrim{position:fixed;inset:0;z-index:44;background:rgba(3,8,20,.55);opacity:0;pointer-events:none;transition:.25s}
+.scrim.open{opacity:1;pointer-events:auto}
+nav .brand{display:flex;align-items:center;gap:12px;padding:0 8px 22px;font-size:17px;line-height:1.15;font-weight:900}
+nav .brand img{width:44px;height:44px;border-radius:12px}nav .brand span{color:var(--rose)}
+nav .tb{border:0;background:transparent;color:var(--mu);font-weight:800;cursor:pointer;display:flex;align-items:center;gap:12px;font-size:16px;padding:13px 14px;border-radius:14px;text-align:left}
+nav .tb em{font-style:normal;font-size:21px}nav .tb.on{background:var(--card2);color:var(--tx)}nav .tb:hover{background:var(--card)}
+nav .foot{margin-top:auto;font-size:13px;color:var(--mu)}
+nav .foot .btn{width:100%;margin-top:8px;font-size:14px;text-align:left}
+nav .foot #st2{padding:0 6px 4px;font-weight:800}nav .foot #st2.ok{color:var(--ok)}nav .foot #st2.off{color:var(--am)}
+.sect{font-size:13px;font-weight:900;color:var(--mu);text-transform:uppercase;letter-spacing:1.2px;margin:2px 2px 10px}
 #body{margin-top:14px}
 /* filtros + buscador */
 .fbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
@@ -78,7 +84,7 @@ nav .tb.on{color:var(--rose)}nav .tb.on em{filter:none;opacity:1;transform:scale
 .kc .kl{font-size:13px;font-weight:800;margin-top:8px}
 .kc .ks{font-size:13px;font-weight:800;color:var(--c);margin-top:2px;opacity:.9}
 .kc svg{position:absolute;right:10px;top:12px}
-@media(max-width:700px){.kpis{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -14px 14px;padding:2px 14px;scroll-padding:0 14px}.kpis::-webkit-scrollbar{display:none}.kc{flex:0 0 132px;scroll-snap-align:start}.kpis.k4 .kc{flex-basis:140px}}
+@media(max-width:700px){.kpis{gap:6px}.kc{padding:10px 6px 9px;border-radius:14px;text-align:center}.kc svg{display:none}.kc .kn{font-size:26px}.kc .kn small{font-size:13px}.kc .kl{font-size:11px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kc .ks{font-size:11px;white-space:nowrap}.kc:after{content:"";position:absolute;left:8px;right:8px;bottom:5px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--c) calc(var(--p)*100%),#22325A 0)}}
 /* listas */
 .btn{background:var(--cy);color:#04202A;border:0;border-radius:12px;padding:10px 14px;font:inherit;font-weight:800;cursor:pointer}
 .btn.ghost{background:var(--card2);color:var(--tx)}.btn.danger{background:#FF5C7A;color:#fff}.btn.rose{background:var(--rose);color:#3A0D1A}
@@ -152,20 +158,7 @@ nav .tb.on{color:var(--rose)}nav .tb.on em{filter:none;opacity:1;transform:scale
 @media(min-width:1024px){
  html,body{font-size:16px}
  #root{max-width:1400px;padding:22px 36px 40px}
- .ham{display:grid}
  .topb{margin-bottom:16px}.topb .ttl{font-size:26px}.topb .ttl img{width:40px;height:40px}
- nav.tabs{top:0;bottom:0;right:auto;width:var(--side);flex-direction:column;justify-content:flex-start;gap:6px;padding:22px 16px;border-top:0;border-right:1px solid var(--line);background:#0A1222;z-index:45;transform:translateX(-100%);transition:transform .25s ease;box-shadow:20px 0 60px rgba(0,0,0,.4)}
- nav.tabs.open{transform:none}
- .scrim{display:block;position:fixed;inset:0;z-index:44;background:rgba(3,8,20,.5);opacity:0;pointer-events:none;transition:.25s}
- .scrim.open{opacity:1;pointer-events:auto}
- nav .brand{display:flex;align-items:center;gap:12px;padding:0 8px 22px;font-size:17px;line-height:1.15;font-weight:900}
- nav .brand img{width:44px;height:44px;border-radius:12px}nav .brand span{color:var(--rose)}
- nav .tb{max-width:none;flex:none;flex-direction:row;gap:12px;font-size:15px;padding:12px 14px;justify-content:flex-start}
- nav .tb em{font-size:20px}nav .tb.on{background:var(--card2);color:var(--tx)}nav .tb.on em{transform:none}
- nav .tb:hover{background:var(--card)}
- nav .foot{display:block;margin-top:auto;font-size:13px;color:var(--mu)}
- nav .foot .btn{width:100%;margin-top:8px;font-size:14px;text-align:left}
- nav .foot #st2{padding:0 6px 4px;font-weight:800}nav .foot #st2.ok{color:var(--ok)}nav .foot #st2.off{color:var(--am)}
  .hero{padding:24px 28px}
  .hs b{font-size:56px}.hs span,.hs input{font-size:14px}.hs>div{padding:4px 22px}.hs>div:first-child{padding-left:4px}
  .kc{padding:18px 18px 16px}.kc .kn{font-size:46px}.kc .kn small{font-size:22px}.kc .kl{font-size:15px}.kc .ks{font-size:15px}
@@ -271,19 +264,19 @@ function donut(parts,center,sub,size=150){const r=54,C=2*Math.PI*r,tot=parts.red
  const segs=parts.map(p=>{const len=p.v/tot*C;const s=`<circle r="${r}" cx="70" cy="70" fill="none" stroke="${p.c}" stroke-width="16" stroke-dasharray="${Math.max(len-2,0)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len;return s}).join('');
  return `<svg width="${size}" height="${size}" viewBox="0 0 140 140"><circle r="${r}" cx="70" cy="70" fill="none" stroke="#16244A" stroke-width="16"/>${segs}<text x="70" y="${sub?72:78}" text-anchor="middle" fill="#E8EFFA" font-size="${sub?28:26}" font-weight="900" font-family="Nunito,system-ui,sans-serif">${center}</text>${sub?`<text x="70" y="90" text-anchor="middle" fill="#8C9DBC" font-size="11" font-weight="700" font-family="Nunito,system-ui,sans-serif">${sub}</text>`:''}</svg>`}
 function ring(p,c,s=34){const r=12,C=2*Math.PI*r;return `<svg width="${s}" height="${s}" viewBox="0 0 30 30"><circle r="${r}" cx="15" cy="15" fill="none" stroke="#22325A" stroke-width="4"/><circle r="${r}" cx="15" cy="15" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${Math.max(p*C,.01)} ${C}" transform="rotate(-90 15 15)"/></svg>`}
-function kc(o){return `<div class="kc ${o.on?'on':''}" style="--c:${o.c}" data-a="${o.a}" data-v="${o.v}">${ring(o.p,o.c,desk()?42:32)}<div class="kn">${o.n}</div><div class="kl">${o.l}</div><div class="ks">${o.s}</div></div>`}
+function kc(o){return `<div class="kc ${o.on?'on':''}" style="--c:${o.c};--p:${o.p||0}" data-a="${o.a}" data-v="${o.v}">${ring(o.p,o.c,desk()?42:32)}<div class="kn">${o.n}</div><div class="kl">${o.l}</div><div class="ks">${o.s}</div></div>`}
 function chip(label,v,on,c){return `<button class="chip ${on?'on':''}" data-a="${ui.tab=='mochila'?'who':'filter'}" data-v="${v}">${c?`<i style="background:${c}"></i>`:''}${label}</button>`}
 const eurS=n=>Math.round(n||0).toLocaleString('es-ES',{useGrouping:'always'})+'<small style="font-size:.55em;margin-left:2px">€</small>';
 function keepUi(){LS.set(K.ui,JSON.stringify({tab:ui.tab,filter:ui.filter,who:ui.who}))}
 function isOpen(k,forced){return forced||!!ui.open[k]}
 
 function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
- const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5);
+ const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days),gw=Math.floor(ga/7),gd=ga%7;
  $('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
  <div class="ttl"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div></div>
  <span class="chipst" id="st"></span>${installBtn()}${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
  <div class="hero"><div class="hs">
-  <div><b style="color:var(--rose)">${days>0?days:'¡Ya!'}</b><span>días para conocerla</span><input type="date" id="due" value="${S.due||''}" title="Cambiar fecha prevista"></div>
+  <div><b style="color:var(--rose)">${days>0?`${gw}<small style="font-size:.5em">s</small> ${gd}<small style="font-size:.5em">d</small>`:'¡Ya!'}</b><span>de embarazo · faltan ${Math.max(0,days)} días</span><input type="date" id="due" value="${S.due||''}" title="Cambiar fecha prevista"></div>
   <div><b style="color:var(--ok)">${pct}<small style="font-size:.55em">%</small></b><span>comprado · ${bought} de ${st.n}</span></div>
   <div><b style="color:var(--cy)">${eurS(st.by.Comprado.eur+st.by.Pedido.eur)}</b><span>invertido</span></div></div>
   <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div></div>
@@ -295,7 +288,7 @@ function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=
  ({compras,mochila,resumen})[ui.tab]();setSt(stS);}
 
 function compras(){const st=stats(),f=ui.filter;
- $('#body').innerHTML=`<div class="fbar"><div class="chips">${chip('Todo','',!f)}${ORDER.map(k=>chip(k,k,f==k,COL[k])).join('')}</div>
+ $('#body').innerHTML=`<div class="sect">🛒 Compras</div><div class="fbar"><div class="chips">${chip('Todo','',!f)}${ORDER.map(k=>chip(k,k,f==k,COL[k])).join('')}</div>
  <div class="srch"><input id="q" placeholder="🔍 Buscar${desk()?' ( / )':''}" value="${esc(ui.q)}"><button class="btn" data-a="new">+ Añadir</button></div></div>
  <div class="kpis">${kc({c:'#E8EFFA',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:!f,a:'filter',v:''})}
  ${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:f==k,a:'filter',v:k})).join('')}</div>
@@ -324,28 +317,25 @@ function menuHtml(){return `<div class="ov" data-a="close"><div class="sh menu" 
  <div class="note">Para tenerla como app: en iPhone, Safari → Compartir → «Añadir a pantalla de inicio». En Android, Chrome → ⋮ → «Instalar app».</div></div></div>`}
 
 function mochila(){const M=live(S.bag),w=ui.who,its=M.filter(i=>w=='Todos'||i.who==w),done=M.filter(i=>i.done).length;
- $('#body').innerHTML=`<div class="fbar"><div class="chips">${chip('Todos','Todos',w=='Todos')}${WHO.map(x=>chip(x,x,w==x,WCOL[x])).join('')}</div><span class="note" style="margin:0 0 0 auto;font-weight:800">🎒 ${done}/${M.length} en la mochila</span></div>
+ $('#body').innerHTML=`<div class="sect">🎒 Mochila del hospital</div><div class="fbar"><div class="chips">${chip('Todos','Todos',w=='Todos')}${WHO.map(x=>chip(x,x,w==x,WCOL[x])).join('')}</div><span class="note" style="margin:0 0 0 auto;font-weight:800">🎒 ${done}/${M.length} en la mochila</span></div>
  <div class="kpis k4">${WHO.map(x=>{const a=M.filter(i=>i.who==x),d=a.filter(i=>i.done).length,p=a.length?d/a.length:0;return kc({c:WCOL[x],n:`${d}<small>/${a.length}</small>`,l:x,s:Math.round(p*100)+'% listo',p,on:w==x,a:'who',v:x})}).join('')}</div>
  <div class="cols">${cats(its).map(([c,arr])=>{const k='m:'+c,open=isOpen(k,w!='Todos'),d=arr.filter(i=>i.done).length;return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(k)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${d}/${arr.length}</span><span class="mini"><i style="width:${d/arr.length*100}%;background:var(--rose)"></i></span><span class="chev">▾</span></div><div class="items">${open?arr.map(i=>`<div class="it ${i.done?'done':''}" data-a="bag" data-v="${i.id}"><div class="ck pk ${i.done?'on':''}">${i.done?'✓':''}</div><div class="t"><div>${esc(i.name)}</div><small style="color:${WCOL[i.who]||'var(--mu)'}">${i.who}</small></div><button class="x" data-a="bagdel" data-v="${i.id}" title="Quitar">×</button></div>`).join(''):''}</div></div>`}).join('')}
  <div class="grp"><div class="add"><input id="bn" placeholder="Añadir a la mochila…"><select id="bw">${WHO.map(x=>`<option ${w==x?'selected':''}>${x}</option>`).join('')}</select><button class="btn" data-a="bagadd">+</button></div></div></div>
  ${done?`<div style="text-align:center;margin-top:8px"><button class="btn ghost" data-a="bagreset">Desmarcar todo</button></div>`:''}`}
 
 function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,L=live(S.items),cs=cats(L);
- const due=new Date((S.due||'2027-02-23')+'T12:00:00'),now=new Date(),D=864e5,start=new Date(due-280*D);
- const tp=Math.min(1,Math.max(0,(now-start)/(280*D))),week=Math.max(1,Math.min(42,Math.floor((now-start)/(7*D))+1));
- const got=st.by.Comprado.n+st.by.Pedido.n,lp=st.n?got/st.n:0,rem=st.n-got,wl=Math.max(1,(due-now-14*D)/(7*D)),rate=Math.ceil(rem/wl);
- const ok=lp>=tp-0.05;
- const dual=()=>{const R=[[58,tp,'#FF8FAB'],[42,lp,'#00FFA3']];return `<svg width="${desk()?170:150}" height="${desk()?170:150}" viewBox="0 0 140 140">${R.map(([r,p,c])=>{const C=2*Math.PI*r;return `<circle r="${r}" cx="70" cy="70" fill="none" stroke="#16244A" stroke-width="12"/><circle r="${r}" cx="70" cy="70" fill="none" stroke="${c}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${Math.max(p*C,.01)} ${C}" transform="rotate(-90 70 70)"/>`}).join('')}<text x="70" y="72" text-anchor="middle" fill="#E8EFFA" font-size="26" font-weight="900" font-family="Nunito,system-ui,sans-serif">S${week}</text><text x="70" y="88" text-anchor="middle" fill="#8C9DBC" font-size="10" font-weight="700" font-family="Nunito,system-ui,sans-serif">semana</text></svg>`};
- $('#body').innerHTML=`<div class="rgrid">
+ const sp=a=>a.filter(i=>i.status=='Comprado'||i.status=='Pedido').reduce((s,i)=>s+(+i.price||0),0);
+ const money=cs.map(([c,a])=>[c,sp(a)]).sort((x,y)=>y[1]-x[1]),maxE=Math.max(1,...money.map(m=>m[1])),tot=st.by.Comprado.eur+st.by.Pedido.eur;
+ const pend=cs.map(([c,a])=>{const v=a.filter(i=>i.status=='Visto'),n=a.filter(i=>i.status=='No visto');return [c,v.length,n.length,v.reduce((s,i)=>s+(+i.price||0),0)]}).filter(x=>x[1]+x[2]>0).sort((x,y)=>(y[1]+y[2])-(x[1]+x[2]));
+ const maxP=Math.max(1,...pend.map(x=>x[1]+x[2])),rem=st.by.Visto.n+st.by['No visto'].n;
+ $('#body').innerHTML=`<div class="sect">📊 Resumen</div><div class="rgrid">
  <div class="card"><h3>🎯 ¿Cómo vamos?<small>${st.n} cosas</small></h3><div class="how">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?200:170)}
  <div style="width:100%">${ORDER.map(k=>`<div class="srow" style="--c:${COL[k]}"><span class="lb"><i style="background:${COL[k]}"></i>${k}</span><span></span><span class="vv">${eur(Math.round(st.by[k].eur))}<small>${st.by[k].n} cosas</small></span><span class="tr"><i style="width:${st.by[k].n/st.n*100}%"></i></span></div>`).join('')}</div></div></div>
- <div class="card"><h3>💶 Dinero</h3><div class="money"><b>${eur(st.by.Comprado.eur+st.by.Pedido.eur)}</b><span>Total invertido en Jimena</span></div></div>
- <div class="card"><h3>⏳ Ritmo hasta el parto</h3><div class="pace">${dual()}<div class="pl">
-  <div class="pr2"><span style="color:var(--rose)">● Embarazo</span><b style="color:var(--rose)">${Math.round(tp*100)}%</b></div>
-  <div class="pr2"><span style="color:var(--ok)">● Lista conseguida</span><b style="color:var(--ok)">${Math.round(lp*100)}%</b></div>
-  <div class="pr2"><span>Os faltan</span><b>${rem} cosas</b></div>
-  <div class="pr2" style="border:0"><span>Ritmo para acabar 2 semanas antes</span><b style="color:var(--cy)">${rate}/sem</b></div></div></div>
-  <div class="verdict" style="background:${ok?'rgba(0,255,163,.12)':'rgba(255,200,87,.12)'};color:${ok?'var(--ok)':'var(--am)'}">${ok?'✅ Vais a buen ritmo: la lista va por delante del embarazo.':'⚡ Toca acelerar: el embarazo va por delante de la lista.'}</div></div>
+ <div class="card"><h3>💶 Dinero</h3><div class="money"><b>${eur(tot)}</b><span>Total invertido (comprado + pedido)</span></div>
+ <div style="margin-top:14px">${money.map(([c,e])=>`<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar"><i style="width:${e/maxE*100}%;background:linear-gradient(90deg,var(--ok),var(--cy))"></i></div><span class="r" style="color:${e?'var(--tx)':'var(--mu)'}">${eur(Math.round(e))}</span></div>`).join('')}</div></div>
+ <div class="card"><h3>🛍️ Lo que os queda<small>${rem} cosas</small></h3>
+ <div class="note" style="margin:-6px 0 12px">Dónde está el trabajo pendiente. <b style="color:var(--am)">■ Visto</b> ya tiene candidato (${eur(Math.round(st.by.Visto.eur))}); <b style="color:var(--gr)">■ No visto</b> está sin mirar.</div>
+ ${pend.map(([c,v,n,e])=>`<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar" style="background:transparent"><i style="width:${v/maxP*100}%;background:var(--am)"></i><i style="width:${n/maxP*100}%;background:var(--gr)"></i></div><span class="r">${v+n}</span></div>`).join('')}</div>
  <div class="card"><h3>📦 Por categoría</h3>${cs.map(([c,a])=>{const cnt={};a.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);return `<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar">${segBar(cnt,a.length)}</div><span class="r">${cnt.Comprado||0}/${a.length}</span></div>`}).join('')}</div>
  </div>`}
 
