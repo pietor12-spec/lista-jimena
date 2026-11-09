@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lista de regalos para Jimena 🎁</title>
+<meta name="description" content="Ideas de regalo para Jimena. ¡Gracias por pensar en ella!">
+<meta property="og:title" content="Lista de regalos para Jimena 🎁">
+<meta property="og:description" content="Ideas de regalo para Jimena. ¡Gracias por pensar en ella!">
+<meta property="og:image" content="https://pietor12-spec.github.io/lista-jimena/icon-j-512.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFF0F6">
+<link rel="icon" href="icon-j-32.png"><link rel="apple-touch-icon" href="icon-j-180.png">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--tx:#3D4B6E;--mu:#8C98B3;--rose:#FF6FA0;--ok:#2EC4A0;--cy:#4AB3E6;--line:#F2DCE6}
+*{box-sizing:border-box}
+body{margin:0;font-family:Nunito,system-ui,sans-serif;color:var(--tx);background:linear-gradient(180deg,#FFF0F6 0%,#EEF7FF 55%,#EFFAF5 100%) fixed;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top)) 18px 40px}
+header{text-align:center;margin-bottom:22px}
+header img{width:92px;height:92px;border-radius:24px;box-shadow:0 12px 34px rgba(255,111,160,.28);animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
+h1{margin:14px 0 6px;font-size:30px;font-weight:900;line-height:1.15}h1 span{color:var(--rose)}
+header p{margin:0 auto;max-width:460px;color:var(--mu);font-weight:700;font-size:15px;line-height:1.5}
+.count{display:inline-block;margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:7px 16px;font-weight:800;font-size:14px;box-shadow:0 4px 14px rgba(255,111,160,.1)}
+.count b{color:var(--rose)}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px 16px 14px;box-shadow:0 6px 20px rgba(255,111,160,.08);display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;animation:fade .5s both}
+.card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--rose),#FFB3CC)}
+.card b{font-size:17px;font-weight:900}.card small{display:block;color:var(--mu);font-weight:700;font-size:13px;margin-top:2px}
+.card em{display:block;font-style:normal;font-size:13px;color:var(--cy);font-weight:700;margin-top:6px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.price{font-weight:900;font-size:16px}
+.go{background:var(--rose);color:#fff;text-decoration:none;font-weight:900;font-size:14px;padding:10px 14px;border-radius:12px;white-space:nowrap}
+.go:active{transform:scale(.97)}
+.card.got{opacity:.62}.card.got:before{background:var(--ok)}.card.got b{text-decoration:line-through;text-decoration-color:rgba(46,196,160,.7)}
+.tag{background:#E3F8EF;color:#1E9C7E;font-weight:900;font-size:13px;padding:8px 12px;border-radius:12px}
+.tip{margin:24px auto 0;max-width:520px;text-align:center;background:#fff;border:1px dashed #F6BCD1;border-radius:16px;padding:14px 16px;font-weight:700;font-size:14px;color:var(--tx)}
+.empty,.load{text-align:center;color:var(--mu);font-weight:700;padding:40px 10px}
+@keyframes pop{from{transform:scale(.5);opacity:0}}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+</style></head><body><div class="wrap">
+<header><img src="logo-j.svg" alt=""><h1>Lista de regalos para <span>Jimena</span> 🎁</h1>
+<p>¡Gracias por pensar en ella! 💕 Estas son algunas cosas que nos vendrían genial. Toca «Ver en la tienda» para ver el producto.</p>
+<div class="count" id="count">Cargando…</div></header>
+<div id="list" class="load">Cargando la lista…</div>
+<div class="tip">💡 Antes de comprar algo, avisa a los papás para que no se repita 😉</div>
+</div>
+<script>
+const SRC=['https://api.github.com/repos/pietor12-spec/lista-jimena/contents/wishlist.json','wishlist.json'];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const eur=n=>(+n).toLocaleString('es-ES',{maximumFractionDigits:2,useGrouping:'always'})+' €';
+const ok=u=>{try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:''}catch(e){return ''}};
+async function load(){for(const s of SRC){try{const r=await fetch(s+(s.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});if(!r.ok)continue;const j=await r.json();
+ if(j.content){const b=Uint8Array.from(atob(j.content.replace(/\s/g,'')),c=>c.charCodeAt(0));return JSON.parse(new TextDecoder().decode(b))}return j}catch(e){}}return null}
+load().then(d=>{const L=document.getElementById('list'),C=document.getElementById('count');
+ const it=(d&&d.items||[]).slice().sort((a,b)=>(a.got?1:0)-(b.got?1:0)||a.name.localeCompare(b.name,'es'));
+ const pend=it.filter(i=>!i.got).length;
+ if(!it.length){C.textContent='Lista vacía por ahora';L.className='empty';L.textContent='Todavía no hay nada en la lista. ¡Vuelve pronto! 🍼';return}
+ C.innerHTML=`<b>${pend}</b> ${pend==1?'idea disponible':'ideas disponibles'}${it.length-pend?` · ${it.length-pend} ya regalada${it.length-pend>1?'s':''}`:''}`;
+ L.className='grid';L.innerHTML=it.map((i,k)=>`<div class="card ${i.got?'got':''}" style="animation-delay:${k*40}ms"><div><b>${esc(i.name)}</b>${i.brand?`<small>${esc(i.brand)}</small>`:''}${i.note?`<em>${esc(i.note)}</em>`:''}</div>
+ <div class="foot"><span class="price">${i.price?'≈ '+eur(i.price):''}</span>${i.got?'<span class="tag">🎁 ¡Ya regalado!</span>':ok(i.url)?`<a class="go" href="${esc(ok(i.url))}" target="_blank" rel="noopener">Ver en la tienda ↗</a>`:''}</div></div>`).join('')});
+</script></body></html>
