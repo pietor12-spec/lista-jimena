@@ -126,6 +126,13 @@ html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
 .pick{max-height:55vh;overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:12px}
 .pick label{display:flex!important;gap:12px;align-items:center;padding:10px 12px;margin:0!important;border-bottom:1px solid var(--line);cursor:pointer;color:var(--tx)!important}
 .pick input{width:20px!important;height:20px;flex:none;accent-color:var(--rose)}.pick b{display:block;font-size:14px}.pick small{color:var(--mu);font-size:12px}
+.fruit{flex:none;width:124px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.fruit .fe{font-size:76px;line-height:1;filter:drop-shadow(0 8px 18px rgba(0,0,0,.25));animation:bob 3s ease-in-out infinite}
+.fruit .fn{font-size:12px;font-weight:800;color:var(--mu);text-align:center;line-height:1.2}
+@keyframes bob{50%{transform:translateY(-5px) rotate(-4deg)}}
+html.light .fruit .fe{filter:drop-shadow(0 8px 14px rgba(255,111,160,.25))}
+.wsect b{font-size:30px;letter-spacing:0;color:var(--rose);vertical-align:middle;margin-left:8px}.wsect b small{font-size:.55em;color:var(--mu)}
+@media(min-width:1024px){.fruit{width:160px}.fruit .fe{font-size:100px}.fruit .fn{font-size:14px}}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -363,13 +370,13 @@ function safeUrl(u){u=String(u||'').trim();if(!u)return '';const m=u.match(/http
 const WURL=()=>location.origin+location.pathname.replace(/[^/]*$/,'')+'regalos.html';
 function wish(){const W=live(S.wish=S.wish||[]),got=W.filter(w=>w.got).length;
  const ord=[...W].sort((a,b)=>(a.got?1:0)-(b.got?1:0)||(a.name||'').localeCompare(b.name||'','es'));
- $('#body').innerHTML=`<div class="secth"><div class="sect">🎁 Wishlist <b>${W.length-got}/${W.length}</b></div><button class="btn rose" data-a="wshare">🔗 Enviar lista</button></div>
- <div class="wbar"><button class="btn" data-a="wadd">+ Añadir</button><button class="btn ghost" data-a="wpick">👀 Desde vistos</button></div>
+ $('#body').innerHTML=`<div class="secth"><div class="sect wsect">🎁 Wishlist <b>${W.length-got}<small>/${W.length}</small></b></div><button class="btn rose" data-a="wshare">🔗 Enviar lista</button></div>
+ <div class="wbar"><button class="btn" data-a="wpick">👀 Añadir desde vistos</button></div>
  <div class="note" style="margin:0 2px 12px">Esto es lo que verá la familia en la lista de regalos. Marca <b>🎁 Regalado</b> cuando os lo regalen y les saldrá como «ya regalado».</div>
  ${W.length?`<div class="wgrid">${ord.map(w=>`<div class="wc ${w.got?'got':''}" data-a="wedit" data-v="${w.id}">
   <div class="wt"><b>${esc(w.name)}</b>${w.brand?`<small>${esc(w.brand)}</small>`:''}${w.note?`<em>${esc(w.note)}</em>`:''}</div>
   <div class="wf">${w.price?`<span class="pr">${eur(w.price)}</span>`:'<span></span>'}<span class="wa">${safeUrl(w.url)?`<a class="lnk" href="${esc(safeUrl(w.url))}" target="_blank" rel="noopener" data-a="none" title="Ir a la tienda">🔗</a>`:''}<button class="wg ${w.got?'on':''}" data-a="wgot" data-v="${w.id}">🎁 ${w.got?'Regalado':'¿Regalado?'}</button></span></div></div>`).join('')}</div>`
- :`<div class="empty">Aún no hay nada. Añade cosas a mano o elige entre las que tenéis vistas 👀</div>`}`}
+ :`<div class="empty">Aún no hay nada. Elige entre lo que tenéis visto con «Añadir desde vistos» 👀</div>`}`}
 function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'',brand:'',price:null,url:'',note:''};
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🎁 ${nw?'Añadir a la wishlist':'Editar regalo'}</h3>
  <label>Qué</label><input id="wn" value="${esc(w.name)}" placeholder="Ej. Hamaca BabyBjörn">
@@ -401,6 +408,8 @@ function bumpQty(i,d){const q=Math.max(0,(+i.qty||0)+d);i.qty=q||null;
  if(q>0&&i.status!='Comprado'&&i.status!='Pedido'){i.prev=i.status;i.status='Comprado'}
  if(q==0&&i.status=='Comprado'){i.status=i.prev&&i.prev!='Comprado'?i.prev:'No visto'}persist(i)}
 
+const FRUIT={4:['🌱','semilla de amapola'],5:['🌱','semilla de sésamo'],6:['🫘','lenteja'],7:['🫐','arándano'],8:['🍓','frambuesa'],9:['🍒','cereza'],10:['🍓','fresa'],11:['🍋','lima'],12:['🍑','ciruela'],13:['🍋','limón'],14:['🍑','melocotón'],15:['🍎','manzana'],16:['🥑','aguacate'],17:['🧅','cebolla'],18:['🫑','pimiento'],19:['🥭','mango'],20:['🍌','plátano'],21:['🥕','zanahoria'],22:['🥒','calabacín'],23:['🍆','berenjena'],24:['🌽','mazorca de maíz'],25:['🍇','racimo de uvas'],26:['🥬','lechuga'],27:['🥦','brócoli'],28:['🍆','berenjena grande'],29:['🎃','calabaza'],30:['🥬','repollo'],31:['🥥','coco'],32:['🍈','melón pequeño'],33:['🍍','piña'],34:['🍈','melón cantalupo'],35:['🍈','melón'],36:['🥬','lechuga romana'],37:['🥬','acelgas'],38:['🧅','puerro'],39:['🍉','sandía pequeña'],40:['🍉','sandía']};
+const fruitOf=w=>FRUIT[Math.max(4,Math.min(40,w))];
 function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class="h2">
   <div class="preg" data-a="editpreg" title="Editar semanas">
    <span class="lbl">🤰 Embarazo <em>✎</em></span>
@@ -408,7 +417,7 @@ function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class
    <div class="ptl"><i style="width:${Math.min(100,ga/280*100)}%"></i><s style="left:${Math.min(100,ga/280*100)}%"></s></div>
    <span class="lbl2">Faltan <b style="display:inline;font-size:inherit;color:var(--tx)">${Math.max(0,days)} días</b> · ${due.toLocaleDateString('es-ES',{day:'numeric',month:'long'})}</span>
   </div>
-  <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?150:124;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" style="stroke:var(--card2)" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" style="stroke:var(--ok)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" style="fill:var(--ok)" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}</div></div>
+  <div class="fruit">${(()=>{const f=fruitOf(gw);return `<span class="fe">${f[0]}</span><span class="fn">${f[1]}</span>`})()}</div></div>
   <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div>
   <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>`}
 function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
@@ -473,7 +482,7 @@ function bagSheet(){const cs=[...new Set(live(S.bag).map(i=>i.cat))].sort((a,b)=
 function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,M=live(S.bag),md=M.filter(i=>i.done).length,mp=M.length?md/M.length:0,inv=st.by.Comprado.eur+st.by.Pedido.eur;
   $('#body').innerHTML=`<div class="kpis">${kc({c:'var(--tx)',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:false,a:'gofilter',v:''})}${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:false,a:'gofilter',v:k})).join('')}</div>
  <div class="bento">
-  <div class="bt" data-a="tab" data-v="analisis" style="--c:var(--cy)"><span>💶 Invertido</span><b>${eurS(inv)}</b><small>comprado + pedido</small></div>
+  <div class="bt" data-a="tab" data-v="compras" style="--c:var(--ok)"><span>🛒 Compras</span><b>${st.by.Comprado.n}<small style="font-size:.55em;color:var(--mu)">/${st.n}</small></b><div class="btbar"><i style="width:${st.by.Comprado.n/st.n*100}%"></i></div></div>
   <div class="bt" data-a="tab" data-v="mochila" style="--c:var(--rose)"><span>🎒 Mochila</span><b>${md}<small style="font-size:.55em;color:var(--mu)">/${M.length}</small></b><div class="btbar"><i style="width:${mp*100}%"></i></div></div>
  </div>
  <div class="card cv"><h3>🎯 ¿Cómo vamos?</h3><div class="cvw">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?150:150)}
