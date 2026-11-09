@@ -105,6 +105,9 @@ html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
 .preg .lbl{display:block;font-size:16px;letter-spacing:2px;margin:-2px 0 12px}
 .preg>b{margin:0 0 10px}
 .preg .ptl{margin-left:4px;margin-right:4px}
+.lnk{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--card2);border:1px solid var(--line);text-decoration:none;font-size:15px}
+.lnk:hover{border-color:var(--cy)}
+.urlrow{display:flex;gap:8px}.urlrow input{flex:1;min-width:0}.urlrow .btn{white-space:nowrap;text-decoration:none;display:grid;place-items:center}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -337,6 +340,7 @@ function isOpen(k,forced){return forced||!!ui.open[k]}
 const PAL={dark:{c:{'Comprado':'#00FFA3','Pedido':'#00F0FF','Visto':'#FFC857','No visto':'#7F8FB3'},w:{'Mamá':'#FF8FAB','Bebé':'#00F0FF','Ambos':'#FFC857','Acompañante':'#00FFA3'},m:'#0B1426'},
  light:{c:{'Comprado':'#2EC4A0','Pedido':'#4AB3E6','Visto':'#F2A93B','No visto':'#A9B6CC'},w:{'Mamá':'#FF6FA0','Bebé':'#4AB3E6','Ambos':'#F2A93B','Acompañante':'#2EC4A0'},m:'#FFF0F6'}};
 function setTheme(l){ui.light=l;const P=PAL[l?'light':'dark'];Object.assign(COL,P.c);Object.assign(WCOL,P.w);document.documentElement.classList.toggle('light',l);const m=document.querySelector('meta[name=theme-color]');if(m)m.content=P.m}
+function safeUrl(u){u=String(u||'').trim();if(!u)return '';const m=u.match(/https?:\/\/\S+/i);if(m)u=m[0];else if(/^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(u))u='https://'+u;else return '';try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:''}catch(e){return ''}}
 function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class="h2">
   <div class="preg" data-a="editpreg" title="Editar semanas">
    <span class="lbl">🤰 Embarazo <em>✎</em></span>
@@ -373,12 +377,13 @@ function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
 function row(i){const on=i.status=='Comprado';
  return `<div class="it ${on?'done':''}" data-a="edit" data-v="${i.id}"><div class="ck ${on?'on':''}" data-a="check" data-v="${i.id}">${on?'✓':''}</div>
  <div class="t"><div title="${esc(i.name)}">${esc(i.name)}${i.qty?`<span class="qty">×${i.qty}</span>`:''}</div>${i.brand?`<small>${esc(i.brand)}</small>`:''}</div>
- <span class="pr">${i.price?eur(i.price):''}</span><span class="pill" style="background:${COL[i.status]}22;color:${COL[i.status]}">${i.status}</span></div>`}
+ ${safeUrl(i.url)?`<a class="lnk" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener" data-a="none" title="Ir a la tienda">🔗</a>`:''}<span class="pr">${i.price?eur(i.price):''}</span><span class="pill" style="background:${COL[i.status]}22;color:${COL[i.status]}">${i.status}</span></div>`}
 function sheetHtml(){const i=ui.sheet,allC=[...new Set(live(S.items).map(x=>x.cat))].sort((a,b)=>a.localeCompare(b,'es'));
  return `<div class="ov" data-a="close"><div class="sh" data-a="none"><h3>${i._new?'Nuevo artículo':'Editar artículo'}</h3>
  <label>Artículo</label><input data-f="name" value="${esc(i.name)}" placeholder="Ej. Termómetro">
  <div class="row2"><div><label>Categoría</label><input data-f="cat" list="cl" value="${esc(i.cat)}"><datalist id="cl">${allC.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></div>
  <div><label>Marca y modelo</label><input data-f="brand" value="${esc(i.brand)}"></div></div>
+ <label>Enlace de compra</label><div class="urlrow"><input data-f="url" type="url" inputmode="url" autocomplete="off" placeholder="Pega aquí el enlace de la tienda" value="${esc(i.url||'')}">${safeUrl(i.url)?`<a class="btn ghost" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener" data-a="none">Abrir ↗</a>`:''}</div>
  <div class="row2"><div><label>Precio (€)</label><input data-f="price" type="number" step="0.01" inputmode="decimal" value="${i.price??''}"></div>
  <div><label>Cantidad</label><input data-f="qty" type="number" inputmode="numeric" value="${i.qty??''}"></div></div>
  <label>Estado</label><div class="seg">${ORDER.map(k=>`<button data-a="st" data-v="${k}" style="${i.status==k?`background:${COL[k]};color:#08142A;border-color:${COL[k]}`:''}">${k}</button>`).join('')}</div>
@@ -428,7 +433,7 @@ function analisis(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||
  </div>`}
 
 /* ---------- acciones ---------- */
-function closeSheet(save){const i=ui.sheet;if(save){i.name=(i.name||'').trim();if(i.name){i.cat=(i.cat||'').trim()||'Otros';delete i._new;const k=S.items.findIndex(x=>x.id==i.id);if(k<0)S.items.push(i);else S.items[k]=i;persist(i)}}ui.sheet=null;ui.del=false;render()}
+function closeSheet(save){const i=ui.sheet;if(save){i.name=(i.name||'').trim();if(i.name){i.cat=(i.cat||'').trim()||'Otros';i.url=safeUrl(i.url)||'';if(!i.url)delete i.url;delete i._new;const k=S.items.findIndex(x=>x.id==i.id);if(k<0)S.items.push(i);else S.items[k]=i;persist(i)}}ui.sheet=null;ui.del=false;render()}
 async function share(){const url=location.origin+location.pathname;const txt='Lista de Jimena 🍼 '+url;
  try{if(navigator.share){await navigator.share({title:'Lista de Jimena',text:'Nuestra lista del bebé',url});return}}catch(e){if(e.name=='AbortError')return}
  try{await navigator.clipboard.writeText(txt);toast('Enlace copiado. Pásale también la contraseña.')}catch(e){toast(url)}}
