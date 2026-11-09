@@ -133,6 +133,10 @@ html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
 html.light .fruit .fe{filter:drop-shadow(0 8px 14px rgba(255,111,160,.25))}
 .wsect b{font-size:30px;letter-spacing:0;color:var(--rose);vertical-align:middle;margin-left:8px}.wsect b small{font-size:.55em;color:var(--mu)}
 @media(min-width:1024px){.fruit{width:160px}.fruit .fe{font-size:100px}.fruit .fn{font-size:14px}}
+.wpr{font-size:24px;font-weight:900;color:var(--tx);letter-spacing:-.3px}
+.wimg{margin:-14px -14px 0;height:170px;background:#fff;display:flex;align-items:center;justify-content:center;border-radius:12px 12px 0 0;overflow:hidden}.wimg img{max-width:100%;max-height:100%;object-fit:contain}
+.phrow{display:flex;gap:10px;align-items:stretch}.phprev{width:86px;height:86px;flex:none;border-radius:12px;background:var(--card2);border:1px solid var(--line);display:grid;place-items:center;font-size:28px;overflow:hidden}.phprev img{width:100%;height:100%;object-fit:contain;background:#fff}
+.phbtns{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}.phpick{display:block!important;margin:0!important;text-align:center;cursor:pointer;color:var(--tx)!important;font-size:14px!important;padding:10px!important}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -374,8 +378,8 @@ function wish(){const W=live(S.wish=S.wish||[]),got=W.filter(w=>w.got).length;
  <div class="wbar"><button class="btn" data-a="wpick">👀 Añadir desde vistos</button></div>
  <div class="note" style="margin:0 2px 12px">Esto es lo que verá la familia en la lista de regalos. Marca <b>🎁 Regalado</b> cuando os lo regalen y les saldrá como «ya regalado».</div>
  ${W.length?`<div class="wgrid">${ord.map(w=>`<div class="wc ${w.got?'got':''}" data-a="wedit" data-v="${w.id}">
-  <div class="wt"><b>${esc(w.name)}</b>${w.brand?`<small>${esc(w.brand)}</small>`:''}${w.note?`<em>${esc(w.note)}</em>`:''}</div>
-  <div class="wf">${w.price?`<span class="pr">${eur(w.price)}</span>`:'<span></span>'}<span class="wa">${safeUrl(w.url)?`<a class="lnk" href="${esc(safeUrl(w.url))}" target="_blank" rel="noopener" data-a="none" title="Ir a la tienda">🔗</a>`:''}<button class="wg ${w.got?'on':''}" data-a="wgot" data-v="${w.id}">🎁 ${w.got?'Regalado':'¿Regalado?'}</button></span></div></div>`).join('')}</div>`
+  ${w.img?`<div class="wimg"><img src="${esc(imgUrl(w.img))}" alt="" loading="lazy"></div>`:''}<div class="wt"><b>${esc(w.name)}</b>${w.brand?`<small>${esc(w.brand)}</small>`:''}${w.note?`<em>${esc(w.note)}</em>`:''}</div>
+  <div class="wf">${w.price?`<span class="wpr">${eur(w.price)}</span>`:'<span></span>'}<span class="wa">${safeUrl(w.url)?`<a class="lnk" href="${esc(safeUrl(w.url))}" target="_blank" rel="noopener" data-a="none" title="Ir a la tienda">🔗</a>`:''}<button class="wg ${w.got?'on':''}" data-a="wgot" data-v="${w.id}">🎁 ${w.got?'Regalado':'¿Regalado?'}</button></span></div></div>`).join('')}</div>`
  :`<div class="empty">Aún no hay nada. Elige entre lo que tenéis visto con «Añadir desde vistos» 👀</div>`}`}
 function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'',brand:'',price:null,url:'',note:''};
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🎁 ${nw?'Añadir a la wishlist':'Editar regalo'}</h3>
@@ -383,9 +387,18 @@ function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'
  <div class="row2"><div><label>Marca / modelo</label><input id="wb" value="${esc(w.brand||'')}"></div><div><label>Precio aprox. (€)</label><input id="wp" type="number" step="0.01" inputmode="decimal" value="${w.price??''}"></div></div>
  <label>Enlace de la tienda</label><input id="wu" type="url" inputmode="url" value="${esc(w.url||'')}" placeholder="Pega aquí el enlace">
  <label>Nota para quien regale</label><input id="wo" value="${esc(w.note||'')}" placeholder="Ej. color gris, talla 0-3 meses">
+ <label>Foto del producto</label><div class="phrow"><div class="phprev" id="wprev">${w.img?`<img src="${esc(imgUrl(w.img))}" alt="">`:'📷'}</div>
+ <div class="phbtns"><label class="btn ghost phpick">📷 Elegir foto<input id="wf" type="file" accept="image/*" hidden></label><input id="wi" type="url" inputmode="url" placeholder="…o pega el enlace de la imagen" value="${esc(/^https?:/.test(w.img||'')?w.img:'')}">${w.img?'<button class="btn ghost" id="wrm" type="button">Quitar foto</button>':''}</div></div>
  <div class="acts">${nw?'<button class="btn ghost" data-a="closehelp">Cancelar</button>':'<button class="btn danger" id="wdel">Quitar</button>'}<button class="btn" id="wok">Guardar</button></div></div>`;document.body.appendChild(d);
  const g=s=>d.querySelector(s).value.trim();
- d.querySelector('#wok').onclick=()=>{const n=g('#wn');if(!n)return;Object.assign(w,{name:n,brand:g('#wb'),price:g('#wp')===''?null:+g('#wp'),url:safeUrl(g('#wu'))||'',note:g('#wo')});
+ let shot=null;const prev=d.querySelector('#wprev');
+ d.querySelector('#wf').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{shot=await shrink(f);prev.innerHTML=`<img src="${shot}" alt="">`;d.querySelector('#wi').value=''}catch(x){toast('No pude leer esa foto')}};
+ d.querySelector('#wi').oninput=e=>{const u=safeUrl(e.target.value);shot=null;prev.innerHTML=u?`<img src="${esc(u)}" alt="">`:'📷'};
+ const rm=d.querySelector('#wrm');if(rm)rm.onclick=()=>{w.img='';shot=null;d.querySelector('#wi').value='';prev.innerHTML='📷'};
+ d.querySelector('#wok').onclick=async()=>{const n=g('#wn');if(!n)return;const ok=d.querySelector('#wok');
+  if(shot){ok.disabled=true;ok.textContent='Subiendo foto…';try{w.img=await uploadPhoto(w.id,shot)}catch(x){ok.disabled=false;ok.textContent='Guardar';toast('No se pudo subir la foto. ¿Hay conexión?');return}}
+  else if(g('#wi'))w.img=safeUrl(g('#wi'))||w.img||'';
+  Object.assign(w,{name:n,brand:g('#wb'),price:g('#wp')===''?null:+g('#wp'),url:safeUrl(g('#wu'))||'',note:g('#wo')});
   const k=S.wish.findIndex(x=>x.id==w.id);if(k<0)S.wish.push(w);else S.wish[k]=w;persist(w);d.remove();wish()};
  const del=d.querySelector('#wdel');if(del)del.onclick=()=>{if(del.dataset.c!='1'){del.dataset.c='1';del.textContent='¿Seguro?';return}const x=S.wish.find(x=>x.id==w.id);x.del=true;persist(x);d.remove();wish()};
  if(nw)setTimeout(()=>d.querySelector('#wn').focus(),50)}
@@ -397,7 +410,11 @@ function wPick(){const inW=new Set(live(S.wish||[]).map(w=>w.itemId));const V=li
  const ok=d.querySelector('#pok');if(ok)ok.onclick=()=>{let n=0;d.querySelectorAll('input:checked').forEach(c=>{const i=S.items.find(x=>x.id==c.value);if(i&&wFromItem(i))n++});d.remove();wish();if(n)toast(`${n} añadido${n>1?'s':''} a la wishlist 🎁`)}}
 async function wShare(){const url=WURL();try{if(navigator.share){await navigator.share({title:'Lista de regalos para Jimena',text:'Por si queréis regalarle algo a Jimena 🎁',url});return}}catch(e){if(e.name=='AbortError')return}
  try{await navigator.clipboard.writeText(url);toast('Enlace de regalos copiado 🎁')}catch(e){toast(url)}}
-const wItems=()=>live(S.wish||[]).map(w=>({name:w.name,brand:w.brand||'',price:w.price||null,url:safeUrl(w.url)||'',note:w.note||'',got:!!w.got}));
+const RAW=`https://raw.githubusercontent.com/${OWNER}/${APP_REPO}/main/`;
+const imgUrl=s=>!s?'':/^https?:/i.test(s)?safeUrl(s):RAW+s;
+function shrink(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const M=700,k=Math.min(1,M/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=Math.round(im.width*k);cv.height=Math.round(im.height*k);const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0,cv.width,cv.height);res(cv.toDataURL('image/jpeg',.82))};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
+async function uploadPhoto(id,dataUrl){const path=`fotos/${id}-${Date.now().toString(36)}.jpg`;const r=await gh(`/repos/${OWNER}/${APP_REPO}/contents/${path}`,{method:'PUT',body:JSON.stringify({message:'Foto de regalo',content:dataUrl.split(',')[1]})});if(!r.ok)throw r.status;return path}
+const wItems=()=>live(S.wish||[]).map(w=>({name:w.name,brand:w.brand||'',price:w.price||null,url:safeUrl(w.url)||'',note:w.note||'',got:!!w.got,img:w.img||''}));
 async function publishWish(){if(!token||!S)return;const items=wItems(),sig=JSON.stringify(items);if(LS.get('lj-wishpub')===sig)return;
  const path=`/repos/${OWNER}/${APP_REPO}/contents/wishlist.json`;
  try{const g=await gh(path+'?t='+Date.now());let sh=null;if(g.ok){const j=await g.json();sh=j.sha;try{if(JSON.stringify(JSON.parse(b64d(j.content)).items)===sig){LS.set('lj-wishpub',sig);return}}catch(e){}}
@@ -408,8 +425,8 @@ function bumpQty(i,d){const q=Math.max(0,(+i.qty||0)+d);i.qty=q||null;
  if(q>0&&i.status!='Comprado'&&i.status!='Pedido'){i.prev=i.status;i.status='Comprado'}
  if(q==0&&i.status=='Comprado'){i.status=i.prev&&i.prev!='Comprado'?i.prev:'No visto'}persist(i)}
 
-const FRUIT={4:['🌱','semilla de amapola'],5:['🌱','semilla de sésamo'],6:['🫘','lenteja'],7:['🫐','arándano'],8:['🍓','frambuesa'],9:['🍒','cereza'],10:['🍓','fresa'],11:['🍋','lima'],12:['🍑','ciruela'],13:['🍋','limón'],14:['🍑','melocotón'],15:['🍎','manzana'],16:['🥑','aguacate'],17:['🧅','cebolla'],18:['🫑','pimiento'],19:['🥭','mango'],20:['🍌','plátano'],21:['🥕','zanahoria'],22:['🥒','calabacín'],23:['🍆','berenjena'],24:['🌽','mazorca de maíz'],25:['🍇','racimo de uvas'],26:['🥬','lechuga'],27:['🥦','brócoli'],28:['🍆','berenjena grande'],29:['🎃','calabaza'],30:['🥬','repollo'],31:['🥥','coco'],32:['🍈','melón pequeño'],33:['🍍','piña'],34:['🍈','melón cantalupo'],35:['🍈','melón'],36:['🥬','lechuga romana'],37:['🥬','acelgas'],38:['🧅','puerro'],39:['🍉','sandía pequeña'],40:['🍉','sandía']};
-const fruitOf=w=>FRUIT[Math.max(4,Math.min(40,w))];
+const FRUIT={4:['🌱','semilla de amapola'],5:['🌱','semilla de sésamo'],6:['🫘','lenteja'],7:['🫐','arándano'],8:['🫘','alubia'],9:['🍒','cereza'],10:['🍊','naranja pequeña'],11:['🍐','higo'],12:['🍑','ciruela'],13:['🫛','vaina de guisantes'],14:['🍑','melocotón'],15:['🍎','manzana'],16:['🥑','aguacate'],17:['🥔','patata'],18:['🫑','pimiento'],19:['🥭','mango'],20:['🍊','pomelo'],21:['🍌','plátano'],22:['🥕','zanahoria'],23:['🍠','batata'],24:['🍆','berenjena'],25:['🍇','racimo de uvas'],26:['🥕','zanahoria grande'],27:['🥦','coliflor'],28:['🥥','coco'],29:['🍊','pomelo'],30:['🥬','repollo'],31:['🥒','calabacín'],32:['🥬','lechuga'],33:['🍍','piña'],34:['🎃','calabaza cacahuete'],35:['🍈','melón verde'],36:['🥭','papaya'],37:['🥬','lechuga romana'],38:['🥬','acelga'],39:['🍉','sandía pequeña'],40:['🍉','minisandía'],41:['🎃','calabaza'],42:['🍉','sandía']};
+const fruitOf=w=>FRUIT[Math.max(4,Math.min(42,w))];
 function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class="h2">
   <div class="preg" data-a="editpreg" title="Editar semanas">
    <span class="lbl">🤰 Embarazo <em>✎</em></span>
