@@ -33,7 +33,7 @@ button{font-family:inherit}
 .topb .ttl img{width:40px;height:40px;border-radius:11px}.topb .ttl span{color:var(--rose)}
 .ib{width:38px;height:38px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:17px;display:grid;place-items:center;cursor:pointer}
 .ib:hover{background:var(--card2)}
-.ham{display:none}.ttl .dd{font-style:normal;font-size:14px;color:var(--mu);margin-left:2px}
+.ham{display:none}.tlogo{border:0;background:none;padding:0;cursor:pointer;flex:none;border-radius:12px;transition:transform .15s}.tlogo:active{transform:scale(.92)}.tlogo img{width:42px;height:42px;border-radius:12px;display:block;box-shadow:0 4px 14px rgba(255,143,171,.3)}.ttl .bib{font-style:normal;font-size:.8em;margin-left:2px}
 .ttl .ld{font-style:normal}@media(max-width:480px){.ttl .ld{display:none}}
 @media(max-width:480px){.inst{width:38px;padding:0;font-size:16px}.inst em{display:none}.topb{gap:6px}}
 .inst em{font-style:normal}
@@ -101,6 +101,10 @@ html.light .kc,html.light .card,html.light .grp,html.light .bt,html.light .ib,ht
 html.light .kc.on{background:#FFF4F8}
 html.light .ptl i{background:linear-gradient(90deg,#FFC2D6,var(--rose))}
 html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
+.preg{text-align:center}
+.preg .lbl{display:block;font-size:16px;letter-spacing:2px;margin:-2px 0 12px}
+.preg>b{margin:0 0 10px}
+.preg .ptl{margin-left:4px;margin-right:4px}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -220,7 +224,7 @@ html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
  #root{max-width:1400px;padding:16px 36px 16px}
  .topb{margin-bottom:16px}.topb .ttl{font-size:34px}.topb .ttl img{width:40px;height:40px}
  .hero{padding:24px 28px}
- .preg>b{font-size:64px}.preg .lbl,.lbl2,.pleg{font-size:14px}.hero{padding:26px 30px} .hs b{font-size:56px}.hs span,.hs input{font-size:14px}.hs>div{padding:4px 22px}.hs>div:first-child{padding-left:4px}
+ .preg>b{font-size:64px}.lbl2,.pleg{font-size:14px}.preg .lbl{font-size:18px}.hero{padding:26px 30px} .hs b{font-size:56px}.hs span,.hs input{font-size:14px}.hs>div{padding:4px 22px}.hs>div:first-child{padding-left:4px}
  .kc{padding:18px 18px 16px}.kc .kn{font-size:46px}.kc .kn small{font-size:22px}.kc .kl{font-size:15px}.kc .ks{font-size:15px}
  .cols{column-count:2;column-gap:16px}.cgrid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}.bento{grid-template-columns:repeat(2,1fr);gap:14px}.bt b{font-size:40px}.cv{padding:22px 28px}.cvl>div{font-size:15px}.cvw{gap:40px}
  .cols .grp{margin-bottom:16px;display:inline-block;width:100%}
@@ -340,12 +344,12 @@ function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class
    <div class="ptl"><i style="width:${Math.min(100,ga/280*100)}%"></i><s style="left:${Math.min(100,ga/280*100)}%"></s></div>
    <span class="lbl2">Faltan <b style="display:inline;font-size:inherit;color:var(--tx)">${Math.max(0,days)} días</b> · ${due.toLocaleDateString('es-ES',{day:'numeric',month:'long'})}</span>
   </div>
-  <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?150:124;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" style="stroke:var(--card2)" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" style="stroke:var(--ok)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" style="fill:var(--ok)" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}<span>comprado</span></div></div>
+  <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?150:124;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" style="stroke:var(--card2)" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" style="stroke:var(--ok)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" style="fill:var(--ok)" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}</div></div>
   <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div>
   <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>`}
 function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
  const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days),gw=Math.floor(ga/7),gd=ga%7;
- $('#root').className='t-'+ui.tab;$('#root').innerHTML=`<div class="topb"><button class="ttl" data-a="drawer" title="Menú"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div><i class="dd">▾</i></button>
+ $('#root').className='t-'+ui.tab;$('#root').innerHTML=`<div class="topb"><button class="tlogo" data-a="drawer" title="Menú"><img src="logo-j.svg" alt=""></button><div class="ttl"><div><em class="ld">Lista de </em><span>Jimena</span></div><i class="bib">🍼</i></div>
  ${installBtn()}<button class="ib" data-a="theme" title="Modo claro / oscuro">${ui.light?'🌙':'☀️'}</button><button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
  ${ui.tab=='resumen'?heroHtml(st,pct,due,days,ga,gw,gd):''}
  <nav class="tabs ${ui.drawer?'open':''}"><div class="brand"><img src="logo-j.svg" alt=""><div>Lista de<br><span>Jimena</span></div></div>
