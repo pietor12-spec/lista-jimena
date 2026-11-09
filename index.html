@@ -69,6 +69,8 @@ nav .tb em{font-style:normal;font-size:21px}nav .tb.on{background:var(--card2);c
 nav .foot{margin-top:auto;font-size:13px;color:var(--mu)}
 nav .foot .btn{width:100%;margin-top:8px;font-size:14px;text-align:left}
 nav .foot #st2{padding:0 6px 4px;font-weight:800}nav .foot #st2.ok{color:var(--ok)}nav .foot #st2.off{color:var(--am)}
+.home .card{max-width:640px;margin:0 auto 14px}
+@media(min-width:1024px){.home .card{display:block;max-width:none;padding:24px 30px}.home .how{flex-direction:row;align-items:center;gap:40px}.home .how>div{flex:1}}
 .sect{font-size:13px;font-weight:900;color:var(--mu);text-transform:uppercase;letter-spacing:1.2px;margin:2px 2px 10px}
 #body{margin-top:14px}
 /* filtros + buscador */
@@ -195,7 +197,7 @@ const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k
 let S=null,token=LS.get(K.tok),sha=null,pending=LS.get(K.pend)=='1',busy=false,again=false,stS='',timer=null,deferRender=false,view='app';
 let ui={tab:(location.hash||'#compras').slice(1),filter:null,q:'',open:{},who:'Todos',sheet:null,del:false,menu:false,drawer:false};
 try{Object.assign(ui,JSON.parse(LS.get(K.ui)||'{}'),{sheet:null,del:false,menu:false,q:'',open:{},drawer:false})}catch(e){}
-if(!['compras','mochila','resumen'].includes(ui.tab))ui.tab='compras';
+ui.tab='resumen';
 try{S=JSON.parse(LS.get(K.data)||'null')}catch(e){}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -278,12 +280,7 @@ const eurS=n=>Math.round(n||0).toLocaleString('es-ES',{useGrouping:'always'})+'<
 function keepUi(){LS.set(K.ui,JSON.stringify({tab:ui.tab,filter:ui.filter,who:ui.who}))}
 function isOpen(k,forced){return forced||!!ui.open[k]}
 
-function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
- const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days),gw=Math.floor(ga/7),gd=ga%7;
- $('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
- <div class="ttl"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div></div>
- <span class="chipst" id="st"></span>${installBtn()}${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
- <div class="hero"><div class="h2">
+function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class="h2">
   <div class="preg" data-a="editpreg" title="Editar semanas">
    <span class="lbl">🤰 Embarazo <em>✎</em></span>
    <b>${days>0?`${gw}<small>s</small> ${gd}<small>d</small>`:'¡Ya está aquí!'}</b>
@@ -292,13 +289,19 @@ function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=
   </div>
   <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?132:104;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" stroke="#16244A" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" stroke="#00FFA3" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" fill="#00FFA3" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}<span>comprado</span></div></div>
   <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div>
-  <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>
+  <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>`}
+function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
+ const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days),gw=Math.floor(ga/7),gd=ga%7;
+ $('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
+ <div class="ttl"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div></div>
+ <span class="chipst" id="st"></span>${installBtn()}${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
+ ${ui.tab=='resumen'?heroHtml(st,pct,due,days,ga,gw,gd):''}
  <nav class="tabs ${ui.drawer?'open':''}"><div class="brand"><img src="logo-j.svg" alt=""><div>Lista de<br><span>Jimena</span></div></div>
- ${[['compras','🛒','Compras'],['mochila','🎒','Mochila'],['resumen','📊','Resumen']].map(([k,i,l])=>`<button class="tb ${ui.tab==k?'on':''}" data-a="tab" data-v="${k}"><em>${i}</em>${l}</button>`).join('')}
+ ${[['resumen','🏠','Resumen'],['compras','🛒','Compras'],['mochila','🎒','Mochila'],['analisis','📈','Análisis']].map(([k,i,l])=>`<button class="tb ${ui.tab==k?'on':''}" data-a="tab" data-v="${k}"><em>${i}</em>${l}</button>`).join('')}
  <div class="foot"><div id="st2"></div>${fsOk()?'<button class="btn ghost" data-a="fs">⛶ Pantalla completa</button>':''}<button class="btn ghost" data-a="share">🔗 Compartir</button><button class="btn ghost" data-a="lock">🔒 Bloquear este equipo</button></div></nav>
  <div class="scrim ${ui.drawer?'open':''}" data-a="drawer"></div>
  <div id="body"></div>${ui.sheet?sheetHtml():''}${ui.menu?menuHtml():''}`;
- ({compras,mochila,resumen})[ui.tab]();setSt(stS);}
+ ({resumen,compras,mochila,analisis})[ui.tab]();setSt(stS);}
 
 function compras(){const st=stats(),f=ui.filter;
  $('#body').innerHTML=`<div class="sect">🛒 Compras</div><div class="fbar"><div class="srch" style="flex:1 1 auto;max-width:520px;margin-left:0"><input id="q" placeholder="🔍 Buscar${desk()?' ( / )':''}" value="${esc(ui.q)}"><button class="btn" data-a="new">+ Añadir</button></div></div>
@@ -335,14 +338,17 @@ function mochila(){const M=live(S.bag),w=ui.who,its=M.filter(i=>w=='Todos'||i.wh
  <div class="grp"><div class="add"><input id="bn" placeholder="Añadir a la mochila…"><select id="bw">${WHO.map(x=>`<option ${w==x?'selected':''}>${x}</option>`).join('')}</select><button class="btn" data-a="bagadd">+</button></div></div></div>
  ${done?`<div style="text-align:center;margin-top:8px"><button class="btn ghost" data-a="bagreset">Desmarcar todo</button></div>`:''}`}
 
-function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,L=live(S.items),cs=cats(L);
+function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0;
+ $('#body').innerHTML=`<div class="kpis">${kc({c:'#E8EFFA',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:false,a:'gofilter',v:''})}${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:false,a:'gofilter',v:k})).join('')}</div>
+ <div class="home"><div class="card"><h3>🎯 ¿Cómo vamos?</h3><div class="how">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?200:170)}
+ <div style="width:100%">${ORDER.map(k=>`<div class="srow" style="--c:${COL[k]}"><span class="lb"><i style="background:${COL[k]}"></i>${k}</span><span></span><span class="vv">${eur(Math.round(st.by[k].eur))}<small>${st.by[k].n} cosas</small></span><span class="tr"><i style="width:${st.by[k].n/st.n*100}%"></i></span></div>`).join('')}</div></div></div>
+ </div>`}
+function analisis(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,L=live(S.items),cs=cats(L);
  const sp=a=>a.filter(i=>i.status=='Comprado'||i.status=='Pedido').reduce((s,i)=>s+(+i.price||0),0);
  const money=cs.map(([c,a])=>[c,sp(a)]).sort((x,y)=>y[1]-x[1]),maxE=Math.max(1,...money.map(m=>m[1])),tot=st.by.Comprado.eur+st.by.Pedido.eur;
  const pend=cs.map(([c,a])=>{const v=a.filter(i=>i.status=='Visto'),n=a.filter(i=>i.status=='No visto');return [c,v.length,n.length,v.reduce((s,i)=>s+(+i.price||0),0)]}).filter(x=>x[1]+x[2]>0).sort((x,y)=>(y[1]+y[2])-(x[1]+x[2]));
  const maxP=Math.max(1,...pend.map(x=>x[1]+x[2])),rem=st.by.Visto.n+st.by['No visto'].n;
- $('#body').innerHTML=`<div class="sect">📊 Resumen</div><div class="rgrid">
- <div class="card"><h3>🎯 ¿Cómo vamos?</h3><div class="how">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?200:170)}
- <div style="width:100%">${ORDER.map(k=>`<div class="srow" style="--c:${COL[k]}"><span class="lb"><i style="background:${COL[k]}"></i>${k}</span><span></span><span class="vv">${eur(Math.round(st.by[k].eur))}<small>${st.by[k].n} cosas</small></span><span class="tr"><i style="width:${st.by[k].n/st.n*100}%"></i></span></div>`).join('')}</div></div></div>
+ $('#body').innerHTML=`<div class="sect">📈 Análisis</div><div class="rgrid">
  <div class="card"><h3>💶 Dinero</h3><div class="money"><b>${eur(Math.round(tot))}</b><span>Total invertido (comprado + pedido)</span></div>
  <div style="margin-top:14px">${money.map(([c,e])=>`<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar"><i style="width:${e/maxE*100}%;background:linear-gradient(90deg,var(--ok),var(--cy))"></i></div><span class="r" style="color:${e?'var(--tx)':'var(--mu)'}">${eur(Math.round(e))}</span></div>`).join('')}</div></div>
  <div class="card"><h3>🛍️ Lo que os queda</h3>
@@ -378,6 +384,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!
  else if(a=='drawer'){ui.drawer=!ui.drawer;$('nav.tabs').classList.toggle('open',ui.drawer);$('.scrim').classList.toggle('open',ui.drawer)}
  else if(a=='fs'){const d=document,E=d.documentElement;try{if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d);else (E.requestFullscreen||E.webkitRequestFullscreen).call(E)}catch(x){toast('Este navegador no deja pantalla completa')}if(ui.menu){ui.menu=false;render()}}
  else if(a=='share')share();
+ else if(a=='gofilter'){ui.tab='compras';ui.filter=v||null;ui.q='';render();scrollTo(0,0)}
  else if(a=='editpreg')pregSheet();
  else if(a=='install')doInstall();
  else if(a=='sync'){ui.menu=false;render();sync()}
