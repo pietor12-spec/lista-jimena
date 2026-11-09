@@ -35,7 +35,8 @@ button{font-family:inherit}
 .ib:hover{background:var(--card2)}
 .ham{display:grid}
 .ttl .ld{font-style:normal}@media(max-width:480px){.ttl .ld{display:none}}
-@media(max-width:480px){.inst{font-size:0;width:38px;padding:0}.inst:before{content:'⬇';font-size:17px}.topb{gap:6px}}
+@media(max-width:480px){.inst{width:38px;padding:0;font-size:16px}.inst em{display:none}.topb{gap:6px}}
+.inst em{font-style:normal}
 .inst{flex:none;height:38px;border:0;border-radius:12px;padding:0 12px;background:var(--card2);color:var(--mu);font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap}
 .inst.ready{background:var(--rose);color:#3A0D1A;animation:pulse 2s infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 6px rgba(255,143,171,.25)}}
@@ -72,6 +73,20 @@ nav .foot .btn{width:100%;margin-top:8px;font-size:14px;text-align:left}
 nav .foot #st2{padding:0 6px 4px;font-weight:800}nav .foot #st2.ok{color:var(--ok)}nav .foot #st2.off{color:var(--am)}
 .home .card{max-width:640px;margin:0 auto 14px}
 @media(min-width:1024px){.home .card{display:block;max-width:none;padding:24px 30px}.home .how{flex-direction:row;align-items:center;gap:40px}.home .how>div{flex:1}}
+#root{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+#body{flex:1 1 auto;display:flex;flex-direction:column}
+#root.t-resumen .hero{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;min-height:250px}
+#root.t-resumen #body{flex:1.4 1 auto}
+#root.t-resumen .preg>b{font-size:58px}
+#root.t-resumen .h2{gap:10px}
+#root.t-resumen .bento,#root.t-resumen .kpis{flex:none}
+.cv{flex:1 1 auto;display:flex;flex-direction:column;margin-bottom:0}.cv .cvw{flex:1;justify-content:center}
+.cvl>div{padding:6px 0;font-size:15px}.cvl{max-width:460px}
+@media(min-width:1024px){#root.t-resumen .hero{flex:0 0 auto;min-height:0}#root.t-resumen .preg>b{font-size:64px}}
+.cgrid{flex:1 0 auto;grid-auto-rows:minmax(min-content,1fr)}
+.cgrid .grp.closed{display:flex;flex-direction:column;justify-content:center}
+.cgrid.one{grid-template-columns:1fr!important}
+.cgrid.one .grp.closed .gh .n{font-size:15px}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -218,7 +233,7 @@ const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k
 let S=null,token=LS.get(K.tok),sha=null,pending=LS.get(K.pend)=='1',busy=false,again=false,stS='',timer=null,deferRender=false,view='app';
 let ui={tab:(location.hash||'#compras').slice(1),filter:null,q:'',open:{},who:'Todos',sheet:null,del:false,menu:false,drawer:false};
 try{Object.assign(ui,JSON.parse(LS.get(K.ui)||'{}'),{sheet:null,del:false,menu:false,q:'',open:{},drawer:false})}catch(e){}
-ui.tab='resumen';
+ui.tab='resumen';ui.filter=null;ui.who='Todos';ui.open={};
 try{S=JSON.parse(LS.get(K.data)||'null')}catch(e){}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -308,12 +323,12 @@ function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class
    <div class="ptl"><i style="width:${Math.min(100,ga/280*100)}%"></i><s style="left:${Math.min(100,ga/280*100)}%"></s></div>
    <span class="lbl2">Faltan <b style="display:inline;font-size:inherit;color:var(--tx)">${Math.max(0,days)} días</b> · ${due.toLocaleDateString('es-ES',{day:'numeric',month:'long'})}</span>
   </div>
-  <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?132:104;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" stroke="#16244A" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" stroke="#00FFA3" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" fill="#00FFA3" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}<span>comprado</span></div></div>
+  <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?150:124;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" stroke="#16244A" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" stroke="#00FFA3" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" fill="#00FFA3" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}<span>comprado</span></div></div>
   <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div>
   <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>`}
 function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
  const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days),gw=Math.floor(ga/7),gd=ga%7;
- $('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
+ $('#root').className='t-'+ui.tab;$('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
  <div class="ttl"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div></div>
  <span class="chipst" id="st"></span>${installBtn()}${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
  ${ui.tab=='resumen'?heroHtml(st,pct,due,days,ga,gw,gd):''}
@@ -332,8 +347,8 @@ function compras(){const st=stats(),f=ui.filter;
 function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
  const its=L.filter(i=>(!ui.filter||i.status==ui.filter)&&(!q||(i.name+' '+i.brand+' '+i.cat).toLowerCase().includes(q)));
  if(!its.length){$('#list').innerHTML='<div class="empty">Nada por aquí ✨</div>';return}
- $('#list').innerHTML=cats(its).map(([c,arr])=>{const all=L.filter(i=>i.cat==c),cnt={};all.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);const open=isOpen(c,q||ui.filter);
-  return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(c)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${ui.filter?arr.length+' · ':''}${cnt.Comprado||0}/${all.length}</span><span class="mini">${segBar(cnt,all.length)}</span><span class="chev">▾</span></div>
+ $('#list').innerHTML=cats(its).map(([c,arr])=>{const all=L.filter(i=>i.cat==c),cnt={};all.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);const open=isOpen(c,q);
+  return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(c)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${ui.filter?arr.length:`${cnt.Comprado||0}/${all.length}`}</span><span class="mini">${segBar(cnt,all.length)}</span><span class="chev">▾</span></div>
   <div class="items">${open?arr.sort((a,b)=>ORDER.indexOf(a.status)-ORDER.indexOf(b.status)||a.name.localeCompare(b.name,'es')).map(row).join(''):''}</div></div>`}).join('')}
 function row(i){const on=i.status=='Comprado';
  return `<div class="it ${on?'done':''}" data-a="edit" data-v="${i.id}"><div class="ck ${on?'on':''}" data-a="check" data-v="${i.id}">${on?'✓':''}</div>
@@ -354,9 +369,9 @@ function menuHtml(){return `<div class="ov" data-a="close"><div class="sh menu" 
 
 function mochila(){const M=live(S.bag),w=ui.who,its=M.filter(i=>w=='Todos'||i.who==w),done=M.filter(i=>i.done).length;
  $('#body').innerHTML=`<div class="secth"><div class="sect">🎒 Mochila del hospital <b>${done}/${M.length}</b></div><button class="btn" data-a="bagnew">+ Añadir</button></div>
- <div class="kpis k4">${WHO.map(x=>{const a=M.filter(i=>i.who==x),d=a.filter(i=>i.done).length,p=a.length?d/a.length:0;return kc({c:WCOL[x],n:`${d}<small>/${a.length}</small>`,l:x,s:Math.round(p*100)+'% listo',p,on:w==x,a:'who',v:x})}).join('')}</div>
- ${w!='Todos'?`<div class="note" style="margin:-6px 2px 10px">Viendo solo <b style="color:${WCOL[w]}">${w}</b>. Toca otra vez su tarjeta para ver todo.</div>`:''}
- <div class="cgrid">${cats(its).map(([c,arr])=>{const k='m:'+c,open=isOpen(k,false),d=arr.filter(i=>i.done).length;return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(k)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${d}/${arr.length}</span><span class="mini"><i style="width:${d/arr.length*100}%;background:var(--rose)"></i></span><span class="chev">▾</span></div><div class="items">${open?arr.map(i=>`<div class="it ${i.done?'done':''}" data-a="bag" data-v="${i.id}"><div class="ck pk ${i.done?'on':''}">${i.done?'✓':''}</div><div class="t"><div>${esc(i.name)}</div><small style="color:${WCOL[i.who]||'var(--mu)'}">${i.who}</small></div><button class="x" data-a="bagdel" data-v="${i.id}" title="Quitar">×</button></div>`).join(''):''}</div></div>`}).join('')}</div>
+ <div class="kpis">${kc({c:'#E8EFFA',n:`${done}<small>/${M.length}</small>`,l:'Todos',s:Math.round((M.length?done/M.length:0)*100)+'% listo',p:M.length?done/M.length:0,on:w=='Todos',a:'who',v:'Todos'})}${WHO.map(x=>{const a=M.filter(i=>i.who==x),d=a.filter(i=>i.done).length,p=a.length?d/a.length:0;return kc({c:WCOL[x],n:`${d}<small>/${a.length}</small>`,l:x,s:Math.round(p*100)+'% listo',p,on:w==x,a:'who',v:x})}).join('')}</div>
+ 
+ <div class="cgrid one">${cats(its).map(([c,arr])=>{const k='m:'+c,open=isOpen(k,false),d=arr.filter(i=>i.done).length;return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(k)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${d}/${arr.length}</span><span class="mini"><i style="width:${d/arr.length*100}%;background:var(--rose)"></i></span><span class="chev">▾</span></div><div class="items">${open?arr.map(i=>`<div class="it ${i.done?'done':''}" data-a="bag" data-v="${i.id}"><div class="ck pk ${i.done?'on':''}">${i.done?'✓':''}</div><div class="t"><div>${esc(i.name)}</div><small style="color:${WCOL[i.who]||'var(--mu)'}">${i.who}</small></div><button class="x" data-a="bagdel" data-v="${i.id}" title="Quitar">×</button></div>`).join(''):''}</div></div>`}).join('')}</div>
  ${done?`<div style="text-align:center;margin-top:12px"><button class="btn ghost" data-a="bagreset">Desmarcar todo</button></div>`:''}`}
 function bagSheet(){const cs=[...new Set(live(S.bag).map(i=>i.cat))].sort((a,b)=>a.localeCompare(b,'es'));
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🎒 Añadir a la mochila</h3>
@@ -369,15 +384,14 @@ function bagSheet(){const cs=[...new Set(live(S.bag).map(i=>i.cat))].sort((a,b)=
  d.querySelector('#bok').onclick=ok;d.querySelector('#bn').onkeydown=e=>{if(e.key=='Enter')ok()};setTimeout(()=>d.querySelector('#bn').focus(),50)}
 
 function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,M=live(S.bag),md=M.filter(i=>i.done).length,mp=M.length?md/M.length:0,inv=st.by.Comprado.eur+st.by.Pedido.eur;
- const got=st.by.Comprado.n+st.by.Pedido.n;
- $('#body').innerHTML=`<div class="kpis">${kc({c:'#E8EFFA',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:false,a:'gofilter',v:''})}${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:false,a:'gofilter',v:k})).join('')}</div>
+  $('#body').innerHTML=`<div class="kpis">${kc({c:'#E8EFFA',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:false,a:'gofilter',v:''})}${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:false,a:'gofilter',v:k})).join('')}</div>
  <div class="bento">
   <div class="bt" data-a="tab" data-v="analisis" style="--c:var(--cy)"><span>💶 Invertido</span><b>${eurS(inv)}</b><small>comprado + pedido</small></div>
   <div class="bt" data-a="tab" data-v="mochila" style="--c:var(--rose)"><span>🎒 Mochila</span><b>${md}<small style="font-size:.55em;color:var(--mu)">/${M.length}</small></b><div class="btbar"><i style="width:${mp*100}%"></i></div></div>
  </div>
- <div class="card cv"><h3>🎯 ¿Cómo vamos?</h3><div class="cvw">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?170:118)}
+ <div class="card cv"><h3>🎯 ¿Cómo vamos?</h3><div class="cvw">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?190:150)}
   <div class="cvl">${ORDER.map(k=>`<div><i style="background:${COL[k]}"></i>${k}<b style="color:${COL[k]}">${Math.round(st.by[k].n/st.n*100)}%</b></div>`).join('')}
-  <div class="cvt">Conseguido (comprado + pedido): <b>${Math.round(got/st.n*100)}%</b></div></div></div></div>`}
+  </div></div></div>`}
 
 function analisis(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,L=live(S.items),cs=cats(L);
  const sp=a=>a.filter(i=>i.status=='Comprado'||i.status=='Pedido').reduce((s,i)=>s+(+i.price||0),0);
@@ -400,8 +414,8 @@ async function share(){const url=location.origin+location.pathname;const txt='Li
  try{await navigator.clipboard.writeText(txt);toast('Enlace copiado. Pásale también la contraseña.')}catch(e){toast(url)}}
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!el)return;const a=el.dataset.a,v=el.dataset.v;if(a=='none')return;if(a!='del')ui.del=false;
  const it=()=>S.items.find(x=>x.id==v),bg=()=>S.bag.find(x=>x.id==v);
- if(a=='tab'){ui.tab=v;ui.drawer=false;history.replaceState(null,'','#'+v);render();scrollTo(0,0)}
- else if(a=='filter'){ui.filter=(!v||ui.filter==v)?null:v;compras()}
+ if(a=='tab'){ui.tab=v;ui.drawer=false;ui.filter=null;ui.who='Todos';ui.open={};ui.q='';history.replaceState(null,'','#'+v);render();scrollTo(0,0)}
+ else if(a=='filter'){ui.filter=(!v||ui.filter==v)?null:v;ui.open={};compras()}
  else if(a=='grp'){ui.open[v]=!ui.open[v];ui.tab=='mochila'?mochila():list()}
  else if(a=='check'){e.stopPropagation();const i=it();if(i.status=='Comprado')i.status=i.prev||'No visto';else{i.prev=i.status;i.status='Comprado'}persist(i);render()}
  else if(a=='edit'){ui.sheet=JSON.parse(JSON.stringify(it()));render()}
@@ -411,7 +425,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!
  else if(a=='savesheet')closeSheet(true);
  else if(a=='del'){if(!ui.del){ui.del=true;el.textContent='¿Seguro? Toca otra vez';return}const i=S.items.find(x=>x.id==ui.sheet.id);i.del=true;persist(i);ui.sheet=null;ui.del=false;render()}
  else if(a=='gocat'){ui.tab='compras';ui.filter=null;ui.q='';ui.open={[v]:true};history.replaceState(null,'','#compras');render();scrollTo(0,0)}
- else if(a=='who'){ui.who=(ui.who==v&&el.classList.contains('kc'))?'Todos':v;mochila()}
+ else if(a=='who'){ui.who=(ui.who==v&&el.classList.contains('kc')&&v!='Todos')?'Todos':v;ui.open={};mochila()}
  else if(a=='bag'){const i=bg();i.done=!i.done;persist(i);mochila()}
  else if(a=='bagdel'){e.stopPropagation();const i=bg();i.del=true;persist(i);mochila()}
  else if(a=='bagadd'){const n=$('#bn').value.trim();if(!n)return;const w=$('#bw').value,i={id:'b'+Date.now().toString(36),cat:w=='Acompañante'?'Acompañante':'Extras',who:w,name:n,done:false};S.bag.push(i);persist(i);mochila();setTimeout(()=>$('#bn')&&$('#bn').focus(),0)}
@@ -440,7 +454,7 @@ let lastDesk=desk();addEventListener('resize',()=>{if(desk()!=lastDesk){lastDesk
 /* ---------- instalar ---------- */
 let bip=null;
 const standalone=()=>matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches||navigator.standalone===true;
-function installBtn(){return standalone()?'':`<button class="inst" data-a="install">⬇ Instalar</button>`}
+function installBtn(){return standalone()?'':`<button class="inst" data-a="install">⬇<em> Instalar</em></button>`}
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();bip=e;document.querySelectorAll('.inst').forEach(b=>b.classList.add('ready'))});
 addEventListener('appinstalled',()=>{bip=null;toast('¡Instalada! Búscala en tu pantalla de inicio 🎉');safeRender()});
 async function doInstall(){ui.menu=false;
