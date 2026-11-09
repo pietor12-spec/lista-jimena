@@ -1,16 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <defs>
 <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D3163"/><stop offset="1" stop-color="#091127"/></linearGradient>
-<linearGradient id="moon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD3DE"/><stop offset=".55" stop-color="#FF8FAB"/><stop offset="1" stop-color="#F0607F"/></linearGradient>
-<linearGradient id="chk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00FFA3"/><stop offset="1" stop-color="#00F0FF"/></linearGradient>
-<radialGradient id="glow" cx=".42" cy=".46" r=".5"><stop offset="0" stop-color="#FF8FAB" stop-opacity=".45"/><stop offset="1" stop-color="#FF8FAB" stop-opacity="0"/></radialGradient>
-<mask id="cres"><rect width="512" height="512" fill="#fff"/><circle cx="318" cy="196" r="128" fill="#000"/></mask>
+<linearGradient id="jg" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#FFD3DE"/><stop offset=".5" stop-color="#FF8FAB"/><stop offset="1" stop-color="#EE5A7E"/></linearGradient>
+<radialGradient id="glow" cx=".45" cy=".55" r=".5"><stop offset="0" stop-color="#FF8FAB" stop-opacity=".4"/><stop offset="1" stop-color="#FF8FAB" stop-opacity="0"/></radialGradient>
+<radialGradient id="skin" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#FFF1E8"/><stop offset="1" stop-color="#FFD2BC"/></radialGradient>
+<linearGradient id="bl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00FFA3"/><stop offset="1" stop-color="#00F0FF"/></linearGradient>
 </defs>
 <rect width="512" height="512" fill="url(#bg)"/>
-<circle cx="236" cy="262" r="210" fill="url(#glow)"/>
-<circle cx="236" cy="262" r="146" fill="url(#moon)" mask="url(#cres)"/>
-<path d="M262 300 L306 344 L404 236" fill="none" stroke="url(#chk)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M370 96 Q370 128 402 128 Q370 128 370 160 Q370 128 338 128 Q370 128 370 96Z" fill="#fff"/>
-<path d="M428 168 Q428 184 444 184 Q428 184 428 200 Q428 184 412 184 Q428 184 428 168Z" fill="#FFD3DE"/>
-<path d="M150 118 Q150 130 162 130 Q150 130 150 142 Q150 130 138 130 Q150 130 150 118Z" fill="#00F0FF" opacity=".8"/>
+<circle cx="250" cy="270" r="220" fill="url(#glow)"/><g transform="translate(22 4)">
+<!-- J -->
+<path d="M236 104 H372 M330 104 V300 A118 118 0 0 1 94 300" fill="none" stroke="url(#jg)" stroke-width="62" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- manta -->
+<path d="M140 318 Q212 366 284 318 Q276 382 212 388 Q148 382 140 318Z" fill="url(#bl)" opacity=".95"/>
+<!-- cabeza bebé -->
+<circle cx="212" cy="276" r="58" fill="url(#skin)"/>
+<path d="M200 220 Q212 196 232 210 Q218 206 214 222" fill="none" stroke="#C98A6B" stroke-width="7" stroke-linecap="round"/>
+<path d="M184 276 Q193 284 202 276" fill="none" stroke="#5B3A35" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M222 276 Q231 284 240 276" fill="none" stroke="#5B3A35" stroke-width="5.5" stroke-linecap="round"/>
+<circle cx="180" cy="294" r="10" fill="#FF8FAB" opacity=".55"/><circle cx="244" cy="294" r="10" fill="#FF8FAB" opacity=".55"/>
+<path d="M204 302 Q212 309 220 302" fill="none" stroke="#C9606F" stroke-width="5" stroke-linecap="round"/>
+</g><!-- estrellas -->
+<path d="M420 170 Q420 200 450 200 Q420 200 420 230 Q420 200 390 200 Q420 200 420 170Z" fill="#fff"/>
+<path d="M118 120 Q118 134 132 134 Q118 134 118 148 Q118 134 104 134 Q118 134 118 120Z" fill="#00F0FF" opacity=".85"/>
+<path d="M430 300 Q430 312 442 312 Q430 312 430 324 Q430 312 418 312 Q430 312 430 300Z" fill="#FFD3DE"/>
 </svg>
