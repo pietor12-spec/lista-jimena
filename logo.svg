@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D3163"/><stop offset="1" stop-color="#091127"/></linearGradient>
+<linearGradient id="moon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD3DE"/><stop offset=".55" stop-color="#FF8FAB"/><stop offset="1" stop-color="#F0607F"/></linearGradient>
+<linearGradient id="chk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00FFA3"/><stop offset="1" stop-color="#00F0FF"/></linearGradient>
+<radialGradient id="glow" cx=".42" cy=".46" r=".5"><stop offset="0" stop-color="#FF8FAB" stop-opacity=".45"/><stop offset="1" stop-color="#FF8FAB" stop-opacity="0"/></radialGradient>
+<mask id="cres"><rect width="512" height="512" fill="#fff"/><circle cx="318" cy="196" r="128" fill="#000"/></mask>
+</defs>
+<rect width="512" height="512" fill="url(#bg)"/>
+<circle cx="236" cy="262" r="210" fill="url(#glow)"/>
+<circle cx="236" cy="262" r="146" fill="url(#moon)" mask="url(#cres)"/>
+<path d="M262 300 L306 344 L404 236" fill="none" stroke="url(#chk)" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M370 96 Q370 128 402 128 Q370 128 370 160 Q370 128 338 128 Q370 128 370 96Z" fill="#fff"/>
+<path d="M428 168 Q428 184 444 184 Q428 184 428 200 Q428 184 412 184 Q428 184 428 168Z" fill="#FFD3DE"/>
+<path d="M150 118 Q150 130 162 130 Q150 130 150 142 Q150 130 138 130 Q150 130 150 118Z" fill="#00F0FF" opacity=".8"/>
+</svg>
