@@ -203,7 +203,7 @@ nav .foot #st2{padding:0 6px 4px;font-weight:800}nav .foot #st2.ok{color:var(--o
 /* ===== ordenador ===== */
 @media(min-width:1024px){
  html,body{font-size:16px}
- #root{max-width:1400px;padding:22px 36px 40px}
+ #root{max-width:1400px;padding:16px 36px 16px}
  .topb{margin-bottom:16px}.topb .ttl{font-size:34px}.topb .ttl img{width:40px;height:40px}
  .hero{padding:24px 28px}
  .preg>b{font-size:64px}.preg .lbl,.lbl2,.pleg{font-size:14px}.hero{padding:26px 30px} .hs b{font-size:56px}.hs span,.hs input{font-size:14px}.hs>div{padding:4px 22px}.hs>div:first-child{padding-left:4px}
@@ -389,7 +389,7 @@ function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0
   <div class="bt" data-a="tab" data-v="analisis" style="--c:var(--cy)"><span>💶 Invertido</span><b>${eurS(inv)}</b><small>comprado + pedido</small></div>
   <div class="bt" data-a="tab" data-v="mochila" style="--c:var(--rose)"><span>🎒 Mochila</span><b>${md}<small style="font-size:.55em;color:var(--mu)">/${M.length}</small></b><div class="btbar"><i style="width:${mp*100}%"></i></div></div>
  </div>
- <div class="card cv"><h3>🎯 ¿Cómo vamos?</h3><div class="cvw">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?190:150)}
+ <div class="card cv"><h3>🎯 ¿Cómo vamos?</h3><div class="cvw">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?150:150)}
   <div class="cvl">${ORDER.map(k=>`<div><i style="background:${COL[k]}"></i>${k}<b style="color:${COL[k]}">${Math.round(st.by[k].n/st.n*100)}%</b></div>`).join('')}
   </div></div></div>`}
 
