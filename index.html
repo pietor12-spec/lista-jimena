@@ -34,6 +34,10 @@ button{font-family:inherit}
 .ib{width:38px;height:38px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:17px;display:grid;place-items:center;cursor:pointer}
 .ib:hover{background:var(--card2)}
 .ham{display:none}
+.ttl .ld{font-style:normal}@media(max-width:480px){.ttl .ld{display:none}}
+.inst{flex:none;height:38px;border:0;border-radius:12px;padding:0 12px;background:var(--card2);color:var(--mu);font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap}
+.inst.ready{background:var(--rose);color:#3A0D1A;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(255,143,171,.25)}}
 .chipst{font-size:11px;font-weight:800;color:var(--mu);white-space:nowrap}
 .chipst.ok{color:var(--ok)}.chipst.off{color:var(--am)}
 /* hero */
@@ -243,7 +247,7 @@ async function gate(mode){view=mode;const V=mode=='unlock'?await getVault():null
  ${mode=='unlock'?`<div class="note">Escribe la contraseña de la familia</div><input id="pw" type="password" autocomplete="current-password" placeholder="Contraseña"><button class="btn rose" id="go">Entrar</button>`
  :`<div class="note">Primera configuración. El token de GitHub necesita <b>Contents: Read and write</b> en lista-jimena y lista-jimena-data.</div>
  <input id="tk" type="password" placeholder="Token de GitHub" autocomplete="off"><input id="p1" type="password" placeholder="Contraseña nueva (mín. 8)" autocomplete="new-password"><input id="p2" type="password" placeholder="Repite la contraseña" autocomplete="new-password"><button class="btn rose" id="go">Guardar y entrar</button>`}
- <div class="err" id="err"></div>${mode=='unlock'?'<a id="re">Configurar de nuevo</a>':(V!==null?'':'')}</div></div>`;
+ <div class="err" id="err"></div>${standalone()?'':'<a data-a="install" style="display:block">⬇ Instalar la app en este móvil</a>'}${mode=='unlock'?'<a id="re">Configurar de nuevo</a>':(V!==null?'':'')}</div></div>`;
  const err=t=>$('#err').textContent=t;
  if($('#re'))$('#re').onclick=()=>gate('setup');
  const go=async()=>{const b=$('#go');b.disabled=true;err('');
@@ -276,8 +280,8 @@ function isOpen(k,forced){return forced||!!ui.open[k]}
 function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
  const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5);
  $('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
- <div class="ttl"><img src="logo-j.svg" alt=""><div>Lista de <span>Jimena</span></div></div>
- <span class="chipst" id="st"></span>${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
+ <div class="ttl"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div></div>
+ <span class="chipst" id="st"></span>${installBtn()}${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
  <div class="hero"><div class="hs">
   <div><b style="color:var(--rose)">${days>0?days:'¡Ya!'}</b><span>días para conocerla</span><input type="date" id="due" value="${S.due||''}" title="Cambiar fecha prevista"></div>
   <div><b style="color:var(--ok)">${pct}<small style="font-size:.55em">%</small></b><span>comprado · ${bought} de ${st.n}</span></div>
@@ -316,7 +320,7 @@ function sheetHtml(){const i=ui.sheet,allC=[...new Set(live(S.items).map(x=>x.ca
  <label>Estado</label><div class="seg">${ORDER.map(k=>`<button data-a="st" data-v="${k}" style="${i.status==k?`background:${COL[k]};color:#08142A;border-color:${COL[k]}`:''}">${k}</button>`).join('')}</div>
  <div class="acts">${i._new?'':`<button class="btn danger" data-a="del">Borrar</button>`}<button class="btn" data-a="savesheet">Guardar</button></div></div></div>`}
 function menuHtml(){return `<div class="ov" data-a="close"><div class="sh menu" data-a="none"><h3>Ajustes</h3><div class="note">${$('#st')?$('#st').textContent:''}</div>
- ${fsOk()?'<button class="btn ghost" data-a="fs">⛶ Pantalla completa</button>':''}<button class="btn ghost" data-a="share">🔗 Compartir con la familia</button><button class="btn ghost" data-a="sync">🔄 Sincronizar ahora</button><button class="btn ghost" data-a="lock">🔒 Bloquear este dispositivo</button>
+ ${fsOk()?'<button class="btn ghost" data-a="fs">⛶ Pantalla completa</button>':''}${standalone()?'':'<button class="btn rose" data-a="install">⬇ Instalar app</button>'}<button class="btn ghost" data-a="share">🔗 Compartir con la familia</button><button class="btn ghost" data-a="sync">🔄 Sincronizar ahora</button><button class="btn ghost" data-a="lock">🔒 Bloquear este dispositivo</button>
  <div class="note">Para tenerla como app: en iPhone, Safari → Compartir → «Añadir a pantalla de inicio». En Android, Chrome → ⋮ → «Instalar app».</div></div></div>`}
 
 function mochila(){const M=live(S.bag),w=ui.who,its=M.filter(i=>w=='Todos'||i.who==w),done=M.filter(i=>i.done).length;
@@ -372,6 +376,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!
  else if(a=='drawer'){ui.drawer=!ui.drawer;$('nav.tabs').classList.toggle('open',ui.drawer);$('.scrim').classList.toggle('open',ui.drawer)}
  else if(a=='fs'){const d=document,E=d.documentElement;try{if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d);else (E.requestFullscreen||E.webkitRequestFullscreen).call(E)}catch(x){toast('Este navegador no deja pantalla completa')}if(ui.menu){ui.menu=false;render()}}
  else if(a=='share')share();
+ else if(a=='install')doInstall();
  else if(a=='sync'){ui.menu=false;render();sync()}
  else if(a=='lock'){if(el.dataset.c!='1'){el.dataset.c='1';el.textContent='¿Seguro? Pedirá la contraseña';return}lock()}
 });
@@ -384,6 +389,23 @@ document.addEventListener('keydown',e=>{const tg=e.target.tagName;
  else if(e.key=='Escape'&&(ui.sheet||ui.menu||ui.drawer)){ui.sheet=null;ui.menu=false;ui.drawer=false;render()}
  else if(e.key=='/'&&tg!='INPUT'&&view=='app'){if(ui.tab!='compras'){ui.tab='compras';render()}e.preventDefault();$('#q')&&$('#q').focus()}});
 let lastDesk=desk();addEventListener('resize',()=>{if(desk()!=lastDesk){lastDesk=desk();safeRender()}});
+
+/* ---------- instalar ---------- */
+let bip=null;
+const standalone=()=>matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches||navigator.standalone===true;
+function installBtn(){return standalone()?'':`<button class="inst" data-a="install">⬇ Instalar</button>`}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();bip=e;document.querySelectorAll('.inst').forEach(b=>b.classList.add('ready'))});
+addEventListener('appinstalled',()=>{bip=null;toast('¡Instalada! Búscala en tu pantalla de inicio 🎉');safeRender()});
+async function doInstall(){ui.menu=false;
+ if(bip){try{bip.prompt();const r=await bip.userChoice;if(r.outcome==='accepted'){bip=null;toast('Instalando…')}}catch(e){showHelp()}return}
+ showHelp()}
+function showHelp(){const ios=/iphone|ipad/i.test(navigator.userAgent),inapp=/wv\)|FBAN|FBAV|Instagram|WhatsApp/i.test(navigator.userAgent);
+ const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>⬇ Instalar Lista de Jimena</h3>
+ ${inapp?'<div class="note" style="color:var(--am);font-weight:800">Estás dentro de otra app. Abre este enlace en Chrome primero.</div>':''}
+ ${ios?`<div class="note" style="font-size:14px">1. Ábrela en <b>Safari</b>.<br>2. Pulsa <b>Compartir</b> (el cuadrado con flecha).<br>3. Elige <b>«Añadir a pantalla de inicio»</b>.</div>`
+ :`<div class="note" style="font-size:14px">Chrome todavía no ofrece instalarla en este móvil. Prueba:<br>1. Pulsa <b>⋮</b> arriba a la derecha.<br>2. Elige <b>«Añadir a pantalla de inicio»</b> → <b>Crear acceso directo</b> o <b>Instalar</b>.<br><br>Si sale «No se ha podido abrir la aplicación», en Ajustes → Aplicaciones → Chrome → Permisos, activa <b>«Accesos directos en pantalla de inicio»</b>.</div>`}
+ <div class="acts"><button class="btn" data-a="closehelp">Entendido</button></div></div>`;document.body.appendChild(d)}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-a=closehelp]');if(el&&(e.target===el||el.tagName=='BUTTON'))document.querySelectorAll('.ov').forEach(o=>{if(o.dataset.a=='closehelp')o.remove()})});
 
 /* ---------- arranque ---------- */
 const t0=Date.now();
