@@ -390,5 +390,5 @@ const t0=Date.now();
 async function boot(){if(token&&S){view='app';render();sync()}else if(token){try{await enter(token)}catch(e){await gate('unlock')}}else await gate('unlock');
  setTimeout(()=>$('#splash').classList.add('out'),Math.max(0,2600-(Date.now()-t0)))}
 boot();
-if('serviceWorker' in navigator&&location.protocol=='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol=='https:')navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).catch(()=>{});
 </script></body></html>
