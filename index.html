@@ -218,8 +218,8 @@ async function gate(mode){view=mode;const V=mode=='unlock'?await getVault():null
  if($('#re'))$('#re').onclick=()=>gate('setup');
  const go=async()=>{const b=$('#go');b.disabled=true;err('');
   try{if(mode=='unlock'){const pw=$('#pw').value;if(!pw)throw 'Escribe la contraseña';let tk;try{tk=await unseal(V,pw)}catch(e){throw 'Contraseña incorrecta'}await enter(tk)}
-  else{const tk=$('#tk').value.trim(),p1=$('#p1').value,p2=$('#p2').value;if(!tk)throw 'Falta el token';if(p1.length<8)throw 'La contraseña necesita 8 caracteres o más';if(p1!==p2)throw 'Las contraseñas no coinciden';
-   const t=await gh(`/repos/${OWNER}/${DATA_REPO}`,{},tk);if(!t.ok)throw 'El token no llega a lista-jimena-data ('+t.status+')';
+  else{const tk=$('#tk').value.trim(),p1=$('#p1').value,p2=$('#p2').value;if(!tk)throw 'Falta el token';if(!/^(github_pat_|ghp_)[A-Za-z0-9_]{20,}$/.test(tk))throw 'Eso no parece un token. Debe empezar por github_pat_ y no llevar espacios.';if(p1.length<8)throw 'La contraseña necesita 8 caracteres o más';if(p1!==p2)throw 'Las contraseñas no coinciden';
+   const t=await gh(`/repos/${OWNER}/${DATA_REPO}`,{},tk);if(t.status==401)throw 'GitHub no reconoce ese token. Cópialo con el botón de copiar, junto al token.';if(!t.ok)throw 'El token no tiene acceso a lista-jimena-data ('+t.status+'). Revisa los repos elegidos.';
    const vault=await seal(tk,p1);const vp=`/repos/${OWNER}/${APP_REPO}/contents/vault.json`;const old=await gh(vp,{},tk);const osha=old.ok?(await old.json()).sha:null;
    const w=await gh(vp,{method:'PUT',body:JSON.stringify({message:'Lista de Jimena: acceso',content:b64e(JSON.stringify(vault)),...(osha?{sha:osha}:{})})},tk);if(!w.ok)throw 'El token no puede escribir en lista-jimena ('+w.status+')';
    await enter(tk)}}catch(e){err(typeof e=='string'?e:'Algo falló. Revisa la conexión.');b.disabled=false}};
