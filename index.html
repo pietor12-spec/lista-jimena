@@ -48,6 +48,14 @@ button{font-family:inherit}
 .hs b{display:block;font-size:34px;line-height:1.05;font-weight:900;letter-spacing:-.5px}
 .hs span{display:block;font-size:12px;color:var(--mu);font-weight:700;margin-top:3px}
 .hs input{background:transparent;border:0;color:var(--mu);font:inherit;font-size:12px;font-weight:700;padding:0;color-scheme:dark;width:100%;cursor:pointer}
+.h2{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.preg{flex:1;min-width:0;cursor:pointer}
+.preg .lbl{font-size:12px;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:1px}.preg .lbl em{font-style:normal;opacity:.6;margin-left:4px}
+.preg>b{display:block;font-size:44px;line-height:1.05;font-weight:900;color:var(--rose);letter-spacing:-.5px;margin:4px 0 8px}.preg>b small{font-size:.5em;margin-right:2px}
+.ptl{position:relative;height:8px;border-radius:9px;background:var(--card2);margin-bottom:8px}.ptl i{position:absolute;inset:0 auto 0 0;border-radius:9px;background:linear-gradient(90deg,#FFD3DE,var(--rose))}.ptl s{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--rose)}
+.lbl2{font-size:13px;color:var(--mu);font-weight:700}
+.pct{display:flex;flex-direction:column;align-items:center;flex:none}.pct span{font-size:12px;font-weight:800;color:var(--mu);margin-top:-2px}
+.pleg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:12px;color:var(--mu);font-weight:700;position:relative;z-index:1}.pleg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}.pleg b{color:var(--tx)}
 .pbar{height:8px;background:var(--card2);border-radius:99px;overflow:hidden;margin-top:14px;display:flex;position:relative;z-index:1}.pbar i{display:block;height:100%}
 /* nav: menú desplegable en todas las pantallas */
 nav.tabs{position:fixed;top:0;bottom:0;left:0;width:min(82vw,var(--side));z-index:45;display:flex;flex-direction:column;gap:6px;padding:calc(22px + env(safe-area-inset-top)) 16px calc(22px + env(safe-area-inset-bottom));background:#0A1222;border-right:1px solid var(--line);transform:translateX(-105%);transition:transform .25s ease;box-shadow:20px 0 60px rgba(0,0,0,.45)}
@@ -160,7 +168,7 @@ nav .foot #st2{padding:0 6px 4px;font-weight:800}nav .foot #st2.ok{color:var(--o
  #root{max-width:1400px;padding:22px 36px 40px}
  .topb{margin-bottom:16px}.topb .ttl{font-size:26px}.topb .ttl img{width:40px;height:40px}
  .hero{padding:24px 28px}
- .hs b{font-size:56px}.hs span,.hs input{font-size:14px}.hs>div{padding:4px 22px}.hs>div:first-child{padding-left:4px}
+ .preg>b{font-size:64px}.preg .lbl,.lbl2,.pleg{font-size:14px}.hero{padding:26px 30px} .hs b{font-size:56px}.hs span,.hs input{font-size:14px}.hs>div{padding:4px 22px}.hs>div:first-child{padding-left:4px}
  .kc{padding:18px 18px 16px}.kc .kn{font-size:46px}.kc .kn small{font-size:22px}.kc .kl{font-size:15px}.kc .ks{font-size:15px}
  .cols{column-count:2;column-gap:16px}
  .grp{margin-bottom:16px;display:inline-block;width:100%}
@@ -275,11 +283,16 @@ function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=
  $('#root').innerHTML=`<div class="topb"><button class="ib ham" data-a="drawer" title="Menú">☰</button>
  <div class="ttl"><img src="logo-j.svg" alt=""><div><em class="ld">Lista de </em><span>Jimena</span></div></div>
  <span class="chipst" id="st"></span>${installBtn()}${fsOk()?`<button class="ib" data-a="fs" title="Pantalla completa">⛶</button>`:''}<button class="ib" data-a="menu" title="Ajustes">⚙︎</button></div>
- <div class="hero"><div class="hs">
-  <div><b style="color:var(--rose)">${days>0?`${gw}<small style="font-size:.5em">s</small> ${gd}<small style="font-size:.5em">d</small>`:'¡Ya!'}</b><span>de embarazo · faltan ${Math.max(0,days)} días</span><input type="date" id="due" value="${S.due||''}" title="Cambiar fecha prevista"></div>
-  <div><b style="color:var(--ok)">${pct}<small style="font-size:.55em">%</small></b><span>comprado · ${bought} de ${st.n}</span></div>
-  <div><b style="color:var(--cy)">${eurS(st.by.Comprado.eur+st.by.Pedido.eur)}</b><span>invertido</span></div></div>
-  <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div></div>
+ <div class="hero"><div class="h2">
+  <div class="preg" data-a="editpreg" title="Editar semanas">
+   <span class="lbl">🤰 Embarazo <em>✎</em></span>
+   <b>${days>0?`${gw}<small>s</small> ${gd}<small>d</small>`:'¡Ya está aquí!'}</b>
+   <div class="ptl"><i style="width:${Math.min(100,ga/280*100)}%"></i><s style="left:${Math.min(100,ga/280*100)}%"></s></div>
+   <span class="lbl2">Faltan <b style="display:inline;font-size:inherit;color:var(--tx)">${Math.max(0,days)} días</b> · ${due.toLocaleDateString('es-ES',{day:'numeric',month:'long'})}</span>
+  </div>
+  <div class="pct">${(()=>{const r=44,C=2*Math.PI*r,sz=desk()?132:104;return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100"><circle r="${r}" cx="50" cy="50" fill="none" stroke="#16244A" stroke-width="9"/><circle r="${r}" cx="50" cy="50" fill="none" stroke="#00FFA3" stroke-width="9" stroke-linecap="round" stroke-dasharray="${Math.max(pct/100*C,.01)} ${C}" transform="rotate(-90 50 50)"/><text x="50" y="55" text-anchor="middle" fill="#00FFA3" font-size="24" font-weight="900" font-family="Nunito,system-ui,sans-serif">${pct}%</text></svg>`})()}<span>comprado</span></div></div>
+  <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div>
+  <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>
  <nav class="tabs ${ui.drawer?'open':''}"><div class="brand"><img src="logo-j.svg" alt=""><div>Lista de<br><span>Jimena</span></div></div>
  ${[['compras','🛒','Compras'],['mochila','🎒','Mochila'],['resumen','📊','Resumen']].map(([k,i,l])=>`<button class="tb ${ui.tab==k?'on':''}" data-a="tab" data-v="${k}"><em>${i}</em>${l}</button>`).join('')}
  <div class="foot"><div id="st2"></div>${fsOk()?'<button class="btn ghost" data-a="fs">⛶ Pantalla completa</button>':''}<button class="btn ghost" data-a="share">🔗 Compartir</button><button class="btn ghost" data-a="lock">🔒 Bloquear este equipo</button></div></nav>
@@ -288,8 +301,7 @@ function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=
  ({compras,mochila,resumen})[ui.tab]();setSt(stS);}
 
 function compras(){const st=stats(),f=ui.filter;
- $('#body').innerHTML=`<div class="sect">🛒 Compras</div><div class="fbar"><div class="chips">${chip('Todo','',!f)}${ORDER.map(k=>chip(k,k,f==k,COL[k])).join('')}</div>
- <div class="srch"><input id="q" placeholder="🔍 Buscar${desk()?' ( / )':''}" value="${esc(ui.q)}"><button class="btn" data-a="new">+ Añadir</button></div></div>
+ $('#body').innerHTML=`<div class="sect">🛒 Compras</div><div class="fbar"><div class="srch" style="flex:1 1 auto;max-width:520px;margin-left:0"><input id="q" placeholder="🔍 Buscar${desk()?' ( / )':''}" value="${esc(ui.q)}"><button class="btn" data-a="new">+ Añadir</button></div></div>
  <div class="kpis">${kc({c:'#E8EFFA',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:!f,a:'filter',v:''})}
  ${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:f==k,a:'filter',v:k})).join('')}</div>
  <div id="list" class="cols"></div>`;list()}
@@ -298,7 +310,7 @@ function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
  if(!its.length){$('#list').innerHTML='<div class="empty">Nada por aquí ✨</div>';return}
  $('#list').innerHTML=cats(its).map(([c,arr])=>{const all=L.filter(i=>i.cat==c),cnt={};all.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);const open=isOpen(c,q||ui.filter);
   return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(c)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${ui.filter?arr.length+' · ':''}${cnt.Comprado||0}/${all.length}</span><span class="mini">${segBar(cnt,all.length)}</span><span class="chev">▾</span></div>
-  <div class="items">${open?arr.sort((a,b)=>ORDER.indexOf(b.status)-ORDER.indexOf(a.status)||a.name.localeCompare(b.name,'es')).map(row).join(''):''}</div></div>`}).join('')}
+  <div class="items">${open?arr.sort((a,b)=>ORDER.indexOf(a.status)-ORDER.indexOf(b.status)||a.name.localeCompare(b.name,'es')).map(row).join(''):''}</div></div>`}).join('')}
 function row(i){const on=i.status=='Comprado';
  return `<div class="it ${on?'done':''}" data-a="edit" data-v="${i.id}"><div class="ck ${on?'on':''}" data-a="check" data-v="${i.id}">${on?'✓':''}</div>
  <div class="t"><div title="${esc(i.name)}">${esc(i.name)}${i.qty?`<span class="qty">×${i.qty}</span>`:''}</div>${i.brand?`<small>${esc(i.brand)}</small>`:''}</div>
@@ -329,11 +341,11 @@ function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0
  const pend=cs.map(([c,a])=>{const v=a.filter(i=>i.status=='Visto'),n=a.filter(i=>i.status=='No visto');return [c,v.length,n.length,v.reduce((s,i)=>s+(+i.price||0),0)]}).filter(x=>x[1]+x[2]>0).sort((x,y)=>(y[1]+y[2])-(x[1]+x[2]));
  const maxP=Math.max(1,...pend.map(x=>x[1]+x[2])),rem=st.by.Visto.n+st.by['No visto'].n;
  $('#body').innerHTML=`<div class="sect">📊 Resumen</div><div class="rgrid">
- <div class="card"><h3>🎯 ¿Cómo vamos?<small>${st.n} cosas</small></h3><div class="how">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?200:170)}
+ <div class="card"><h3>🎯 ¿Cómo vamos?</h3><div class="how">${donut(ORDER.map(k=>({v:st.by[k].n,c:COL[k]})),pct+'%','comprado',desk()?200:170)}
  <div style="width:100%">${ORDER.map(k=>`<div class="srow" style="--c:${COL[k]}"><span class="lb"><i style="background:${COL[k]}"></i>${k}</span><span></span><span class="vv">${eur(Math.round(st.by[k].eur))}<small>${st.by[k].n} cosas</small></span><span class="tr"><i style="width:${st.by[k].n/st.n*100}%"></i></span></div>`).join('')}</div></div></div>
- <div class="card"><h3>💶 Dinero</h3><div class="money"><b>${eur(tot)}</b><span>Total invertido (comprado + pedido)</span></div>
+ <div class="card"><h3>💶 Dinero</h3><div class="money"><b>${eur(Math.round(tot))}</b><span>Total invertido (comprado + pedido)</span></div>
  <div style="margin-top:14px">${money.map(([c,e])=>`<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar"><i style="width:${e/maxE*100}%;background:linear-gradient(90deg,var(--ok),var(--cy))"></i></div><span class="r" style="color:${e?'var(--tx)':'var(--mu)'}">${eur(Math.round(e))}</span></div>`).join('')}</div></div>
- <div class="card"><h3>🛍️ Lo que os queda<small>${rem} cosas</small></h3>
+ <div class="card"><h3>🛍️ Lo que os queda</h3>
  <div class="note" style="margin:-6px 0 12px">Dónde está el trabajo pendiente. <b style="color:var(--am)">■ Visto</b> ya tiene candidato (${eur(Math.round(st.by.Visto.eur))}); <b style="color:var(--gr)">■ No visto</b> está sin mirar.</div>
  ${pend.map(([c,v,n,e])=>`<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar" style="background:transparent"><i style="width:${v/maxP*100}%;background:var(--am)"></i><i style="width:${n/maxP*100}%;background:var(--gr)"></i></div><span class="r">${v+n}</span></div>`).join('')}</div>
  <div class="card"><h3>📦 Por categoría</h3>${cs.map(([c,a])=>{const cnt={};a.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);return `<div class="crow" data-a="gocat" data-v="${esc(c)}" style="cursor:pointer"><span>${emo(c)} ${esc(c)}</span><div class="bar">${segBar(cnt,a.length)}</div><span class="r">${cnt.Comprado||0}/${a.length}</span></div>`}).join('')}</div>
@@ -366,6 +378,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!
  else if(a=='drawer'){ui.drawer=!ui.drawer;$('nav.tabs').classList.toggle('open',ui.drawer);$('.scrim').classList.toggle('open',ui.drawer)}
  else if(a=='fs'){const d=document,E=d.documentElement;try{if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d);else (E.requestFullscreen||E.webkitRequestFullscreen).call(E)}catch(x){toast('Este navegador no deja pantalla completa')}if(ui.menu){ui.menu=false;render()}}
  else if(a=='share')share();
+ else if(a=='editpreg')pregSheet();
  else if(a=='install')doInstall();
  else if(a=='sync'){ui.menu=false;render();sync()}
  else if(a=='lock'){if(el.dataset.c!='1'){el.dataset.c='1';el.textContent='¿Seguro? Pedirá la contraseña';return}lock()}
@@ -397,6 +410,17 @@ function showHelp(){const ios=/iphone|ipad/i.test(navigator.userAgent),inapp=/wv
  <div class="acts"><button class="btn" data-a="closehelp">Entendido</button></div></div>`;document.body.appendChild(d)}
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a=closehelp]');if(el&&(e.target===el||el.tagName=='BUTTON'))document.querySelectorAll('.ov').forEach(o=>{if(o.dataset.a=='closehelp')o.remove()})});
 
+function pregSheet(){const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days);
+ const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🤰 ¿De cuánto está?</h3>
+ <div class="row2"><div><label>Semanas</label><input id="pw_w" type="number" min="0" max="42" inputmode="numeric" value="${Math.floor(ga/7)}"></div><div><label>Días</label><input id="pw_d" type="number" min="0" max="6" inputmode="numeric" value="${ga%7}"></div></div>
+ <label>…o fecha prevista de parto</label><input id="pw_due" type="date" value="${S.due||''}">
+ <div class="note">Al cambiar semanas y días se recalcula la fecha prevista, y al revés.</div>
+ <div class="acts"><button class="btn ghost" data-a="closehelp">Cancelar</button><button class="btn" id="pw_ok">Guardar</button></div></div>`;document.body.appendChild(d);
+ const W=d.querySelector('#pw_w'),D=d.querySelector('#pw_d'),F=d.querySelector('#pw_due');
+ const fromWD=()=>{const g=Math.max(0,(+W.value||0)*7+Math.min(6,+D.value||0)),t=new Date();t.setHours(12,0,0,0);t.setDate(t.getDate()+280-g);F.value=t.toISOString().slice(0,10)};
+ const fromF=()=>{if(!F.value)return;const g=Math.max(0,280-Math.ceil((new Date(F.value+'T12:00:00')-new Date())/864e5));W.value=Math.floor(g/7);D.value=g%7};
+ W.oninput=fromWD;D.oninput=fromWD;F.oninput=fromF;
+ d.querySelector('#pw_ok').onclick=()=>{if(F.value){S.due=F.value;S.dueU=Date.now();persist()}d.remove();render()}}
 /* ---------- arranque ---------- */
 const t0=Date.now();
 async function boot(){if(token&&S){view='app';render();sync()}else if(token){try{await enter(token)}catch(e){await gate('unlock')}}else await gate('unlock');
