@@ -159,6 +159,10 @@ html.light .fruit .fe{filter:drop-shadow(0 8px 14px rgba(255,111,160,.25))}
  .rrow .bento{grid-template-columns:1fr;grid-auto-rows:1fr;margin:0}.rrow .bt{display:flex;flex-direction:column;justify-content:center;padding:18px 22px}.rrow .bt b{font-size:56px}.rrow .bt span{font-size:15px}.rrow .btbar{height:8px;margin-top:10px}
  .rrow .cv{margin:0;display:flex!important;width:auto}.cvl>div{font-size:16px;padding:8px 0}.cvl{flex:0 1 260px!important;max-width:260px}.cvw{gap:48px!important}
  .qt b{font-size:46px}}
+html,body{scrollbar-width:none;-ms-overflow-style:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}
+.feed{display:flex;flex-direction:column}
+.fd{display:flex;align-items:center;gap:12px;padding:10px 4px;border-top:1px solid var(--line);cursor:pointer}.fd:first-child{border-top:0}.fd:hover{background:var(--card2);border-radius:10px}
+.fd .fi{font-size:20px;flex:none}.fd .fn{flex:1;min-width:0;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fd .fn small{display:block;font-size:12px;color:var(--mu);font-weight:600}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -544,11 +548,11 @@ function analisis(){const st=stats(),L=live(S.items),cs=cats(L);
  <div class="note" style="margin:-6px 0 12px">Dónde está el trabajo pendiente. <b style="color:var(--am)">■ Visto</b> ya tiene candidato (${eur(Math.round(st.by.Visto.eur))}); <b style="color:var(--gr)">■ No visto</b> está sin mirar.</div>
  ${pend.map(([c,v,n])=>crow(c,`<div class="bar" style="background:transparent"><i style="width:${v/maxP*100}%;background:var(--am)"></i><i style="width:${n/maxP*100}%;background:var(--gr)"></i></div>`,v+n)).join('')}</div>`;
  const cCat=`<div class="card"><h3>📦 Por categoría</h3>${cs.map(([c,a])=>{const cnt={};a.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);return crow(c,`<div class="bar">${segBar(cnt,a.length)}</div>`,`${cnt.Comprado||0}/${a.length}`)}).join('')}</div>`;
- const cMore=`<div class="card grow"><h3>🎁 Regalos, mochila y gasto</h3><div class="qgrid">
-  <div class="qt" data-a="tab" data-v="wish" style="--c:var(--rose)"><span>Wishlist pendiente</span><b>${wp.length}</b><small>${eur(Math.round(wp.reduce((s,w)=>s+(+w.price||0),0)))} en ideas</small></div>
-  <div class="qt" data-a="tab" data-v="wish" style="--c:var(--ok)"><span>Ya regalado</span><b>${wg.length}</b><small>${eur(Math.round(wg.reduce((s,w)=>s+(+w.price||0),0)))} ahorrados</small></div>
-  <div class="qt" data-a="tab" data-v="mochila" style="--c:var(--cy)"><span>Mochila hospital</span><b>${mpct}%</b><small>${md} de ${M.length} dentro</small></div>
-  <div class="qt" data-a="tab" data-v="compras" style="--c:var(--am)"><span>Precio medio</span><b>${eur(avg)}</b><small>por artículo comprado</small></div></div></div>`;
+ const ago=ms=>{const s=(Date.now()-ms)/1000;if(s<60)return 'ahora';if(s<3600)return `hace ${Math.floor(s/60)} min`;if(s<86400)return `hace ${Math.floor(s/3600)} h`;const d=Math.floor(s/86400);return d==1?'ayer':`hace ${d} días`};
+ const act=[...live(S.items).filter(i=>i.u).map(i=>({u:i.u,ic:emo(i.cat),n:i.name,tag:isStock(i)&&i.status=='Comprado'?`Tengo ${+i.qty||0}`:i.status,c:COL[i.status],a:'gocat',v:i.cat})),
+  ...live(S.bag).filter(i=>i.u).map(i=>({u:i.u,ic:'🎒',n:i.name,tag:i.done?'En la mochila':'Fuera',c:i.done?'var(--rose)':'var(--mu)',a:'tab',v:'mochila'})),
+  ...live(S.wish||[]).filter(w=>w.u).map(w=>({u:w.u,ic:'🎁',n:w.name,tag:w.got?'Regalado':'En wishlist',c:w.got?'var(--ok)':'var(--rose)',a:'tab',v:'wish'}))].sort((x,y)=>y.u-x.u).slice(0,12);
+ const cMore=`<div class="card grow"><h3>🕒 Últimos movimientos</h3>${act.length?`<div class="feed">${act.map(x=>`<div class="fd" data-a="${x.a}" data-v="${esc(x.v)}"><span class="fi">${x.ic}</span><span class="fn">${esc(x.n)}<small>${ago(x.u)}</small></span><span class="pill" style="background:color-mix(in srgb,${x.c} 16%,transparent);color:${x.c}">${esc(x.tag)}</span></div>`).join('')}</div>`:'<div class="empty">Aquí verás lo último que marquéis o cambiéis.</div>'}</div>`;
  $('#body').innerHTML=`<div class="sect">📈 Análisis</div><div class="agrid"><div class="acol">${cMoney}${cPend}</div><div class="acol">${cCat}${cMore}</div></div>`}
 
 /* ---------- acciones ---------- */
