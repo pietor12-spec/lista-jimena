@@ -117,12 +117,17 @@ html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
 .wbar{display:flex;gap:8px;margin-bottom:10px}.wbar .btn{flex:1}
 .wgrid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:700px){.wgrid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1100px){.wgrid{grid-template-columns:repeat(3,1fr)}}
-.wc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;display:flex;gap:12px;border-left:4px solid var(--rose);align-items:stretch}
-.wc .wl{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
-.wc .wt b{display:block;font-size:16px;line-height:1.25}.wc .wt small{display:block;color:var(--mu);font-size:12px;margin-top:3px}.wc .wt em{display:block;font-style:normal;font-size:12px;color:var(--cy);margin-top:5px}
-.wc .wf{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-.wc .ws{flex:none;width:112px;display:flex;flex-direction:column;gap:8px;align-items:stretch}
-.wlink{display:block;text-align:center;text-decoration:none;font-weight:800;font-size:13px;color:var(--tx);background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 6px}
+.wc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;display:flex;gap:12px;border-left:4px solid var(--rose);height:206px}
+.wc .wl{flex:1;min-width:0;display:flex;flex-direction:column}
+.wc .wt b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:16px;line-height:1.25}
+.wc .wt small,.wc .wt em{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.wc .wt small{color:var(--mu);font-size:12px;margin-top:3px}.wc .wt em{font-style:normal;font-size:12px;color:var(--cy);margin-top:3px}
+.wmid{flex:1;display:flex;align-items:center;justify-content:center}
+.wc .wl .wg{align-self:center}
+.wc .ws{flex:none;width:132px;display:flex;flex-direction:column;gap:8px}
+.wimg{position:relative;aspect-ratio:1;width:100%;background:#fff;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.wimg img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;padding:6px}.wimg span{position:absolute;font-size:38px;opacity:.35}
+.wlink{display:block;text-align:center;text-decoration:none;font-weight:800;font-size:13px;color:var(--tx);background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 4px;white-space:nowrap}
+.wlink.off{color:var(--mu);font-weight:700;opacity:.7}
 .wlink:hover{border-color:var(--cy)}
 .wg{border:1px solid var(--line);background:var(--card2);color:var(--mu);border-radius:10px;padding:7px 10px;font-weight:800;font-size:12px;cursor:pointer}
 .wg.on{background:var(--ok);color:#06231A;border-color:var(--ok)}
@@ -137,9 +142,8 @@ html.light .it.done .t div{text-decoration-color:rgba(46,196,160,.6)}
 html.light .fruit .fe{filter:drop-shadow(0 8px 14px rgba(255,111,160,.25))}
 .wsect b{font-size:30px;letter-spacing:0;color:var(--rose);vertical-align:middle;margin-left:8px}.wsect b small{font-size:.55em;color:var(--mu)}
 @media(min-width:1024px){.fruit{width:160px}.fruit .fe{font-size:100px}.fruit .fn{font-size:14px}}
-.wpr{font-size:24px;font-weight:900;color:var(--tx);letter-spacing:-.3px}
-.wimg{background:#fff;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:4px}.wimg img{display:block;width:100%;height:auto;max-height:180px;object-fit:contain}
-@media(min-width:1024px){.wc .ws{width:140px}.wimg img{max-height:220px}}
+.wpr{font-size:30px;font-weight:900;color:var(--tx);letter-spacing:-.3px}
+@media(min-width:1024px){.wc{height:230px}.wc .ws{width:156px}}
 .phrow{display:flex;gap:10px;align-items:stretch}.phprev{width:86px;height:86px;flex:none;border-radius:12px;background:var(--card2);border:1px solid var(--line);display:grid;place-items:center;font-size:28px;overflow:hidden}.phprev img{width:100%;height:100%;object-fit:contain;background:#fff}
 .phbtns{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}.phpick{display:block!important;margin:0!important;text-align:center;cursor:pointer;color:var(--tx)!important;font-size:14px!important;padding:10px!important}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
@@ -384,8 +388,9 @@ function wish(){const W=live(S.wish=S.wish||[]),got=W.filter(w=>w.got).length;
  <div class="note" style="margin:0 2px 12px">Esto es lo que verá la familia en la lista de regalos. Marca <b>🎁 Regalado</b> cuando os lo regalen y les saldrá como «ya regalado».</div>
  ${W.length?`<div class="wgrid">${ord.map(w=>{const u=safeUrl(w.url),im=imgUrl(w.img);return `<div class="wc ${w.got?'got':''}" data-a="wedit" data-v="${w.id}">
   <div class="wl"><div class="wt"><b>${esc(w.name)}</b>${w.brand?`<small>${esc(w.brand)}</small>`:''}${w.note?`<em>${esc(w.note)}</em>`:''}</div>
-  <div class="wf">${w.price?`<span class="wpr">${eur(w.price)}</span>`:''}<button class="wg ${w.got?'on':''}" data-a="wgot" data-v="${w.id}">🎁 ${w.got?'Regalado':'¿Regalado?'}</button></div></div>
-  ${im||u?`<div class="ws">${im?`<div class="wimg"><img src="${esc(im)}" alt="" loading="lazy" onerror="this.parentNode.remove()"></div>`:''}${u?`<a class="wlink" href="${esc(u)}" target="_blank" rel="noopener" data-a="none">🔗 Tienda</a>`:''}</div>`:''}</div>`}).join('')}</div>`
+  <div class="wmid">${w.price?`<span class="wpr">${eur(w.price)}</span>`:''}</div>
+  <button class="wg ${w.got?'on':''}" data-a="wgot" data-v="${w.id}">🎁 ${w.got?'Regalado':'¿Regalado?'}</button></div>
+  <div class="ws"><div class="wimg">${im?`<img src="${esc(im)}" alt="" loading="lazy" onerror="this.remove()">`:''}<span>🎁</span></div>${u?`<a class="wlink" href="${esc(u)}" target="_blank" rel="noopener" data-a="none">🔗 Tienda</a>`:'<span class="wlink off">Sin enlace</span>'}</div></div>`}).join('')}</div>`
  :`<div class="empty">Aún no hay nada. Elige entre lo que tenéis visto con «Añadir desde vistos» 👀</div>`}`}
 function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'',brand:'',price:null,url:'',note:''};
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🎁 ${nw?'Añadir a la wishlist':'Editar regalo'}</h3>

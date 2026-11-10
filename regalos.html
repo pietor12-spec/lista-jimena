@@ -23,15 +23,20 @@ header p{margin:0 auto;max-width:460px;color:var(--mu);font-weight:700;font-size
 .count b{color:var(--rose)}
 .grid{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px 14px 14px 18px;box-shadow:0 6px 20px rgba(255,111,160,.08);display:flex;gap:12px;position:relative;overflow:hidden;animation:fade .5s both}
-.cl{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:12px}.cl .price{display:block}.cl .tag{display:inline-block;margin-top:6px}
-.cr{flex:none;width:118px;display:flex;flex-direction:column;gap:8px}
-.go{display:block;text-align:center;padding:9px 6px;font-size:13px}
+@media(max-width:360px){.cr{width:118px}.card{height:196px}}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px 14px 14px 18px;box-shadow:0 6px 20px rgba(255,111,160,.08);display:flex;gap:12px;position:relative;overflow:hidden;animation:fade .5s both;height:214px}
+.cl{flex:1;min-width:0;display:flex;flex-direction:column}
+.ct b{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:17px;font-weight:900;line-height:1.25}
+.ct small,.ct em{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm{flex:1;display:flex;align-items:center;justify-content:center}
+.cr{flex:none;width:136px;display:flex;flex-direction:column;gap:8px}
+.go{display:block;text-align:center;padding:10px 4px;font-size:13px;white-space:nowrap}
+.tag{display:block;text-align:center;white-space:nowrap;padding:10px 4px!important}.tag.off{background:#F3F5FA;color:var(--mu)}
 .card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--rose),#FFB3CC)}
 .card b{font-size:17px;font-weight:900}.card small{display:block;color:var(--mu);font-weight:700;font-size:13px;margin-top:2px}
 .card em{display:block;font-style:normal;font-size:13px;color:var(--cy);font-weight:700;margin-top:6px}
-.price{font-weight:900;font-size:24px;letter-spacing:-.3px}
-.ph{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;padding:4px;display:flex;align-items:center;justify-content:center}.ph img{display:block;width:100%;height:auto;max-height:190px;object-fit:contain}
+.price{font-weight:900;font-size:28px;letter-spacing:-.3px}
+.ph{position:relative;aspect-ratio:1;width:100%;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center}.ph img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;padding:6px;background:#fff}.ph span{position:absolute;font-size:40px;opacity:.3}
 .go{background:var(--rose);color:#fff;text-decoration:none;font-weight:900;font-size:14px;padding:10px 14px;border-radius:12px;white-space:nowrap}
 .go:active{transform:scale(.97)}
 .card.got{opacity:.62}.card.got:before{background:var(--ok)}.card.got b{text-decoration:line-through;text-decoration-color:rgba(46,196,160,.7)}
@@ -60,7 +65,7 @@ load().then(d=>{const L=document.getElementById('list'),C=document.getElementByI
  if(!it.length){C.textContent='Lista vacía por ahora';L.className='empty';L.textContent='Todavía no hay nada en la lista. ¡Vuelve pronto! 🍼';return}
  C.innerHTML=`<b>${pend}</b> ${pend==1?'idea disponible':'ideas disponibles'}${it.length-pend?` · ${it.length-pend} ya regalada${it.length-pend>1?'s':''}`:''}`;
  L.className='grid';L.innerHTML=it.map((i,k)=>{const u=ok(i.url),p=im(i.img);return `<div class="card ${i.got?'got':''}" style="animation-delay:${k*40}ms">
- <div class="cl"><div><b>${esc(i.name)}</b>${i.brand?`<small>${esc(i.brand)}</small>`:''}${i.note?`<em>${esc(i.note)}</em>`:''}</div>
- <div>${i.price?`<span class="price">≈ ${eur(i.price)}</span>`:''}${i.got?'<span class="tag">🎁 ¡Ya regalado!</span>':''}</div></div>
- ${p||(u&&!i.got)?`<div class="cr">${p?`<div class="ph"><img src="${esc(p)}" alt="" loading="lazy" onerror="this.parentNode.remove()"></div>`:''}${u&&!i.got?`<a class="go" href="${esc(u)}" target="_blank" rel="noopener">Ver en tienda ↗</a>`:''}</div>`:''}</div>`}).join('')});
+ <div class="cl"><div class="ct"><b>${esc(i.name)}</b>${i.brand?`<small>${esc(i.brand)}</small>`:''}${i.note?`<em>${esc(i.note)}</em>`:''}</div>
+ <div class="cm">${i.price?`<span class="price">≈ ${eur(i.price)}</span>`:''}</div></div>
+ <div class="cr"><div class="ph">${p?`<img src="${esc(p)}" alt="" loading="lazy" onerror="this.remove()">`:''}<span>🎁</span></div>${i.got?'<span class="tag">🎁 ¡Ya regalado!</span>':u?`<a class="go" href="${esc(u)}" target="_blank" rel="noopener">Ver en tienda ↗</a>`:'<span class="tag off">Sin enlace</span>'}</div></div>`}).join('')});
 </script></body></html>
