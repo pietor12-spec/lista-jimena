@@ -167,6 +167,12 @@ html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
 .kc .kl{margin:0 0 6px!important;padding-right:34px}.kc .ks{margin-top:4px}
 @media(max-width:700px){.kc .kl{padding-right:0;margin:0 0 4px!important}}
 @media(min-width:1024px){.kc .kl{padding-right:48px}}
+.lbl2{display:block;margin-top:16px}
+.fruit .fn{text-transform:uppercase;letter-spacing:1.5px;font-size:12px;margin-top:14px}
+#root.t-resumen .preg .ptl{margin-top:6px}
+#root.t-resumen .pbar{margin-top:22px}
+#root.t-resumen .hero{justify-content:space-evenly}#root.t-resumen .h2{flex:1 1 auto;align-items:center}
+@media(max-width:700px){#root.t-resumen .hero{padding:22px 16px 24px}.lbl2{margin-top:24px}.fruit .fn{margin-top:16px;font-size:11px}#root.t-compras .kc .kn{font-size:22px}#root.t-compras .kc .kn small{font-size:12px}}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -468,7 +474,7 @@ function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class
   </div>
   <div class="fruit">${(()=>{const f=fruitOf(gw);return `<span class="fe">${f[0]}</span><span class="fn">${f[1]}</span>`})()}</div></div>
   <div class="pbar">${segBar(Object.fromEntries(ORDER.map(k=>[k,st.by[k].n])),st.n||1)}</div>
-  <div class="pleg">${ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${k} <b>${st.by[k].n}</b></span>`).join('')}</div></div>`}
+  </div>`}
 function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=stats(),bought=st.by.Comprado.n,pct=Math.round(bought/st.n*100)||0;
  const due=new Date((S.due||'2027-02-23')+'T12:00:00'),days=Math.ceil((due-new Date())/864e5),ga=Math.max(0,280-days),gw=Math.floor(ga/7),gd=ga%7;
  $('#root').className='t-'+ui.tab;$('#root').innerHTML=`<div class="topb"><button class="tlogo" data-a="drawer" title="Menú"><img src="logo-j.svg" alt=""></button><div class="ttl"><div><em class="ld">Lista de </em><span>Jimena</span></div><i class="bib">🍼</i></div>
@@ -483,8 +489,8 @@ function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=
 
 function compras(){const st=stats(),f=ui.filter;
  $('#body').innerHTML=`<div class="secth"><div class="sect">🛒 Compras <b>${st.by.Comprado.n}/${st.n}</b></div></div><div class="fbar"><div class="srch" style="flex:1 1 auto;max-width:520px;margin-left:0"><input id="q" placeholder="🔍 Buscar${desk()?' ( / )':''}" value="${esc(ui.q)}"><button class="btn" data-a="new">+ Añadir</button></div></div>
- <div class="kpis">${kc({c:'var(--tx)',n:st.n,l:'Todo',s:Math.round(st.by.Comprado.n/st.n*100)+(desk()?'% comprado':'%'),p:st.by.Comprado.n/st.n,on:!f,a:'filter',v:''})}
- ${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:Math.round(st.by[k].n/st.n*100)+'%',p:st.by[k].n/st.n,on:f==k,a:'filter',v:k})).join('')}</div>
+ <div class="kpis">${kc({c:'var(--tx)',n:`${st.by.Comprado.n}<small>/${st.n}</small>`,l:'Todo',s:Math.round(st.by.Comprado.n/st.n*100)+'% listo',p:st.by.Comprado.n/st.n,on:!f,a:'filter',v:''})}
+ ${ORDER.map(k=>kc({c:COL[k],n:`${st.by[k].n}<small>/${st.n}</small>`,l:k,s:Math.round(st.by[k].n/st.n*100)+'%',p:st.by[k].n/st.n,on:f==k,a:'filter',v:k})).join('')}</div>
  <div id="list" class="cgrid"></div>`;list()}
 function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
  const its=L.filter(i=>(!ui.filter||i.status==ui.filter)&&(!q||(i.name+' '+i.brand+' '+i.cat).toLowerCase().includes(q)));
