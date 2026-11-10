@@ -13,7 +13,7 @@
 <style>
 :root{--tx:#3D4B6E;--mu:#8C98B3;--rose:#FF6FA0;--ok:#2EC4A0;--cy:#4AB3E6;--line:#F2DCE6}
 *{box-sizing:border-box}
-body{overflow-x:hidden;margin:0;font-family:Nunito,system-ui,sans-serif;color:var(--tx);background:linear-gradient(180deg,#FFF0F6 0%,#EEF7FF 55%,#EFFAF5 100%) fixed;min-height:100vh}
+body{margin:0;font-family:Nunito,system-ui,sans-serif;color:var(--tx);background:linear-gradient(180deg,#FFF0F6 0%,#EEF7FF 55%,#EFFAF5 100%) fixed;min-height:100vh}
 .wrap{max-width:760px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top)) 18px 40px}
 header{text-align:center;margin-bottom:22px}
 header img{width:92px;height:92px;border-radius:24px;box-shadow:0 12px 34px rgba(255,111,160,.28);animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
@@ -44,7 +44,7 @@ header p{margin:0 auto;max-width:460px;color:var(--mu);font-weight:700;font-size
 .tip{margin:24px auto 0;max-width:520px;text-align:center;background:#fff;border:1px dashed #F6BCD1;border-radius:16px;padding:14px 16px;font-weight:700;font-size:14px;color:var(--tx)}
 .empty,.load{text-align:center;color:var(--mu);font-weight:700;padding:40px 10px}
 @keyframes pop{from{transform:scale(.5);opacity:0}}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
-html,body{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0}
+html{scrollbar-width:none}html::-webkit-scrollbar{display:none}.wrap{overflow-x:clip}
 </style></head><body><div class="wrap">
 <header><img src="logo-j.svg" alt=""><h1>Lista de regalos para <span>Jimena</span> 🎁</h1>
 <p>¡Gracias por pensar en ella! 💕 Estas son algunas cosas que nos vendrían genial. Toca «Ver en la tienda» para ver el producto.</p>
