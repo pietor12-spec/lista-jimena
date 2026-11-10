@@ -164,6 +164,9 @@ html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
 .feed{display:flex;flex-direction:column}
 .fd{display:flex;align-items:center;gap:12px;padding:10px 4px;border-top:1px solid var(--line);cursor:pointer}.fd:first-child{border-top:0}.fd:hover{background:var(--card2);border-radius:10px}
 .fd .fi{font-size:20px;flex:none}.fd .fn{flex:1;min-width:0;font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fd .fn small{display:block;font-size:12px;color:var(--mu);font-weight:600}
+.kc .kl{margin:0 0 6px!important;padding-right:34px}.kc .ks{margin-top:4px}
+@media(max-width:700px){.kc .kl{padding-right:0;margin:0 0 4px!important}}
+@media(min-width:1024px){.kc .kl{padding-right:48px}}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -387,7 +390,7 @@ function donut(parts,center,sub,size=150){const r=54,C=2*Math.PI*r,tot=parts.red
  const segs=parts.map(p=>{const len=p.v/tot*C;const s=`<circle r="${r}" cx="70" cy="70" fill="none" stroke="${p.c}" stroke-width="16" stroke-dasharray="${Math.max(len-2,0)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len;return s}).join('');
  return `<svg width="${size}" height="${size}" viewBox="0 0 140 140"><circle r="${r}" cx="70" cy="70" fill="none" style="stroke:var(--card2)" stroke-width="16"/>${segs}<text x="70" y="${sub?72:78}" text-anchor="middle" style="fill:var(--tx)" font-size="${sub?28:26}" font-weight="900" font-family="Nunito,system-ui,sans-serif">${center}</text>${sub?`<text x="70" y="90" text-anchor="middle" style="fill:var(--mu)" font-size="11" font-weight="700" font-family="Nunito,system-ui,sans-serif">${sub}</text>`:''}</svg>`}
 function ring(p,c,s=34){const r=12,C=2*Math.PI*r;return `<svg width="${s}" height="${s}" viewBox="0 0 30 30"><circle r="${r}" cx="15" cy="15" fill="none" style="stroke:var(--line)" stroke-width="4"/><circle r="${r}" cx="15" cy="15" fill="none" style="stroke:${c}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${Math.max(p*C,.01)} ${C}" transform="rotate(-90 15 15)"/></svg>`}
-function kc(o){return `<div class="kc ${o.on?'on':''}" style="--c:${o.c};--p:${o.p||0}" data-a="${o.a}" data-v="${o.v}">${ring(o.p,o.c,desk()?42:32)}<div class="kn">${o.n}</div><div class="kl">${o.l}</div><div class="ks">${o.s}</div></div>`}
+function kc(o){return `<div class="kc ${o.on?'on':''}" style="--c:${o.c};--p:${o.p||0}" data-a="${o.a}" data-v="${o.v}">${ring(o.p,o.c,desk()?42:32)}<div class="kl">${o.l}</div><div class="kn">${o.n}</div><div class="ks">${o.s}</div></div>`}
 function chip(label,v,on,c){return `<button class="chip ${on?'on':''}" data-a="${ui.tab=='mochila'?'who':'filter'}" data-v="${v}">${c?`<i style="background:${c}"></i>`:''}${label}</button>`}
 const eurS=n=>Math.round(n||0).toLocaleString('es-ES',{useGrouping:'always'})+'<small style="font-size:.55em;margin-left:2px">€</small>';
 function keepUi(){LS.set(K.ui,JSON.stringify({tab:ui.tab,filter:ui.filter,who:ui.who}))}
@@ -480,8 +483,8 @@ function render(){if(view!='app'||!S)return;deferRender=false;keepUi();const st=
 
 function compras(){const st=stats(),f=ui.filter;
  $('#body').innerHTML=`<div class="secth"><div class="sect">🛒 Compras <b>${st.by.Comprado.n}/${st.n}</b></div></div><div class="fbar"><div class="srch" style="flex:1 1 auto;max-width:520px;margin-left:0"><input id="q" placeholder="🔍 Buscar${desk()?' ( / )':''}" value="${esc(ui.q)}"><button class="btn" data-a="new">+ Añadir</button></div></div>
- <div class="kpis">${kc({c:'var(--tx)',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:!f,a:'filter',v:''})}
- ${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:f==k,a:'filter',v:k})).join('')}</div>
+ <div class="kpis">${kc({c:'var(--tx)',n:st.n,l:'Todo',s:Math.round(st.by.Comprado.n/st.n*100)+(desk()?'% comprado':'%'),p:st.by.Comprado.n/st.n,on:!f,a:'filter',v:''})}
+ ${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:Math.round(st.by[k].n/st.n*100)+'%',p:st.by[k].n/st.n,on:f==k,a:'filter',v:k})).join('')}</div>
  <div id="list" class="cgrid"></div>`;list()}
 function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
  const its=L.filter(i=>(!ui.filter||i.status==ui.filter)&&(!q||(i.name+' '+i.brand+' '+i.cat).toLowerCase().includes(q)));
@@ -526,7 +529,7 @@ function bagSheet(){const cs=[...new Set(live(S.bag).map(i=>i.cat))].sort((a,b)=
  d.querySelector('#bok').onclick=ok;d.querySelector('#bn').onkeydown=e=>{if(e.key=='Enter')ok()};setTimeout(()=>d.querySelector('#bn').focus(),50)}
 
 function resumen(){const st=stats(),pct=Math.round(st.by.Comprado.n/st.n*100)||0,M=live(S.bag),md=M.filter(i=>i.done).length,mp=M.length?md/M.length:0,inv=st.by.Comprado.eur+st.by.Pedido.eur;
-  $('#body').innerHTML=`<div class="kpis">${kc({c:'var(--tx)',n:st.n,l:'Todo',s:eur(Math.round(st.eur)),p:st.by.Comprado.n/st.n,on:false,a:'gofilter',v:''})}${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:st.by[k].eur?eur(Math.round(st.by[k].eur)):'—',p:st.by[k].n/st.n,on:false,a:'gofilter',v:k})).join('')}</div>
+  $('#body').innerHTML=`<div class="kpis">${kc({c:'var(--tx)',n:st.n,l:'Todo',s:Math.round(st.by.Comprado.n/st.n*100)+(desk()?'% comprado':'%'),p:st.by.Comprado.n/st.n,on:false,a:'gofilter',v:''})}${ORDER.map(k=>kc({c:COL[k],n:st.by[k].n,l:k,s:Math.round(st.by[k].n/st.n*100)+'%',p:st.by[k].n/st.n,on:false,a:'gofilter',v:k})).join('')}</div>
  <div class="rrow"><div class="bento">
   <div class="bt" data-a="tab" data-v="compras" style="--c:var(--ok)"><span>🛒 Compras</span><b>${st.by.Comprado.n}<small style="font-size:.55em;color:var(--mu)">/${st.n}</small></b><div class="btbar"><i style="width:${st.by.Comprado.n/st.n*100}%"></i></div></div>
   <div class="bt" data-a="tab" data-v="mochila" style="--c:var(--rose)"><span>🎒 Mochila</span><b>${md}<small style="font-size:.55em;color:var(--mu)">/${M.length}</small></b><div class="btbar"><i style="width:${mp*100}%"></i></div></div>
