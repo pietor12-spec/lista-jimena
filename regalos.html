@@ -45,6 +45,14 @@ header p{margin:0 auto;max-width:460px;color:var(--mu);font-weight:700;font-size
 .empty,.load{text-align:center;color:var(--mu);font-weight:700;padding:40px 10px}
 @keyframes pop{from{transform:scale(.5);opacity:0}}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
 html{scrollbar-width:none}html::-webkit-scrollbar{display:none}.wrap{overflow-x:clip}
+.ov{position:fixed;inset:0;background:rgba(70,80,110,.35);display:flex;align-items:flex-end;justify-content:center;z-index:9}
+.sh{background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));animation:fade .2s}
+@media(min-width:620px){.ov{align-items:center}.sh{border-radius:22px}}
+.sh b{font-size:18px;font-weight:900}.sh p{margin:4px 0 12px;color:var(--mu);font-weight:700;font-size:14px}
+.sh a{display:flex;align-items:center;gap:12px;padding:13px 14px;margin-bottom:8px;border-radius:14px;border:1px solid var(--line);background:#FFF6F9;text-decoration:none;color:var(--tx);font-weight:900}
+.sh a i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--rose);color:#fff;display:grid;place-items:center;font-size:13px}.sh a span{flex:1}
+.sh button{width:100%;margin-top:4px;padding:12px;border:0;border-radius:14px;background:#EEF6FC;color:var(--tx);font:inherit;font-weight:800}
+button.go{border:0;font-family:inherit;cursor:pointer;width:100%}
 </style></head><body><div class="wrap">
 <header><img src="logo-j.svg" alt=""><h1>Lista de regalos para <span>Jimena</span> 🎁</h1>
 <p>¡Gracias por pensar en ella! 💕 Estas son algunas cosas que nos vendrían genial. Toca «Ver en la tienda» para ver el producto.</p>
@@ -57,6 +65,10 @@ const SRC=['https://api.github.com/repos/pietor12-spec/lista-jimena/contents/wis
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const eur=n=>(+n).toLocaleString('es-ES',{maximumFractionDigits:2,useGrouping:'always'})+' €';
 const RAW='https://raw.githubusercontent.com/pietor12-spec/lista-jimena/main/';const im=s=>!s?'':/^https?:/i.test(s)?ok(s):RAW+s;
+const links=i=>[...new Set((i.urls&&i.urls.length?i.urls:[i.url]).map(x=>ok(x||'')).filter(Boolean))].slice(0,3);
+const host=u=>{try{const p=new URL(u).hostname.replace(/^www\./,'').split('.');const n=p.length>1?p[p.length-2]:p[0];return n.charAt(0).toUpperCase()+n.slice(1)}catch(e){return 'Tienda'}};
+function pick(k){const i=window._it[k],U=links(i);const d=document.createElement('div');d.className='ov';d.onclick=e=>{if(e.target===d)d.remove()};
+ d.innerHTML=`<div class="sh"><b>${esc(i.name)}</b><p>Elige la tienda que prefieras</p>${U.map((u,n)=>`<a href="${esc(u)}" target="_blank" rel="noopener"><i>${n+1}</i><span>${esc(host(u))}</span>↗</a>`).join('')}<button onclick="this.closest('.ov').remove()">Cerrar</button></div>`;document.body.appendChild(d)}
 const ok=u=>{try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:''}catch(e){return ''}};
 async function load(){for(const s of SRC){try{const r=await fetch(s+(s.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});if(!r.ok)continue;const j=await r.json();
  if(j.content){const b=Uint8Array.from(atob(j.content.replace(/\s/g,'')),c=>c.charCodeAt(0));return JSON.parse(new TextDecoder().decode(b))}return j}catch(e){}}return null}
@@ -65,8 +77,8 @@ load().then(d=>{const L=document.getElementById('list'),C=document.getElementByI
  const pend=it.filter(i=>!i.got).length;
  if(!it.length){C.textContent='Lista vacía por ahora';L.className='empty';L.textContent='Todavía no hay nada en la lista. ¡Vuelve pronto! 🍼';return}
  C.innerHTML=`<b>${pend}</b> ${pend==1?'idea disponible':'ideas disponibles'}${it.length-pend?` · ${it.length-pend} ya regalada${it.length-pend>1?'s':''}`:''}`;
- L.className='grid';L.innerHTML=it.map((i,k)=>{const u=ok(i.url),p=im(i.img);return `<div class="card ${i.got?'got':''}" style="animation-delay:${k*40}ms">
+ L.className='grid';window._it=it;L.innerHTML=it.map((i,k)=>{const U=links(i),u=U[0],p=im(i.img);return `<div class="card ${i.got?'got':''}" style="animation-delay:${k*40}ms">
  <div class="cl"><div class="ct"><b>${esc(i.name)}</b>${i.brand?`<small>${esc(i.brand)}</small>`:''}${i.note?`<em>${esc(i.note)}</em>`:''}</div>
  <div class="cm">${i.price?`<span class="price">≈ ${eur(i.price)}</span>`:''}</div></div>
- <div class="cr"><div class="ph">${p?`<img src="${esc(p)}" alt="" loading="lazy" onerror="this.remove()">`:''}<span>🎁</span></div>${i.got?'<span class="tag">🎁 ¡Ya regalado!</span>':u?`<a class="go" href="${esc(u)}" target="_blank" rel="noopener">Ver en tienda ↗</a>`:'<span class="tag off">Sin enlace</span>'}</div></div>`}).join('')});
+ <div class="cr"><div class="ph">${p?`<img src="${esc(p)}" alt="" loading="lazy" onerror="this.remove()">`:''}<span>🎁</span></div>${i.got?'<span class="tag">🎁 ¡Ya regalado!</span>':U.length>1?`<button class="go" onclick="pick(${k})">Ver ${U.length} tiendas ↗</button>`:u?`<a class="go" href="${esc(u)}" target="_blank" rel="noopener">Ver en tienda ↗</a>`:'<span class="tag off">Sin enlace</span>'}</div></div>`}).join('')});
 </script></body></html>

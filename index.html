@@ -173,6 +173,14 @@ html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
 #root.t-resumen .pbar{margin-top:22px}
 #root.t-resumen .hero{justify-content:space-evenly}#root.t-resumen .h2{flex:1 1 auto;align-items:center}
 @media(max-width:700px){#root.t-resumen .hero{padding:22px 16px 24px}.lbl2{margin-top:24px}.fruit .fn{margin-top:16px;font-size:11px}#root.t-compras .kc .kn{font-size:22px}#root.t-compras .kc .kn small{font-size:12px}}
+.urlrow{margin-bottom:6px;align-items:center}.unum{flex:none;width:22px;height:22px;border-radius:50%;background:var(--card2);color:var(--mu);font-size:12px;font-weight:900;display:grid;place-items:center}
+.urlrow .btn{padding:9px 12px}
+.lnk{position:relative;cursor:pointer;color:var(--tx);font-family:inherit}.lnk sup{position:absolute;top:-6px;right:-6px;background:var(--rose);color:#fff;font-size:10px;font-weight:900;border-radius:99px;min-width:16px;height:16px;line-height:16px;text-align:center}
+button.wlink{width:100%;cursor:pointer;font-family:inherit}
+.lsel{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.lsel a{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:var(--card2);border:1px solid var(--line);text-decoration:none;color:var(--tx)}
+.lsel a b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--rose);color:#fff;display:grid;place-items:center;font-size:13px}
+.lsel a span{flex:1;min-width:0;font-weight:900;font-size:15px}.lsel a small{display:block;font-weight:600;font-size:11px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lsel a em{font-style:normal;font-weight:900;color:var(--cy)}
 .secth{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.secth .sect{margin:0}.secth .btn{padding:9px 14px}
 .sect b{color:var(--tx);margin-left:6px;letter-spacing:.5px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -417,13 +425,13 @@ function wish(){const W=live(S.wish=S.wish||[]),got=W.filter(w=>w.got).length;
   <div class="wl"><div class="wt"><b>${esc(w.name)}</b>${w.brand?`<small>${esc(w.brand)}</small>`:''}${w.note?`<em>${esc(w.note)}</em>`:''}</div>
   <div class="wmid">${w.price?`<span class="wpr">${eur(w.price)}</span>`:''}</div>
   <button class="wg ${w.got?'on':''}" data-a="wgot" data-v="${w.id}">🎁 ${w.got?'Regalado':'¿Regalado?'}</button></div>
-  <div class="ws"><div class="wimg">${im?`<img src="${esc(im)}" alt="" loading="lazy" onerror="this.remove()">`:''}<span>🎁</span></div>${u?`<a class="wlink" href="${esc(u)}" target="_blank" rel="noopener" data-a="none">🔗 Tienda</a>`:'<span class="wlink off">Sin enlace</span>'}</div></div>`}).join('')}</div>`
+  <div class="ws"><div class="wimg">${im?`<img src="${esc(im)}" alt="" loading="lazy" onerror="this.remove()">`:''}<span>🎁</span></div>${linkBtn(w,'w','wlink')||'<span class="wlink off">Sin enlace</span>'}</div></div>`}).join('')}</div>`
  :`<div class="empty">Aún no hay nada. Elige entre lo que tenéis visto con «Añadir desde vistos» 👀</div>`}`}
 function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'',brand:'',price:null,url:'',note:''};
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🎁 ${nw?'Añadir a la wishlist':'Editar regalo'}</h3>
  <label>Qué</label><input id="wn" value="${esc(w.name)}" placeholder="Ej. Hamaca BabyBjörn">
  <div class="row2"><div><label>Marca / modelo</label><input id="wb" value="${esc(w.brand||'')}"></div><div><label>Precio aprox. (€)</label><input id="wp" type="number" step="0.01" inputmode="decimal" value="${w.price??''}"></div></div>
- <label>Enlace de la tienda</label><input id="wu" type="url" inputmode="url" value="${esc(w.url||'')}" placeholder="Pega aquí el enlace">
+ <label>Enlaces de tienda (hasta 3)</label>${(()=>{const g=getUrls(w);return urlInputs(g,k=>`class="wu" data-k="${k}"`)})()}
  <label>Nota para quien regale</label><input id="wo" value="${esc(w.note||'')}" placeholder="Ej. color gris, talla 0-3 meses">
  <label>Foto del producto</label><div class="phrow"><div class="phprev" id="wprev">${w.img?`<img src="${esc(imgUrl(w.img))}" alt="">`:'📷'}</div>
  <div class="phbtns"><label class="btn ghost phpick">📷 Elegir foto<input id="wf" type="file" accept="image/*" hidden></label><input id="wi" type="url" inputmode="url" placeholder="…o pega el enlace de la imagen" value="${esc(/^https?:/.test(w.img||'')?w.img:'')}">${w.img?'<button class="btn ghost" id="wrm" type="button">Quitar foto</button>':''}</div></div>
@@ -436,11 +444,11 @@ function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'
  d.querySelector('#wok').onclick=async()=>{const n=g('#wn');if(!n)return;const ok=d.querySelector('#wok');
   if(shot){ok.disabled=true;ok.textContent='Subiendo foto…';try{w.img=await uploadPhoto(w.id,shot)}catch(x){ok.disabled=false;ok.textContent='Guardar';toast('No se pudo subir la foto. ¿Hay conexión?');return}}
   else if(g('#wi'))w.img=safeUrl(g('#wi'))||w.img||'';
-  Object.assign(w,{name:n,brand:g('#wb'),price:g('#wp')===''?null:+g('#wp'),url:safeUrl(g('#wu'))||'',note:g('#wo')});
+  Object.assign(w,{name:n,brand:g('#wb'),price:g('#wp')===''?null:+g('#wp'),note:g('#wo')});setUrls(w,[...d.querySelectorAll('.wu')].map(x=>x.value));
   const k=S.wish.findIndex(x=>x.id==w.id);if(k<0)S.wish.push(w);else S.wish[k]=w;persist(w);d.remove();wish()};
  const del=d.querySelector('#wdel');if(del)del.onclick=()=>{if(del.dataset.c!='1'){del.dataset.c='1';del.textContent='¿Seguro?';return}const x=S.wish.find(x=>x.id==w.id);x.del=true;persist(x);d.remove();wish()};
  if(nw)setTimeout(()=>d.querySelector('#wn').focus(),50)}
-function wFromItem(i){S.wish=S.wish||[];if(live(S.wish).some(w=>w.itemId==i.id))return false;const w={id:'w'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),itemId:i.id,name:i.name,brand:i.brand||'',price:i.price||null,url:i.url||'',note:''};S.wish.push(w);persist(w);return true}
+function wFromItem(i){S.wish=S.wish||[];if(live(S.wish).some(w=>w.itemId==i.id))return false;const w={id:'w'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),itemId:i.id,name:i.name,brand:i.brand||'',price:i.price||null,url:i.url||'',note:''};setUrls(w,getUrls(i));S.wish.push(w);persist(w);return true}
 function wPick(){const inW=new Set(live(S.wish||[]).map(w=>w.itemId));const V=live(S.items).filter(i=>i.status=='Visto'&&!inW.has(i.id)).sort((a,b)=>a.name.localeCompare(b.name,'es'));
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>👀 Elegir de lo que tenéis visto</h3>
  ${V.length?`<div class="pick">${V.map(i=>`<label><input type="checkbox" value="${i.id}"><span><b>${esc(i.name)}</b><small>${esc(i.brand||'')}${i.price?' · '+eur(i.price):''}</small></span></label>`).join('')}</div>`:'<div class="empty">No queda nada en «Visto» que no esté ya en la wishlist.</div>'}
@@ -452,7 +460,7 @@ const RAW=`https://raw.githubusercontent.com/${OWNER}/${APP_REPO}/main/`;
 const imgUrl=s=>!s?'':/^https?:/i.test(s)?safeUrl(s):RAW+s;
 function shrink(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const M=700,k=Math.min(1,M/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=Math.round(im.width*k);cv.height=Math.round(im.height*k);const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0,cv.width,cv.height);res(cv.toDataURL('image/jpeg',.82))};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
 async function uploadPhoto(id,dataUrl){const path=`fotos/${id}-${Date.now().toString(36)}.jpg`;const r=await gh(`/repos/${OWNER}/${APP_REPO}/contents/${path}`,{method:'PUT',body:JSON.stringify({message:'Foto de regalo',content:dataUrl.split(',')[1]})});if(!r.ok)throw r.status;return path}
-const wItems=()=>live(S.wish||[]).map(w=>({name:w.name,brand:w.brand||'',price:w.price||null,url:safeUrl(w.url)||'',note:w.note||'',got:!!w.got,img:w.img||''}));
+const wItems=()=>live(S.wish||[]).map(w=>({name:w.name,brand:w.brand||'',price:w.price||null,url:getUrls(w)[0]||'',urls:getUrls(w),note:w.note||'',got:!!w.got,img:w.img||''}));
 async function publishWish(){if(!token||!S)return;const items=wItems(),sig=JSON.stringify(items);if(LS.get('lj-wishpub')===sig)return;
  const path=`/repos/${OWNER}/${APP_REPO}/contents/wishlist.json`;
  try{const g=await gh(path+'?t='+Date.now());let sh=null;if(g.ok){const j=await g.json();sh=j.sha;try{if(JSON.stringify(JSON.parse(b64d(j.content)).items)===sig){LS.set('lj-wishpub',sig);return}}catch(e){}}
@@ -465,6 +473,15 @@ function bumpQty(i,d){const q=Math.max(0,(+i.qty||0)+d);i.qty=q||null;
 
 const FRUIT={4:['🌱','semilla de amapola'],5:['🌱','semilla de sésamo'],6:['🫘','lenteja'],7:['🫐','arándano'],8:['🫘','alubia'],9:['🍒','cereza'],10:['🍊','naranja pequeña'],11:['🍐','higo'],12:['🍑','ciruela'],13:['🫛','vaina de guisantes'],14:['🍑','melocotón'],15:['🍎','manzana'],16:['🥑','aguacate'],17:['🥔','patata'],18:['🫑','pimiento'],19:['🥭','mango'],20:['🍊','pomelo'],21:['🍌','plátano'],22:['🥕','zanahoria'],23:['🍠','batata'],24:['🍆','berenjena'],25:['🍇','racimo de uvas'],26:['🥕','zanahoria grande'],27:['🥦','coliflor'],28:['🥥','coco'],29:['🍊','pomelo'],30:['🥬','repollo'],31:['🥒','calabacín'],32:['🥬','lechuga'],33:['🍍','piña'],34:['🎃','calabaza cacahuete'],35:['🍈','melón verde'],36:['🥭','papaya'],37:['🥬','lechuga romana'],38:['🥬','acelga'],39:['🍉','sandía pequeña'],40:['🍉','minisandía'],41:['🎃','calabaza'],42:['🍉','sandía']};
 const fruitOf=w=>FRUIT[Math.max(4,Math.min(42,w))];
+const getUrls=o=>{const a=(o&&o.urls&&o.urls.length?o.urls:[o&&o.url]).map(safeUrl).filter(Boolean);return [...new Set(a)].slice(0,3)};
+const hostName=u=>{try{const p=new URL(u).hostname.replace(/^www\./,'').split('.');const n=p.length>1?p[p.length-2]:p[0];return n.charAt(0).toUpperCase()+n.slice(1)}catch(e){return 'Tienda'}};
+function setUrls(o,arr){const a=[...new Set(arr.map(safeUrl).filter(Boolean))].slice(0,3);if(a.length){o.urls=a;o.url=a[0]}else{delete o.urls;o.url=''}}
+const urlInputs=(vals,attr)=>[0,1,2].map(k=>`<div class="urlrow"><span class="unum">${k+1}</span><input ${attr(k)} type="url" inputmode="url" autocomplete="off" placeholder="${k?'Otra tienda (opcional)':'Pega aquí el enlace de la tienda'}" value="${esc(vals[k]||'')}">${vals[k]&&safeUrl(vals[k])?`<a class="btn ghost" href="${esc(safeUrl(vals[k]))}" target="_blank" rel="noopener" data-a="none">↗</a>`:''}</div>`).join('');
+function linkBtn(o,kind,cls){const L=getUrls(o);if(!L.length)return '';if(L.length==1)return `<a class="${cls}" href="${esc(L[0])}" target="_blank" rel="noopener" data-a="none" title="${esc(hostName(L[0]))}">${cls=='lnk'?'🔗':'🔗 '+esc(hostName(L[0]))}</a>`;
+ return `<button class="${cls}" data-a="links" data-v="${kind}:${o.id}" title="${L.length} tiendas">${cls=='lnk'?`🔗<sup>${L.length}</sup>`:`🔗 ${L.length} tiendas`}</button>`}
+function linkSheet(o){const L=getUrls(o);const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>🔗 ${esc(o.name)}</h3><div class="note">Elige en qué tienda quieres verlo</div>
+ <div class="lsel">${L.map((u,k)=>`<a href="${esc(u)}" target="_blank" rel="noopener" data-a="none"><b>${k+1}</b><span>${esc(hostName(u))}<small>${esc(u.replace(/^https?:\/\/(www\.)?/,'').slice(0,60))}</small></span><em>↗</em></a>`).join('')}</div>
+ <div class="acts"><button class="btn ghost" data-a="closehelp">Cerrar</button></div></div>`;document.body.appendChild(d)}
 function heroHtml(st,pct,due,days,ga,gw,gd){return `<div class="hero"><div class="h2">
   <div class="preg" data-a="editpreg" title="Editar semanas">
    <span class="lbl">🤰 Embarazo <em>✎</em></span>
@@ -501,13 +518,13 @@ function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
 function row(i){const on=i.status=='Comprado',sk=isStock(i);
  return `<div class="it ${on&&!sk?'done':''} ${sk?'stk':''}" data-a="edit" data-v="${i.id}"><div class="ck ${on?'on':''}" data-a="check" data-v="${i.id}">${on?'✓':''}</div>
  <div class="t"><div title="${esc(i.name)}">${esc(i.name)}${!sk&&i.qty?`<span class="qty">×${i.qty}</span>`:''}</div>${i.brand?`<small>${esc(i.brand)}</small>`:''}</div>
- ${safeUrl(i.url)?`<a class="lnk" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener" data-a="none" title="Ir a la tienda">🔗</a>`:''}${sk?`<span class="qst"><button data-a="qm" data-v="${i.id}">−</button><b>${+i.qty||0}</b><button data-a="qp" data-v="${i.id}">+</button></span>`:`<span class="pr">${i.price?eur(i.price):''}</span>`}<span class="pill" style="background:${COL[i.status]}22;color:${COL[i.status]}">${sk&&i.status=='Comprado'?'Tengo':i.status}</span></div>`}
+ ${linkBtn(i,'i','lnk')}${sk?`<span class="qst"><button data-a="qm" data-v="${i.id}">−</button><b>${+i.qty||0}</b><button data-a="qp" data-v="${i.id}">+</button></span>`:`<span class="pr">${i.price?eur(i.price):''}</span>`}<span class="pill" style="background:${COL[i.status]}22;color:${COL[i.status]}">${sk&&i.status=='Comprado'?'Tengo':i.status}</span></div>`}
 function sheetHtml(){const i=ui.sheet,allC=[...new Set(live(S.items).map(x=>x.cat))].sort((a,b)=>a.localeCompare(b,'es'));
  return `<div class="ov" data-a="close"><div class="sh" data-a="none"><h3>${i._new?'Nuevo artículo':'Editar artículo'}</h3>
  <label>Artículo</label><input data-f="name" value="${esc(i.name)}" placeholder="Ej. Termómetro">
  <div class="row2"><div><label>Categoría</label><input data-f="cat" list="cl" value="${esc(i.cat)}"><datalist id="cl">${allC.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></div>
  <div><label>Marca y modelo</label><input data-f="brand" value="${esc(i.brand)}"></div></div>
- <label>Enlace de compra</label><div class="urlrow"><input data-f="url" type="url" inputmode="url" autocomplete="off" placeholder="Pega aquí el enlace de la tienda" value="${esc(i.url||'')}">${safeUrl(i.url)?`<a class="btn ghost" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener" data-a="none">Abrir ↗</a>`:''}</div>
+ <label>Enlaces de compra (hasta 3)</label>${(()=>{if(i.u0===undefined){const g=getUrls(i);i.u0=g[0]||'';i.u1=g[1]||'';i.u2=g[2]||''}return urlInputs([i.u0,i.u1,i.u2],k=>`data-f="u${k}"`)})()}
  <div class="row2"><div><label>Precio (€)</label><input data-f="price" type="number" step="0.01" inputmode="decimal" value="${i.price??''}"></div>
  <div><label>Cantidad</label><input data-f="qty" type="number" inputmode="numeric" value="${i.qty??''}"></div></div>
  <label>Estado</label><div class="seg">${ORDER.map(k=>`<button data-a="st" data-v="${k}" style="${i.status==k?`background:${COL[k]};color:#08142A;border-color:${COL[k]}`:''}">${k}</button>`).join('')}</div>
@@ -566,7 +583,7 @@ function analisis(){const st=stats(),L=live(S.items),cs=cats(L);
  $('#body').innerHTML=`<div class="sect">📈 Análisis</div><div class="agrid"><div class="acol">${cMoney}${cPend}</div><div class="acol">${cCat}${cMore}</div></div>`}
 
 /* ---------- acciones ---------- */
-function closeSheet(save){const i=ui.sheet;if(save){i.name=(i.name||'').trim();if(i.name){i.cat=(i.cat||'').trim()||'Otros';i.url=safeUrl(i.url)||'';if(!i.url)delete i.url;delete i._new;const k=S.items.findIndex(x=>x.id==i.id);if(k<0)S.items.push(i);else S.items[k]=i;persist(i)}}ui.sheet=null;ui.del=false;render()}
+function closeSheet(save){const i=ui.sheet;if(save){i.name=(i.name||'').trim();if(i.name){i.cat=(i.cat||'').trim()||'Otros';setUrls(i,[i.u0,i.u1,i.u2]);delete i.u0;delete i.u1;delete i.u2;if(!i.url)delete i.url;delete i._new;const k=S.items.findIndex(x=>x.id==i.id);if(k<0)S.items.push(i);else S.items[k]=i;persist(i)}}ui.sheet=null;ui.del=false;render()}
 async function share(){const url=location.origin+location.pathname;const txt='Lista de Jimena 🍼 '+url;
  try{if(navigator.share){await navigator.share({title:'Lista de Jimena',text:'Nuestra lista del bebé',url});return}}catch(e){if(e.name=='AbortError')return}
  try{await navigator.clipboard.writeText(txt);toast('Enlace copiado. Pásale también la contraseña.')}catch(e){toast(url)}}
@@ -592,6 +609,7 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!
  else if(a=='drawer'){ui.drawer=!ui.drawer;$('nav.tabs').classList.toggle('open',ui.drawer);$('.scrim').classList.toggle('open',ui.drawer)}
  else if(a=='fs'){const d=document,E=d.documentElement;try{if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d);else (E.requestFullscreen||E.webkitRequestFullscreen).call(E)}catch(x){toast('Este navegador no deja pantalla completa')}if(ui.menu){ui.menu=false;render()}}
  else if(a=='share')share();
+ else if(a=='links'){e.stopPropagation();const [k,id]=v.split(':');const o=(k=='w'?S.wish:S.items).find(x=>x.id==id);if(o)linkSheet(o)}
  else if(a=='qm'||a=='qp'){e.stopPropagation();const i=it();bumpQty(i,a=='qp'?1:-1);const sc=scrollY;render();scrollTo(0,sc)}
  else if(a=='wadd')wSheet();
  else if(a=='wpick')wPick();
