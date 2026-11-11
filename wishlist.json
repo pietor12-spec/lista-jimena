@@ -1,11 +1,14 @@
 {
- "updated": "2026-11-10T09:23:31.831Z",
+ "updated": "2026-11-11T21:34:57.346Z",
  "items": [
   {
    "name": "Bañera plegable",
    "brand": "Stokke",
    "price": 50,
    "url": "https://www.stokke.com/ESP/es-es/531910.html?utm_source=google&utm_medium=cpc&utm_campaign=es_shopping-brand_purchase_ao_bathing_bath_flexibath_t3&gad_source=1&gad_campaignid=23752196331&gbraid=0AAAAADmO-D_8OnwH39H25PAKrT15OhPlX&gclid=Cj0KCQiA-8XXBhDaARIsADnEOrDXJdcPE6SRVJ95o-QawH8hQZIOCTpja9mimdz1MDm2IWvsKh1X4mEaAucZEALw_wcB",
+   "urls": [
+    "https://www.stokke.com/ESP/es-es/531910.html?utm_source=google&utm_medium=cpc&utm_campaign=es_shopping-brand_purchase_ao_bathing_bath_flexibath_t3&gad_source=1&gad_campaignid=23752196331&gbraid=0AAAAADmO-D_8OnwH39H25PAKrT15OhPlX&gclid=Cj0KCQiA-8XXBhDaARIsADnEOrDXJdcPE6SRVJ95o-QawH8hQZIOCTpja9mimdz1MDm2IWvsKh1X4mEaAucZEALw_wcB"
+   ],
    "note": "",
    "got": false,
    "img": "https://www.stokke.com/dw/image/v2/AAQF_PRD/on/demandware.static/-/Sites-stokke-master-catalog/default/dw47f509e6/images/inriverimages/mainview/FlexiBath_PDP_BathandFolded_Green_eCom.avif?sfrm=png&sw=1179&q=60"
@@ -15,6 +18,9 @@
    "brand": "Zara Home",
    "price": 10,
    "url": "https://www.zarahome.com/es/portachupetes-silicona-pollito-l44605796?similar=true&pelement=507776411&colorId=712",
+   "urls": [
+    "https://www.zarahome.com/es/portachupetes-silicona-pollito-l44605796?similar=true&pelement=507776411&colorId=712"
+   ],
    "note": "",
    "got": false,
    "img": "https://static.zarahome.net//assets/public/19d8/5904/5da346b0a2b2/d107d8653489/44605796712-a7/44605796712-a7.jpg?ts=1779173876957&f=auto&w=480&f=auto"
@@ -24,6 +30,9 @@
    "brand": "Hemmnes (IKEA)",
    "price": 199,
    "url": "https://applink.ikea.com/tY8M9r9M4w--80424745--es--es",
+   "urls": [
+    "https://applink.ikea.com/tY8M9r9M4w--80424745--es--es"
+   ],
    "note": "",
    "got": false,
    "img": "fotos/wmw9w4fgr3ka-mw9xask9.jpg"
@@ -33,6 +42,9 @@
    "brand": "Momcozy",
    "price": 56,
    "url": "https://share.google/R6DRxORjtlCuAu22X",
+   "urls": [
+    "https://share.google/R6DRxORjtlCuAu22X"
+   ],
    "note": "",
    "got": false,
    "img": "fotos/wmw9w4fgr3cp-mw9xd2je.jpg"
@@ -42,6 +54,9 @@
    "brand": "Vertbaudet",
    "price": 75,
    "url": "https://www.vertbaudet.es/alfombra-de-actividades-flexible-y-evolutiva-tanzania-rosa.htm?ProductId=341008898&FiltreCouleur=1116&qId=9ed04297349f898f658943bac6d33402#intnavid=h_fp_similaire",
+   "urls": [
+    "https://www.vertbaudet.es/alfombra-de-actividades-flexible-y-evolutiva-tanzania-rosa.htm?ProductId=341008898&FiltreCouleur=1116&qId=9ed04297349f898f658943bac6d33402#intnavid=h_fp_similaire"
+   ],
    "note": "Versión Rosa",
    "got": false,
    "img": "https://www.vertbaudet.es/fstrz/r/s/media.vertbaudet.es/Pictures/vertbaudet/1471104/alfombra-de-actividades-flexible-y-evolutiva-tanzania.jpg?width=800"
@@ -51,6 +66,9 @@
    "brand": "Momcozy",
    "price": 54,
    "url": "https://share.google/hlvoblkdo7ep6D0ie",
+   "urls": [
+    "https://share.google/hlvoblkdo7ep6D0ie"
+   ],
    "note": "Con dos productos + de Momcozy 20% descuento",
    "got": false,
    "img": "https://es.momcozy.com/cdn/shop/files/c39223f74f614f90c33513d320713864.jpg?v=1777305372&width=720"
@@ -60,6 +78,9 @@
    "brand": "Pasito a pasito",
    "price": 78,
    "url": "https://pasitoapasito.es/producto/maleta-cherry-rayas/",
+   "urls": [
+    "https://pasitoapasito.es/producto/maleta-cherry-rayas/"
+   ],
    "note": "Color Cherry",
    "got": false,
    "img": "https://pasitoapasito.es/wp-content/uploads/2025/09/1120900542_b-1.jpg"
@@ -69,6 +90,9 @@
    "brand": "Momcozy Caqui",
    "price": 46,
    "url": "https://es.momcozy.com/products/baby-carrier-khaki-color?variant=62788909760883&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794263347401_2cb513cf8b&wgexpiry=1825799347",
+   "urls": [
+    "https://es.momcozy.com/products/baby-carrier-khaki-color?variant=62788909760883&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794263347401_2cb513cf8b&wgexpiry=1825799347"
+   ],
    "note": "Colr Caqui",
    "got": false,
    "img": "https://es.momcozy.com/cdn/shop/files/1_f960165d-1647-4a8b-996a-500f1958042c.jpg?v=1777305078&width=720"
@@ -78,6 +102,9 @@
    "brand": "Hellow baby HB6550",
    "price": 80,
    "url": "https://amzn.eu/d/073NWFI6",
+   "urls": [
+    "https://amzn.eu/d/073NWFI6"
+   ],
    "note": "",
    "got": false,
    "img": "fotos/wmw9w4fgv0l4-mw9xgqcx.jpg"
@@ -87,6 +114,9 @@
    "brand": "Momcozy",
    "price": 80,
    "url": "https://es.momcozy.com/products/momcozy-triple-seal-diaper-pail?variant=64613414699379&utm_source=google&utm_medium=organic&utm_campaign=Multifeeds-ES-1-260601&utm_content=Momcozy+Triple-Seal+Diaper+Pail&currency=EUR&utm_source=google&utm_medium=cpc&utm_campaign=cn%3AJiavy-Sale-Pmax-%E6%AC%A7%E6%B4%B2ES-%E5%85%A8%E5%93%81%E7%BA%BF-%E5%A4%A7%E4%BF%83-20260615%7Ccid%3A23947584454&utm_content=l2%3A%7Cnet%3Ax%7Cpl%3A%7Cagid%3A%7Cassetgid%3A6743564899&utm_term=l3%3A%7Ckw%3A%7Cmt%3A%7Ccrid%3A&utm_id=cid%3A23947584454%7Csrcid%3A%7Bsourceid%7D%7Cpid%3Ashopify_es_15357682319731_64613414699379%7Ctgid%3A&gad_source=1&gad_campaignid=23947591645&gbraid=0AAAABDeftNrInM2OlDFuha86cKDIrk-jZ&gclid=Cj0KCQiA-8XXBhDaARIsADnEOrA2QDlC6EUQgW5Gle6-8JYK_pGN8lr5glpkOdEoAE5x0LHTvZz_kpQaAveAEALw_wcB",
+   "urls": [
+    "https://es.momcozy.com/products/momcozy-triple-seal-diaper-pail?variant=64613414699379&utm_source=google&utm_medium=organic&utm_campaign=Multifeeds-ES-1-260601&utm_content=Momcozy+Triple-Seal+Diaper+Pail&currency=EUR&utm_source=google&utm_medium=cpc&utm_campaign=cn%3AJiavy-Sale-Pmax-%E6%AC%A7%E6%B4%B2ES-%E5%85%A8%E5%93%81%E7%BA%BF-%E5%A4%A7%E4%BF%83-20260615%7Ccid%3A23947584454&utm_content=l2%3A%7Cnet%3Ax%7Cpl%3A%7Cagid%3A%7Cassetgid%3A6743564899&utm_term=l3%3A%7Ckw%3A%7Cmt%3A%7Ccrid%3A&utm_id=cid%3A23947584454%7Csrcid%3A%7Bsourceid%7D%7Cpid%3Ashopify_es_15357682319731_64613414699379%7Ctgid%3A&gad_source=1&gad_campaignid=23947591645&gbraid=0AAAABDeftNrInM2OlDFuha86cKDIrk-jZ&gclid=Cj0KCQiA-8XXBhDaARIsADnEOrA2QDlC6EUQgW5Gle6-8JYK_pGN8lr5glpkOdEoAE5x0LHTvZz_kpQaAveAEALw_wcB"
+   ],
    "note": "",
    "got": false,
    "img": "https://es.momcozy.com/cdn/shop/files/2_1x_27700c8b-0eec-4d43-8cab-408d2283d001.webp?v=1781257714&width=720"
@@ -96,6 +126,9 @@
    "brand": "Baby Brezza",
    "price": 249,
    "url": "https://babybrezza.es/products/formula-pro-mini-preparador-de-biberones-y-dispensador-de-formula?variant=47246242971929&country=ES&currency=EUR&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&gad_source=1&gad_campaignid=20866018754&gclid=Cj0KCQiA-8XXBhDaARIsADnEOrDxvHKfS631zb-pvBSdJYtM_enc_xv5AbVXb_DU57ExqpJQ2fbiXPYaAihLEALw_wcB",
+   "urls": [
+    "https://babybrezza.es/products/formula-pro-mini-preparador-de-biberones-y-dispensador-de-formula?variant=47246242971929&country=ES&currency=EUR&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&gad_source=1&gad_campaignid=20866018754&gclid=Cj0KCQiA-8XXBhDaARIsADnEOrDxvHKfS631zb-pvBSdJYtM_enc_xv5AbVXb_DU57ExqpJQ2fbiXPYaAihLEALw_wcB"
+   ],
    "note": "",
    "got": false,
    "img": "https://babybrezza.es/cdn/shop/files/MINIPNGEUROPEAN_b9b96695-4abd-47cc-8686-0c74a5ff4d2f.png?v=1759219505&width=1400"
@@ -105,6 +138,9 @@
    "brand": "Molisandco",
    "price": 30,
    "url": "https://molisandco.com/products/saco-de-dormir-bebe-con-mangas-winter-commelina-tog-2-5?utm_source=ig&utm_medium=paid&utm_campaign=20240909_RET_PRODUCTMIX_ES_ALLPL_PE&utm_term=120245826860120247&utm_content=20%2F8%2F2026%7C%7CIMG%7C%7CMA%7C%7CTOG-1%7C%7CURLPDP-SACO%7C%7CVALUEPROP%7C%7C9-16-Pictos-Peony-SP_ES.jpg&utm_id=120245826860120247_v2_s02_e1003_cc1_ap2_bd2_af2_i97938876&fbclid=PAb21jcAVfHN5leHRuA2FlbQEwAHBkb2YCYWRpZAGrOPsYh_V3c3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnZHD2zoTH94TGUSc5zPuhOaZFrLL5InG1yRAjIdN6jQh4HPoiSNltLBxR6KA_aem_bnJUZFCI_Ge0YIDkUidIhg&fbclid=PAZXh0bgNhZW0BMABwZG9mAmFkaWQBqzj7GIf1d3NydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp2Rw9s6Ex_eExlEnOcz7oTmmRayy-SJxtckQIyHTeo0IeBz6IkjZbSwcUeig_aem_bnJUZFCI_Ge0YIDkUidIhg",
+   "urls": [
+    "https://molisandco.com/products/saco-de-dormir-bebe-con-mangas-winter-commelina-tog-2-5?utm_source=ig&utm_medium=paid&utm_campaign=20240909_RET_PRODUCTMIX_ES_ALLPL_PE&utm_term=120245826860120247&utm_content=20%2F8%2F2026%7C%7CIMG%7C%7CMA%7C%7CTOG-1%7C%7CURLPDP-SACO%7C%7CVALUEPROP%7C%7C9-16-Pictos-Peony-SP_ES.jpg&utm_id=120245826860120247_v2_s02_e1003_cc1_ap2_bd2_af2_i97938876&fbclid=PAb21jcAVfHN5leHRuA2FlbQEwAHBkb2YCYWRpZAGrOPsYh_V3c3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnZHD2zoTH94TGUSc5zPuhOaZFrLL5InG1yRAjIdN6jQh4HPoiSNltLBxR6KA_aem_bnJUZFCI_Ge0YIDkUidIhg&fbclid=PAZXh0bgNhZW0BMABwZG9mAmFkaWQBqzj7GIf1d3NydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp2Rw9s6Ex_eExlEnOcz7oTmmRayy-SJxtckQIyHTeo0IeBz6IkjZbSwcUeig_aem_bnJUZFCI_Ge0YIDkUidIhg"
+   ],
    "note": "",
    "got": false,
    "img": "https://molisandco.com/cdn/shop/files/WINTER_COMMELINA_SP_4392436b-7389-44fe-8843-85b5f3088a00.png?v=1791295632&width=3000"
@@ -114,6 +150,9 @@
    "brand": "Stokke Tripp Trapp (wallapop)",
    "price": 309,
    "url": "https://share.google/DBRG3jslGKu8vMi3M",
+   "urls": [
+    "https://share.google/DBRG3jslGKu8vMi3M"
+   ],
    "note": "",
    "got": false,
    "img": "https://www.stokke.com/dw/image/v2/AAQF_PRD/on/demandware.static/-/Sites-stokke-master-catalog/default/dw022587b8/images/inriverimages/mainview/TrippTrapp_Natural_BS_Tray-VanWhi_1-5_eCom_1-1_eCom.avif?sfrm=png&sw=1179&q=60"
