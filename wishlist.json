@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:11:56.765Z",
+ "updated": "2026-11-12T10:15:13.968Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -183,14 +183,16 @@
    "img": "https://es.momcozy.com/cdn/shop/files/2_360e9c9a-b153-4ce1-958d-000c6fe92925.jpg?v=1777306050&width=720"
   },
   {
-   "name": "Cepillo suave / peine",
-   "brand": "",
-   "price": null,
-   "url": "",
-   "urls": [],
-   "note": "",
+   "name": "Neceser Bebé",
+   "brand": "Jané",
+   "price": 24.95,
+   "url": "https://janeworld.com/products/neceser-completo-de-higiene?variant=57302622110022",
+   "urls": [
+    "https://janeworld.com/products/neceser-completo-de-higiene?variant=57302622110022"
+   ],
+   "note": "Cepillo de dientes/peine/cortauñas/tijeras/limas y Termómetro de bañera",
    "got": false,
-   "img": ""
+   "img": "https://janeworld.com/cdn/shop/files/040218_U09_hygiene_set_with_toilet_bag_pale_1_85d30c5f-9936-4e1c-9f00-e86b8a6c96ee.webp?v=1789037753&width=1920"
   }
  ]
 }
