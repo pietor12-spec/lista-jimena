@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:15:13.968Z",
+ "updated": "2026-11-12T10:19:41.621Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -193,6 +193,16 @@
    "note": "Cepillo de dientes/peine/cortauñas/tijeras/limas y Termómetro de bañera",
    "got": false,
    "img": "https://janeworld.com/cdn/shop/files/040218_U09_hygiene_set_with_toilet_bag_pale_1_85d30c5f-9936-4e1c-9f00-e86b8a6c96ee.webp?v=1789037753&width=1920"
+  },
+  {
+   "name": "Carpeta Documentación",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
