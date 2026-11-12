@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:50:13.690Z",
+ "updated": "2026-11-12T10:53:47.038Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -242,6 +242,16 @@
    "note": "El 2 es más completo (25% Compra suelta)",
    "got": false,
    "img": "https://es.momcozy.com/cdn/shop/files/1_V1_0221ba72-dbda-402a-bedf-fa26120d6f98.jpg?v=1777304345&width=720"
+  },
+  {
+   "name": "Espejo de seguridad para tummy time",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
