@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T18:38:43.890Z",
+ "updated": "2026-11-12T18:44:23.511Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -320,6 +320,18 @@
    "note": "",
    "got": false,
    "img": "https://infantdeco.b-cdn.net/wp-content/uploads/2025/07/PI041910.jpg"
+  },
+  {
+   "name": "Cubo blandito de actividades Ocean",
+   "brand": "Infantdeco",
+   "price": 7.92,
+   "url": "https://infantdeco.es/producto/cubo-blandito-de-actividades-ocean/",
+   "urls": [
+    "https://infantdeco.es/producto/cubo-blandito-de-actividades-ocean/"
+   ],
+   "note": "",
+   "got": false,
+   "img": "https://infantdeco.b-cdn.net/wp-content/uploads/2026/10/1cd315ef-77d9-4e8b-96b1-f8ca6bb5f738.jpg"
   }
  ]
 }
