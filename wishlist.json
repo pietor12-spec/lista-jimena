@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T18:19:39.069Z",
+ "updated": "2026-11-12T18:21:08.208Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -176,7 +176,8 @@
    "price": 112.5,
    "url": "https://es.momcozy.com/products/s12-pro-quick-wearable-breast-pump?variant=62788351558003&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794477226609_562cc252ad&wgexpiry=1826013226",
    "urls": [
-    "https://es.momcozy.com/products/s12-pro-quick-wearable-breast-pump?variant=62788351558003&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794477226609_562cc252ad&wgexpiry=1826013226"
+    "https://es.momcozy.com/products/s12-pro-quick-wearable-breast-pump?variant=62788351558003&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794477226609_562cc252ad&wgexpiry=1826013226",
+    "https://momcozy.com/es/products/m5-smart-wearable-breast-pump-upgraded-with-app-control"
    ],
    "note": "Comprar suelta (25%)",
    "got": false,
@@ -281,18 +282,6 @@
    "note": "Amazon 19 Nov black friday",
    "got": false,
    "img": "https://m.media-amazon.com/images/I/81lz8nTdDjL._AC_SL1500_.jpg"
-  },
-  {
-   "name": "Sacaleches M5 Smart doble + 120 bolsas",
-   "brand": "Momcozy",
-   "price": null,
-   "url": "https://momcozy.com/es/products/m5-smart-wearable-breast-pump-upgraded-with-app-control",
-   "urls": [
-    "https://momcozy.com/es/products/m5-smart-wearable-breast-pump-upgraded-with-app-control"
-   ],
-   "note": "Elegido frente al S12 Pro",
-   "got": false,
-   "img": "https://es.momcozy.com/cdn/shop/files/M5-Red-Double_120_count_bags_2x_18284d4f-f585-4779-9480-382fb7c1f704.webp?v=1784860981&width=720"
   },
   {
    "name": "Sujetador lactancia cómodo",
