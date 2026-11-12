@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T09:59:44.686Z",
+ "updated": "2026-11-12T10:11:56.765Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -181,6 +181,16 @@
    "note": "Comprarlo de forma individual (25%)",
    "got": false,
    "img": "https://es.momcozy.com/cdn/shop/files/2_360e9c9a-b153-4ce1-958d-000c6fe92925.jpg?v=1777306050&width=720"
+  },
+  {
+   "name": "Cepillo suave / peine",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
