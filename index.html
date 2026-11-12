@@ -244,6 +244,7 @@ button.wlink{width:100%;cursor:pointer;font-family:inherit}
 .it .t small{color:var(--mu);font-size:12px}
 .it.done .t div{color:var(--mu);text-decoration:line-through;text-decoration-color:rgba(0,255,163,.5)}
 .pill{font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.wchip{font-size:12px;font-weight:800;padding:2px 7px;border-radius:99px;border:1px dashed var(--rose);color:var(--rose);white-space:nowrap}
 .pr{font-weight:700;font-size:13px;min-width:56px;text-align:right;white-space:nowrap}
 .qty{font-size:11px;background:var(--card2);border-radius:6px;padding:1px 5px;margin-left:4px;color:var(--mu)}
 .x{color:var(--mu);border:0;background:none;font-size:18px;cursor:pointer;padding:0 4px;opacity:.5}
@@ -449,7 +450,7 @@ function wSheet(w){const nw=!w;w=w?{...w}:{id:'w'+Date.now().toString(36),name:'
   const k=S.wish.findIndex(x=>x.id==w.id);if(k<0)S.wish.push(w);else S.wish[k]=w;persist(w);d.remove();wish()};
  const del=d.querySelector('#wdel');if(del)del.onclick=()=>{if(del.dataset.c!='1'){del.dataset.c='1';del.textContent='¿Seguro?';return}const x=S.wish.find(x=>x.id==w.id);x.del=true;persist(x);d.remove();wish()};
  if(nw)setTimeout(()=>d.querySelector('#wn').focus(),50)}
-function wFromItem(i){S.wish=S.wish||[];if(live(S.wish).some(w=>w.itemId==i.id))return false;const w={id:'w'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),itemId:i.id,name:i.name,brand:i.brand||'',price:i.price||null,url:i.url||'',note:''};setUrls(w,getUrls(i));S.wish.push(w);persist(w);return true}
+function wFromItem(i){S.wish=S.wish||[];const ex=live(S.wish).find(w=>w.itemId==i.id&&!w.got);if(ex){Object.assign(ex,{name:i.name||ex.name,brand:i.brand||'',price:i.price||null});const L=getUrls(i);if(L.length)setUrls(ex,L);persist(ex);return 'upd'}const w={id:'w'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),itemId:i.id,name:i.name,brand:i.brand||'',price:i.price||null,url:i.url||'',note:''};setUrls(w,getUrls(i));S.wish.push(w);persist(w);return 'new'}
 function wPick(){const inW=new Set(live(S.wish||[]).map(w=>w.itemId));const V=live(S.items).filter(i=>i.status=='Visto'&&!inW.has(i.id)).sort((a,b)=>a.name.localeCompare(b.name,'es'));
  const d=document.createElement('div');d.className='ov';d.dataset.a='closehelp';d.innerHTML=`<div class="sh"><h3>👀 Elegir de lo que tenéis visto</h3>
  ${V.length?`<div class="pick">${V.map(i=>`<label><input type="checkbox" value="${i.id}"><span><b>${esc(i.name)}</b><small>${esc(i.brand||'')}${i.price?' · '+eur(i.price):''}</small></span></label>`).join('')}</div>`:'<div class="empty">No queda nada en «Visto» que no esté ya en la wishlist.</div>'}
@@ -516,10 +517,10 @@ function list(){const q=ui.q.trim().toLowerCase(),L=live(S.items);
  $('#list').innerHTML=cats(its).map(([c,arr])=>{const all=L.filter(i=>i.cat==c),cnt={};all.forEach(i=>cnt[i.status]=(cnt[i.status]||0)+1);const open=isOpen(c,q);
   return `<div class="grp ${open?'':'closed'}"><div class="gh" data-a="grp" data-v="${esc(c)}"><span class="e">${emo(c)}</span><span class="n">${esc(c)}</span><span class="c">${ui.filter?arr.length:`${cnt.Comprado||0}/${all.length}`}</span><span class="mini">${segBar(cnt,all.length)}</span><span class="chev">▾</span></div>
   <div class="items">${open?arr.sort((a,b)=>ORDER.indexOf(a.status)-ORDER.indexOf(b.status)||a.name.localeCompare(b.name,'es')).map(row).join(''):''}</div></div>`}).join('')}
-function row(i){const on=i.status=='Comprado',sk=isStock(i);
+function row(i){const on=i.status=='Comprado',sk=isStock(i),wn=live(S.wish||[]).filter(w=>w.itemId==i.id&&!w.got).length;
  return `<div class="it ${on&&!sk?'done':''} ${sk?'stk':''}" data-a="edit" data-v="${i.id}"><div class="ck ${on?'on':''}" data-a="check" data-v="${i.id}">${on?'✓':''}</div>
  <div class="t"><div title="${esc(i.name)}">${esc(i.name)}${!sk&&i.qty?`<span class="qty">×${i.qty}</span>`:''}</div>${i.brand?`<small>${esc(i.brand)}</small>`:''}</div>
- ${linkBtn(i,'i','lnk')}${sk?`<span class="qst"><button data-a="qm" data-v="${i.id}">−</button><b>${+i.qty||0}</b><button data-a="qp" data-v="${i.id}">+</button></span>`:`<span class="pr">${i.price?eur(i.price):''}</span>`}<span class="pill" style="background:${COL[i.status]}22;color:${COL[i.status]}">${sk&&i.status=='Comprado'?'Tengo':i.status}</span></div>`}
+ ${wn?`<span class="wchip" title="${wn} en la wishlist, aún sin comprar">🎁${wn>1?wn:''}</span>`:''}${linkBtn(i,'i','lnk')}${sk?`<span class="qst"><button data-a="qm" data-v="${i.id}">−</button><b>${+i.qty||0}</b><button data-a="qp" data-v="${i.id}">+</button></span>`:`<span class="pr">${i.price?eur(i.price):''}</span>`}<span class="pill" style="background:${COL[i.status]}22;color:${COL[i.status]}">${sk&&i.status=='Comprado'?'Tengo':i.status}</span></div>`}
 function sheetHtml(){const i=ui.sheet,allC=[...new Set(live(S.items).map(x=>x.cat))].sort((a,b)=>a.localeCompare(b,'es'));
  return `<div class="ov" data-a="close"><div class="sh" data-a="none"><h3>${i._new?'Nuevo artículo':'Editar artículo'}</h3>
  <label>Artículo</label><input data-f="name" value="${esc(i.name)}" placeholder="Ej. Termómetro">
@@ -530,7 +531,7 @@ function sheetHtml(){const i=ui.sheet,allC=[...new Set(live(S.items).map(x=>x.ca
  <div><label>Cantidad</label><input data-f="qty" type="number" inputmode="numeric" value="${i.qty??''}"></div></div>
  <label>Estado</label><div class="seg">${ORDER.map(k=>`<button data-a="st" data-v="${k}" style="${i.status==k?`background:${COL[k]};color:#08142A;border-color:${COL[k]}`:''}">${k}</button>`).join('')}</div>
  <label class="tgl"><input type="checkbox" data-f="stock" ${isStock(i)?'checked':''}><span>📦 <b>Llevar cantidad</b> — no se tacha y sale un contador − / +</span></label>
- ${!i._new&&i.status!='Comprado'?`<button class="btn ghost" style="width:100%;margin-top:10px" data-a="towish">🎁 Añadir a la wishlist</button>`:''}
+ ${!i._new?`<button class="btn ghost" style="width:100%;margin-top:10px" data-a="towish">${live(S.wish||[]).some(w=>w.itemId==i.id&&!w.got)?'🎁 Actualizar en la wishlist':'🎁 Añadir a la wishlist'}</button><div class="note" style="margin-top:6px">Lo de la wishlist no cuenta como comprado. Cuando lo marquéis como regalado, suma 1 aquí.</div>`:''}
  <div class="acts">${i._new?'':`<button class="btn danger" data-a="del">Borrar</button>`}<button class="btn" data-a="savesheet">Guardar</button></div></div></div>`}
 function menuHtml(){return `<div class="ov" data-a="close"><div class="sh menu" data-a="none"><h3>Ajustes</h3><div class="note">${$('#st2')?$('#st2').textContent:''}</div>
  ${standalone()?'':'<button class="btn rose" data-a="install">⬇ Instalar app</button>'}<button class="btn ghost" data-a="share">🔗 Compartir con la familia</button><button class="btn ghost" data-a="sync">🔄 Sincronizar ahora</button><button class="btn ghost" data-a="lock">🔒 Bloquear este dispositivo</button>
@@ -616,8 +617,8 @@ document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!
  else if(a=='wpick')wPick();
  else if(a=='wshare')wShare();
  else if(a=='wedit')wSheet(live(S.wish).find(x=>x.id==v));
- else if(a=='wgot'){e.stopPropagation();const w=S.wish.find(x=>x.id==v);w.got=!w.got;persist(w);wish()}
- else if(a=='towish'){const i=S.items.find(x=>x.id==ui.sheet.id);const ok=wFromItem(i);toast(ok?'Añadido a la wishlist 🎁':'Ya estaba en la wishlist');}
+ else if(a=='wgot'){e.stopPropagation();const w=S.wish.find(x=>x.id==v);w.got=!w.got;persist(w);const i=w.itemId&&live(S.items).find(x=>x.id==w.itemId);if(i){bumpQty(i,w.got?1:-1);persist(i);toast(w.got?`Sumado 1 a «${i.name}» ✓`:`Restado 1 a «${i.name}»`)}wish()}
+ else if(a=='towish'){const s={...ui.sheet};if(s.u0!==undefined)setUrls(s,[s.u0,s.u1,s.u2]);const ok=wFromItem(s);toast(ok=='new'?'Añadido a la wishlist 🎁':'Wishlist actualizada 🎁');}
  else if(a=='theme'){setTheme(!ui.light);render()}
  else if(a=='bagnew')bagSheet();
  else if(a=='gofilter'){ui.tab='compras';ui.filter=v||null;ui.q='';render();scrollTo(0,0)}
