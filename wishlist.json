@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T11:04:53.792Z",
+ "updated": "2026-11-12T11:06:15.380Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -258,13 +258,15 @@
   },
   {
    "name": "Cepillo limpia-biberones",
-   "brand": "",
-   "price": null,
-   "url": "",
-   "urls": [],
+   "brand": "Momcozy",
+   "price": 13.6,
+   "url": "https://es.momcozy.com/products/momcozy-bottle-brush-set-classic-style?variant=62788268327283&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794481079813_d055217496&wgexpiry=1826017079",
+   "urls": [
+    "https://es.momcozy.com/products/momcozy-bottle-brush-set-classic-style?variant=62788268327283&utm_source=webgains_es&utm_medium=affiliate&siteid=1746460&wgu=311208_1746460_1794481079813_d055217496&wgexpiry=1826017079"
+   ],
    "note": "",
    "got": false,
-   "img": ""
+   "img": "https://es.momcozy.com/cdn/shop/files/1-momcozy.jpg?v=1777304233&width=720"
   }
  ]
 }
