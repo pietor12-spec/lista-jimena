@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T21:38:01.690Z",
+ "updated": "2026-11-12T09:42:10.731Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -157,6 +157,16 @@
    "note": "",
    "got": false,
    "img": "https://www.stokke.com/dw/image/v2/AAQF_PRD/on/demandware.static/-/Sites-stokke-master-catalog/default/dw022587b8/images/inriverimages/mainview/TrippTrapp_Natural_BS_Tray-VanWhi_1-5_eCom_1-1_eCom.avif?sfrm=png&sw=1179&q=60"
+  },
+  {
+   "name": "Colchoneta cambiador (para cómoda o mueble)",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
