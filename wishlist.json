@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T11:06:15.380Z",
+ "updated": "2026-11-12T11:20:54.192Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -267,6 +267,16 @@
    "note": "",
    "got": false,
    "img": "https://es.momcozy.com/cdn/shop/files/1-momcozy.jpg?v=1777304233&width=720"
+  },
+  {
+   "name": "Espejo Coche",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
