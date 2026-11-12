@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:56:34.047Z",
+ "updated": "2026-11-12T11:04:53.792Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -255,6 +255,16 @@
    "note": "El tercer enlace Más caro y mejor en teoria",
    "got": false,
    "img": "https://m.media-amazon.com/images/I/714Pa71iRgL._AC_SL1500_.jpg"
+  },
+  {
+   "name": "Cepillo limpia-biberones",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
