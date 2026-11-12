@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:20:54.042Z",
+ "updated": "2026-11-12T10:33:43.353Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -205,6 +205,16 @@
    "note": "",
    "got": false,
    "img": "https://m.media-amazon.com/images/I/813rgupZjiL._AC_SL1500_.jpg"
+  },
+  {
+   "name": "Humidificador",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
