@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T09:43:49.181Z",
+ "updated": "2026-11-12T09:57:55.409Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -169,6 +169,16 @@
    "note": "",
    "got": false,
    "img": "https://m.media-amazon.com/images/I/71kkFnF7LCL._AC_SL1500_.jpg"
+  },
+  {
+   "name": "Sacaleches eléctrico (simple o doble)",
+   "brand": "",
+   "price": null,
+   "url": "",
+   "urls": [],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
