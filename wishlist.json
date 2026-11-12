@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:44:13.096Z",
+ "updated": "2026-11-12T10:45:49.988Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -222,13 +222,13 @@
    "name": "Lima Eléctrica",
    "brand": "Momcozy",
    "price": 24,
-   "url": "https://es.momcozy.com/products/momcozy-electric-baby-nail-file?variant=62830134133107",
+   "url": "https://es.momcozy.com/products/momcozy-electric-baby-nail-file",
    "urls": [
-    "https://es.momcozy.com/products/momcozy-electric-baby-nail-file?variant=62830134133107"
+    "https://es.momcozy.com/products/momcozy-electric-baby-nail-file"
    ],
    "note": "",
    "got": false,
-   "img": ""
+   "img": "https://m.media-amazon.com/images/I/61Ga0gWdJVL._AC_SL1500_.jpg"
   }
  ]
 }
