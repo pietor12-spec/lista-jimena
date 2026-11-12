@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T10:45:49.988Z",
+ "updated": "2026-11-12T10:46:57.208Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -229,6 +229,18 @@
    "note": "",
    "got": false,
    "img": "https://m.media-amazon.com/images/I/61Ga0gWdJVL._AC_SL1500_.jpg"
+  },
+  {
+   "name": "Aspirador nasal electrico",
+   "brand": "Momcozy",
+   "price": 36,
+   "url": "https://es.momcozy.com/products/momcozy-baby-nasal-aspirator-long-battery-life?variant=62788150657395",
+   "urls": [
+    "https://es.momcozy.com/products/momcozy-baby-nasal-aspirator-long-battery-life?variant=62788150657395"
+   ],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
