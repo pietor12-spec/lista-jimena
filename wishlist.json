@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T18:24:23.735Z",
+ "updated": "2026-11-12T18:38:43.890Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -295,6 +295,31 @@
    "note": "",
    "got": false,
    "img": "https://womensecret.com/dw/image/v2/AAYL_PRD/on/demandware.static/-/Sites-gc-ws-master-catalog/default/dw6aec6a47/images/hi-res/P_465463099FM.jpg?sw=600&sh=900&sm=fit"
+  },
+  {
+   "name": "Conjunto de día (jubón y polaina 0-1 mes)",
+   "brand": "Infantdeco",
+   "price": null,
+   "url": "https://infantdeco.es/producto/conjunto-de-jubon-y-polaina-0-1-mes-margot-rosa/",
+   "urls": [
+    "https://infantdeco.es/producto/conjunto-de-jubon-y-polaina-0-1-mes-margot-rosa/",
+    "https://infantdeco.es/producto/conjunto-de-jubon-y-polaina-noe-0-1-meses/"
+   ],
+   "note": "Margot rosa 32,73 € · Noe 21,51 €",
+   "got": false,
+   "img": "https://infantdeco.b-cdn.net/wp-content/uploads/2026/10/SJPMAR04-1.jpg"
+  },
+  {
+   "name": "Pijama Noe 0-1 meses",
+   "brand": "Infantdeco",
+   "price": 18.11,
+   "url": "https://infantdeco.es/producto/pijama-para-bebe-0-1-meses-noe/",
+   "urls": [
+    "https://infantdeco.es/producto/pijama-para-bebe-0-1-meses-noe/"
+   ],
+   "note": "",
+   "got": false,
+   "img": "https://infantdeco.b-cdn.net/wp-content/uploads/2025/07/PI041910.jpg"
   }
  ]
 }
