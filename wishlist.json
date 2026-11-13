@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T22:42:25.507402+00:00",
+ "updated": "2026-11-13T22:44:32.786Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -335,14 +335,14 @@
   {
    "name": "Pijama con cremallera delantera (beige)",
    "brand": "Kiabi",
-   "price": null,
+   "price": 9.99,
    "url": "https://www.kiabi.es/pijama-con-cremallera-delantera-beige_P1079185C1079186",
    "urls": [
     "https://www.kiabi.es/pijama-con-cremallera-delantera-beige_P1079185C1079186"
    ],
    "note": "",
    "got": false,
-   "img": ""
+   "img": "https://static.kiabi.es/images/pijama-con-cremallera-delantera-beige-emy72_1_zc1.jpg"
   }
  ]
 }
