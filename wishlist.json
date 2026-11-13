@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T22:40:39.413Z",
+ "updated": "2026-11-13T22:42:25.507402+00:00",
  "items": [
   {
    "name": "Bañera plegable",
@@ -331,6 +331,18 @@
    "note": "",
    "got": false,
    "img": "https://static.kiabi.es/images/pack-de-2-pijamas-de-terciopelo-con-pies-rosa-fvy90_1_zc1.jpg"
+  },
+  {
+   "name": "Pijama con cremallera delantera (beige)",
+   "brand": "Kiabi",
+   "price": null,
+   "url": "https://www.kiabi.es/pijama-con-cremallera-delantera-beige_P1079185C1079186",
+   "urls": [
+    "https://www.kiabi.es/pijama-con-cremallera-delantera-beige_P1079185C1079186"
+   ],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
