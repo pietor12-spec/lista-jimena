@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T22:09:13.609Z",
+ "updated": "2026-11-16T22:46:18.467Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -344,6 +344,18 @@
    "note": "",
    "got": false,
    "img": "https://static.kiabi.es/images/pijama-con-cremallera-delantera-beige-emy72_1_zc1.jpg"
+  },
+  {
+   "name": "Pelota Psicomotricidad",
+   "brand": "Amazon",
+   "price": 6,
+   "url": "https://amzn.eu/d/03oP2gIj",
+   "urls": [
+    "https://amzn.eu/d/03oP2gIj"
+   ],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
