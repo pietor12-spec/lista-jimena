@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T22:21:40.715Z",
+ "updated": "2026-11-18T22:56:56.110Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -78,12 +78,13 @@
   {
    "name": "Maleta hospital",
    "brand": "Pasito a pasito",
-   "price": 78,
+   "price": 76,
    "url": "https://pasitoapasito.es/producto/maleta-cherry-rayas/",
    "urls": [
-    "https://pasitoapasito.es/producto/maleta-cherry-rayas/"
+    "https://pasitoapasito.es/producto/maleta-cherry-rayas/",
+    "https://amzn.eu/d/0ePB7WAi"
    ],
-   "note": "Color Cherry",
+   "note": "Amazon un pelín más barata",
    "got": false,
    "img": "https://pasitoapasito.es/wp-content/uploads/2025/09/1120900542_b-1.jpg"
   },
