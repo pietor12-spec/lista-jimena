@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T17:27:48.290Z",
+ "updated": "2026-11-19T17:29:13.090Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -357,6 +357,18 @@
    "note": "",
    "got": true,
    "img": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71BFqKPjRBL._AC_SL1500_.jpg"
+  },
+  {
+   "name": "Carpeta Documentación",
+   "brand": "Amazon",
+   "price": 9.99,
+   "url": "https://www.amazon.es/Portadocumentos-Beb%C3%A9-Documentos-Primerizos-Maternidad/dp/B0FT184T32/ref=asc_df_B0FT184T32?mcid=71a55b45b44932d79393eeb5cc52dc13&tag=googshopes-21&linkCode=df0&hvadid=699784546694&hvpos=&hvnetw=g&hvrand=10759554770304441391&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198541&hvtargid=pla-2457799148596&hvocijid=10759554770304441391-B0FT184T32-&hvexpln=0&th=1",
+   "urls": [
+    "https://www.amazon.es/Portadocumentos-Beb%C3%A9-Documentos-Primerizos-Maternidad/dp/B0FT184T32/ref=asc_df_B0FT184T32?mcid=71a55b45b44932d79393eeb5cc52dc13&tag=googshopes-21&linkCode=df0&hvadid=699784546694&hvpos=&hvnetw=g&hvrand=10759554770304441391&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198541&hvtargid=pla-2457799148596&hvocijid=10759554770304441391-B0FT184T32-&hvexpln=0&th=1"
+   ],
+   "note": "",
+   "got": false,
+   "img": ""
   }
  ]
 }
