@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T22:50:52.445Z",
+ "updated": "2026-11-21T22:52:56.111Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -383,16 +383,16 @@
    "img": "fotos/w53fn0zox5-mwr04eqe.jpg"
   },
   {
-   "name": "Bolsa de pañales para mamá (grande, acolchada)",
+   "name": "Bolsa para mamá (grande, acolchada)",
    "brand": "Amazon",
-   "price": null,
+   "price": 22.08,
    "url": "https://amzn.eu/d/03jTPE9O",
    "urls": [
     "https://amzn.eu/d/03jTPE9O"
    ],
-   "note": "Ligera, multifuncional; vale para hospital y fin de semana",
+   "note": "",
    "got": false,
-   "img": ""
+   "img": "fotos/wh9tzq1g0t-mwr079ft.jpg"
   }
  ]
 }
