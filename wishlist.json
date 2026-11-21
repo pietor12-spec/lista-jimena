@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T22:45:43.660Z",
+ "updated": "2026-11-21T22:50:01.558Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -391,6 +391,18 @@
     "https://amzn.eu/d/03jTPE9O"
    ],
    "note": "Ligera, multifuncional; vale para hospital y fin de semana",
+   "got": false,
+   "img": ""
+  },
+  {
+   "name": "Biberones 120–180 ml",
+   "brand": "Nuk ",
+   "price": 13.3,
+   "url": "https://amzn.eu/d/0gza8nNw",
+   "urls": [
+    "https://amzn.eu/d/0gza8nNw"
+   ],
+   "note": "",
    "got": false,
    "img": ""
   }
