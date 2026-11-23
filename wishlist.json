@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T11:18:31.971Z",
+ "updated": "2026-11-23T11:25:04.637Z",
  "items": [
   {
    "name": "Bañera plegable",
@@ -393,6 +393,56 @@
    "note": "",
    "got": false,
    "img": "fotos/wh9tzq1g0t-mwr079ft.jpg"
+  },
+  {
+   "name": "Discos de lactancia 60 ud",
+   "brand": "chicco discos absorbentes de lactancia",
+   "price": 8.38,
+   "url": "https://www.amazon.es/dp/B001BGR7NA",
+   "urls": [
+    "https://amzn.eu/d/07qQUuzn",
+    "https://www.amazon.es/dp/B001BGR7NA"
+   ],
+   "note": "Finos, cómodos con el sujetador de lactancia",
+   "got": false,
+   "img": "https://farma2go.com/cdn/shop/files/83995.jpg?v=1773896710"
+  },
+  {
+   "name": "Crema de lanolina / pezones",
+   "brand": "suavinex 20ml",
+   "price": 7.8,
+   "url": "https://amzn.eu/d/1VdxKK5",
+   "urls": [
+    "https://amzn.eu/d/0f9k9ozP",
+    "https://amzn.eu/d/1VdxKK5"
+   ],
+   "note": "Lanolina pura, se puede amamantar sin lavar",
+   "got": false,
+   "img": "https://farmaciajimenez.com/storage/products/suavinex-cuidado-del-pezon-20-ml/suavinex-maternidad-crema-del-pezon-20-ml-1440.webp"
+  },
+  {
+   "name": "Compresas posparto primeros días (gruesas)",
+   "brand": "Indasec Pospart 100% algodón (12 uds)",
+   "price": null,
+   "url": "https://amzn.eu/d/b6C686a",
+   "urls": [
+    "https://amzn.eu/d/b6C686a"
+   ],
+   "note": "Para los primeros 4-5 días",
+   "got": false,
+   "img": "https://farma2go.com/cdn/shop/files/44354.jpg?v=1771320909"
+  },
+  {
+   "name": "Compresas maternidad finas (con bragas posparto)",
+   "brand": "Indas Maternity celulosa",
+   "price": null,
+   "url": "https://www.amazon.es/dp/B01M04GQNK",
+   "urls": [
+    "https://www.amazon.es/dp/B01M04GQNK"
+   ],
+   "note": "Más finas, se sujetan mejor con las bragas posparto",
+   "got": false,
+   "img": "https://cdn.shopify.com/s/files/1/0638/8829/4065/files/indas-maternity-compresa-tocologica-celulosa-25-unidades-200201.webp?v=1794705984"
   }
  ]
 }
